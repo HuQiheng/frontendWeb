@@ -24,6 +24,9 @@ jobs:
       - name: Build Nuxt app
         run: npm run build
 
+      - name: List contents of .output directory
+        run: ls -R .output
+
       - name: Upload to production
         uses: appleboy/scp-action@v0.1.4
         with:
