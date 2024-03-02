@@ -22,14 +22,16 @@ jobs:
         run: npm install
 
       - name: Build Nuxt app
-        run: npx nuxi generate
-        
-      - name: Restart server
-        uses: appleboy/ssh-action@v1.0.0
+        run: npm run build
+
+      - name: Upload to production
+        uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script: |
-            systemctl restart apache2
+          source: .output/*
+          target: /var/www/wealthwars
+        
+      
