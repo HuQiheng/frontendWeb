@@ -31,7 +31,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          source: .output/public/*
+          source: .output/server/index.mjs
           target: /var/www/temp
         
       
