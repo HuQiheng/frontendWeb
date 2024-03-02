@@ -35,6 +35,19 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           source: .output/*
-          target: /var/www/frontend
+          target: /var/www/temp
+
+      - name: Clean and restart server
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            rm -rf /var/www/frontend
+            mkdir /var/www/frontend
+            mv /var/www/temp/.output/* /var/www/frontend
+            rm -rf /var/www/temp
         
       
