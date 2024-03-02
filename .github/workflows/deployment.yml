@@ -37,9 +37,6 @@ jobs:
           source: .output/*
           target: /var/www/temp
 
-      - name: Install pm2
-        run: npm install -g pm2
-
       - name: Clean and restart server
         uses: appleboy/ssh-action@v1.0.0
         with:
