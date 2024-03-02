@@ -73,3 +73,11 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## Structure files
+
+Run this command to format files.
+
+```
+npx prettier --write "**/*.vue"
+```
