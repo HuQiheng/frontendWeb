@@ -9,6 +9,7 @@
       @success="handleLoginSuccess"
       @error="handleLoginError"
     ></GoogleSignInButton>
+    <Button>Holaa</Button>
   </Main>
   <Footer></Footer>
 </template>
@@ -19,13 +20,13 @@ import {
   type CredentialResponse,
 } from 'vue3-google-signin';
 
-// handle success event
+// Handle success event
 const handleLoginSuccess = (response: CredentialResponse) => {
   const { credential } = response;
   console.log("Access Token", credential);
 };
 
-// handle an error event
+// Handle an error event
 const handleLoginError = () => {
   console.error("Login failed");
 };
