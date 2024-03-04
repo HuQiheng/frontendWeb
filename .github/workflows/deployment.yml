@@ -47,4 +47,3 @@ jobs:
             mv /var/www/temp/.output/* /var/www/frontend
             pm2 restart /var/www/ecosystem.config.cjs
             rm -rf /var/www/temp
-
