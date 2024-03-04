@@ -5,8 +5,8 @@
   </Head>
   <Header></Header>
   <Main>
+    <h1 class="my-4 text-2xl">Iniciar sesión</h1>
     <GoogleSignInButton @success="handleLoginSuccess" @error="handleLoginError"></GoogleSignInButton>
-    <Button>Holaa</Button>
   </Main>
   <Footer></Footer>
 </template>
