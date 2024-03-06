@@ -45,5 +45,5 @@ jobs:
             rm -rf /var/www/frontend
             mkdir /var/www/frontend
             mv /var/www/temp/.output/* /var/www/frontend
-            pm2 restart /var/www/ecosystem.config.cjs
+            sudo pm2 restart /var/www/ecosystem.config.cjs
             rm -rf /var/www/temp
