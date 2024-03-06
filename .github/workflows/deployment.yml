@@ -45,5 +45,5 @@ jobs:
             rm -rf /var/www/frontend
             mkdir /var/www/frontend
             mv /var/www/temp/.output/* /var/www/frontend
-            sudo pm2 restart /var/www/ecosystem.config.cjs
+            sudo systemctl restart wealthwars
             rm -rf /var/www/temp
