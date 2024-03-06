@@ -15,7 +15,7 @@
   <Footer></Footer>
 </template>
 
-<style>
+<style scoped>
   .background {
     background-image: url('/epic_background.jpg');
     background-size: cover;
