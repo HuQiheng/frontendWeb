@@ -3,7 +3,9 @@
         <!-- Game board -->
         <section class="grow">
             <!-- Map -->
-            <div></div>
+            <div class="p-8 flex flex-row justify-center" style="height: 80vh;">
+                <Map></Map>
+            </div>
             <!-- Actions -->
             <div></div>
         </section>
