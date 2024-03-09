@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@tabler/icons-vue": "^2.47.0",
     "nuxt": "^3.10.2",
     "nuxt-vue3-google-signin": "^0.0.10",
     "pm2": "^5.3.1",
