@@ -12,74 +12,90 @@
       </div>
     </section>
     <!-- Chat -->
-    <section class="w-96 border-l border-gray-300"></section>
+    <section class="w-96 border-l-2 border-slate-300 flex flex-col">
+      <div class="message-container">
+        <div class="messsage"></div>
+      </div>
+      <div class="p-4 w-full flex flex-row border-t-2 border-slate-300">
+        <InputText class="w-full"/>
+        <Button class="ml-4"><IconSend/></Button>
+      </div>
+    </section>
   </main>
 </template>
 
+<style>
+.message-container {
+  @apply h-full;
+}
+</style>
+
 <script setup>
-  const selected = ref(null);
+import { IconSend } from '@tabler/icons-vue';
 
-  function showTerritory(territory) {
-    selected.value = territories[territory];
-  }
+const selected = ref(null);
 
-  // Define territories
-  const territories = {
-    "A": "Alicante",
-    "AB": "Albacete",
-    "AG": "Algarve",
-    "AL": "Almería",
-    "AT": "Alentejo",
-    "AV": "Ávila",
-    "B": "Barcelona",
-    "BA": "Badajoz",
-    "BU": "Burgos",
-    "C": "La Coruña",
-    "CA": "Cádiz",
-    "CC": "Cáceres",
-    "CE": "Ceuta",
-    "CI": "Ciudad Real",
-    "CO": "Córdoba",
-    "CR": "Ciudad Real",
-    "CS": "Castellón",
-    "CU": "Cuenca",
-    "GC": "Las Palmas",
-    "GE": "Gerona",
-    "GR": "Granada",
-    "GU": "Guadalajara",
-    "H": "Huelva",
-    "HU": "Huesca",
-    "IB": "Baleares",
-    "J": "Jaén",
-    "L": "Lérida",
-    "LE": "León",
-    "LO": "La Rioja",
-    "LU": "Lugo",
-    "M": "Madrid",
-    "MA": "Málaga",
-    "MC": "Murcia",
-    "ML": "Melilla",
-    "MU": "Murcia",
-    "NA": "Navarra",
-    "O": "Asturias",
-    "OR": "Orense",
-    "P": "Palencia",
-    "PC": "Portugal Centro",
-    "PN": "Portugal Norte",
-    "PO": "Pontevedra",
-    "PV": "País Vasco",
-    "S": "Cantabria",
-    "SA": "Salamanca",
-    "SE": "Sevilla",
-    "SG": "Segovia",
-    "SO": "Soria",
-    "T": "Tarragona",
-    "TE": "Teruel",
-    "TF": "Santa Cruz de Tenerife",
-    "TO": "Toledo",
-    "V": "Valencia",
-    "VA": "Valladolid",
-    "Z": "Zaragoza",
-    "ZA": "Zamora"
-  }
+function showTerritory(territory) {
+  selected.value = territories[territory];
+}
+
+// Define territories
+const territories = {
+  "A": "Alicante",
+  "AB": "Albacete",
+  "AG": "Algarve",
+  "AL": "Almería",
+  "AT": "Alentejo",
+  "AV": "Ávila",
+  "B": "Barcelona",
+  "BA": "Badajoz",
+  "BU": "Burgos",
+  "C": "La Coruña",
+  "CA": "Cádiz",
+  "CC": "Cáceres",
+  "CE": "Ceuta",
+  "CI": "Ciudad Real",
+  "CO": "Córdoba",
+  "CR": "Ciudad Real",
+  "CS": "Castellón",
+  "CU": "Cuenca",
+  "GC": "Las Palmas",
+  "GE": "Gerona",
+  "GR": "Granada",
+  "GU": "Guadalajara",
+  "H": "Huelva",
+  "HU": "Huesca",
+  "IB": "Baleares",
+  "J": "Jaén",
+  "L": "Lérida",
+  "LE": "León",
+  "LO": "La Rioja",
+  "LU": "Lugo",
+  "M": "Madrid",
+  "MA": "Málaga",
+  "MC": "Murcia",
+  "ML": "Melilla",
+  "MU": "Murcia",
+  "NA": "Navarra",
+  "O": "Asturias",
+  "OR": "Orense",
+  "P": "Palencia",
+  "PC": "Portugal Centro",
+  "PN": "Portugal Norte",
+  "PO": "Pontevedra",
+  "PV": "País Vasco",
+  "S": "Cantabria",
+  "SA": "Salamanca",
+  "SE": "Sevilla",
+  "SG": "Segovia",
+  "SO": "Soria",
+  "T": "Tarragona",
+  "TE": "Teruel",
+  "TF": "Santa Cruz de Tenerife",
+  "TO": "Toledo",
+  "V": "Valencia",
+  "VA": "Valladolid",
+  "Z": "Zaragoza",
+  "ZA": "Zamora"
+}
 </script>

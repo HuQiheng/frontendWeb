@@ -12,6 +12,6 @@ export default defineNuxtConfig({
     },
   },
   googleSignIn: {
-    clientId: '235834578087-irqfjimd01qqgc0dav9i60ojv5q4f8q8.apps.googleusercontent.com',
+    clientId: '528032898405-i2majo762n534rs0n10u6t16gid8ltds.apps.googleusercontent.com',
   }
 });
