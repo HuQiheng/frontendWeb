@@ -18,7 +18,7 @@
       </div>
       <div class="p-4 w-full flex flex-row border-t-2 border-slate-300">
         <InputText class="w-full"/>
-        <Button class="ml-4"><IconSend /></Button>
+        <Button class="ml-4"><IconSend/></Button>
       </div>
     </section>
   </main>
