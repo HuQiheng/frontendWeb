@@ -98,4 +98,6 @@ const territories = {
   "Z": "Zaragoza",
   "ZA": "Zamora"
 }
+
+console.log(Object.keys(territories).length)
 </script>
