@@ -39,62 +39,211 @@ function showTerritory(territory) {
   selected.value = territories[territory];
 }
 
-// Define territories
+// Game state
 const territories = {
-  "A": "Alicante",
-  "AB": "Albacete",
-  "AG": "Algarve",
-  "AL": "Almería",
-  "AT": "Alentejo",
-  "AV": "Ávila",
-  "B": "Barcelona",
-  "BA": "Badajoz",
-  "BU": "Burgos",
-  "C": "La Coruña",
-  "CA": "Cádiz",
-  "CC": "Cáceres",
-  "CE": "Ceuta",
-  "CI": "Ciudad Real",
-  "CO": "Córdoba",
-  "CR": "Ciudad Real",
-  "CS": "Castellón",
-  "CU": "Cuenca",
-  "GC": "Las Palmas",
-  "GE": "Gerona",
-  "GR": "Granada",
-  "GU": "Guadalajara",
-  "H": "Huelva",
-  "HU": "Huesca",
-  "IB": "Baleares",
-  "J": "Jaén",
-  "L": "Lérida",
-  "LE": "León",
-  "LN": "La Rioja - Navarra",
-  "LU": "Lugo",
-  "M": "Madrid",
-  "MA": "Málaga",
-  "MC": "Murcia",
-  "ML": "Melilla",
-  "MU": "Murcia",
-  "O": "Asturias",
-  "P": "Palencia",
-  "PC": "Portugal Centro",
-  "PN": "Portugal Norte",
-  "PO": "Pontevedra - Orense",
-  "PV": "País Vasco",
-  "S": "Cantabria",
-  "SA": "Salamanca",
-  "SE": "Sevilla",
-  "SG": "Segovia",
-  "SO": "Soria",
-  "T": "Tarragona",
-  "TE": "Teruel",
-  "TF": "Santa Cruz de Tenerife",
-  "TO": "Toledo",
-  "V": "Valencia",
-  "VA": "Valladolid",
-  "Z": "Zaragoza",
-  "ZA": "Zamora"
+  "A": { 
+    name: "Alicante",
+    player: 0,
+    factories: 0,
+    troops: 2
+  },
+  "AB": { 
+    name: "Albacete",
+    player: 1,
+    factories: 1,
+    troops: 2
+  },
+  "AG": { 
+    name: "Algarve",
+    player: 2,
+    factories: 0,
+    troops: 2
+  },
+  "AL": { 
+    name: "Almería",
+    player: 3,
+    factories: 0,
+    troops: 2
+  },
+  "AS": { 
+    name: "Ávila - Segovia",
+    player: 0,
+    factories: 0,
+    troops: 2
+  },
+  "AT": { 
+    name: "Alentejo",
+    player: 1,
+    factories: 0,
+    troops: 2
+  },
+  "B": { 
+    name: "Barcelona",
+    player: 2,
+    factories: 1,
+    troops: 2
+  },
+  "BA": { 
+    name: "Badajoz",
+    player: 3,
+    factories: 0,
+    troops: 2
+  },
+  "BU": { 
+    name: "Burgos",
+    player: 0,
+    factories: 0,
+    troops: 2
+  },
+  "C": { 
+    name: "La Coruña",
+    player: 1,
+    factories: 0,
+    troops: 2
+  },
+  "CA": { 
+    name: "Cádiz",
+    player: 2,
+    factories: 0,
+    troops: 2
+  },
+  "CC": { 
+    name: "Cáceres",
+    player: 3,
+    factories: 0,
+    troops: 2
+  },
+  "CO": { 
+    name: "Córdoba",
+    player: 0,
+    factories: 0,
+    troops: 2
+  },
+  "CR": { 
+    name: "Ciudad Real",
+    player: 1,
+    factories: 0,
+    troops: 2
+  },
+  "CS": { 
+    name: "Castellón",
+    player: 2,
+    factories: 0,
+    troops: 2
+  },
+  "CU": {
+    name: "Cuenca",
+    player: 3,
+    factories: 0,
+    troops: 2
+  },
+  "GE": { 
+    name: "Gerona",
+    player: 0,
+    factories: 0,
+    troops: 2
+  },
+  "GR": { 
+    name: "Granada",
+    player: 1,
+    factories: 0,
+    troops: 2
+  },
+  "GU": { 
+    name: "Guadalajara",
+    player: 2,
+    factories: 0,
+    troops: 2
+  },
+  "H": { 
+    name: "Huelva",
+    player: 3,
+    factories: 0,
+    troops: 2
+  },
+  "HU": { 
+    name: "Huesca",
+    player: 0,
+    factories: 0,
+    troops: 2
+  },
+  "J": { 
+    name: "Jaén",
+    player: 1,
+    factories: 0,
+    troops: 2
+  },
+  "L": {
+    name: "Lérida",
+    player: 2,
+    factories: 0,
+    troops: 2
+  },
+  "LE": { 
+    name: "León",
+    player: 3,
+    factories: 0,
+    troops: 2
+  },
+  "LN": { 
+    name: "La Rioja - Navarra",
+    player: 0,
+    factories: 0,
+    troops: 2
+  },
+  "LU": {
+    name: "Lugo",
+    player: 1,
+    factories: 0,
+    troops: 2
+  },
+  "M": { 
+    name: "Madrid",
+    player: 2,
+    factories: 1,
+    troops: 2
+  },
+  "MA": { 
+    name: "Málaga",
+    player: 3,
+    factories: 0,
+    troops: 2
+  },
+  "MC": {
+    name: "Murcia",
+    player: 0,
+    factories: 0,
+    troops: 2
+  },
+  "ML": { 
+    name: "Melilla",
+    player: 1,
+    factories: 0,
+    troops: 2
+  },
+  "MU": { 
+    name: "Murcia",
+    player: 2,
+    factories: 0,
+    troops: 2
+  },
+  "O": { name: "Asturias" },
+  "PC": { name: "Portugal Centro" },
+  "PN": { name: "Portugal Norte" },
+  "PO": { name: "Pontevedra - Orense" },
+  "PV": { name: "País Vasco" },
+  "S": { name: "Cantabria" },
+  "SA": { name: "Salamanca" },
+  "SE": { name: "Sevilla" },
+  "SG": { name: "Segovia" },
+  "SO": { name: "Soria" },
+  "T": { name: "Tarragona" },
+  "TE": { name: "Teruel" },
+  "TO": { name: "Toledo" },
+  "V": { name: "Valencia" },
+  "VP": { name: "Valladolid - Palencia" },
+  "Z": { name: "Zaragoza" },
+  "ZA": { name: "Zamora" }
 }
 
 console.log(Object.keys(territories).length)
