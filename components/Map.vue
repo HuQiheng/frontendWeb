@@ -17,6 +17,11 @@ defineProps(['state']);
     fill: white !important;
   }
 
+  /* Has factory? */
+  g.has-factory circle {
+    stroke-width: 2.5 !important;
+  }
+
   /* Player colors */
   g.player0 path {
     fill: #3b82f6 !important;
@@ -24,6 +29,7 @@ defineProps(['state']);
 
   g.player0 circle {
     fill: #3472d7 !important;
+    stroke: #1d417b !important;
   }
 
   g.player1 path {
@@ -32,6 +38,7 @@ defineProps(['state']);
 
   g.player1 circle {
     fill: #d63752 !important;
+    stroke: #7a202f !important;
   }
 
   g.player2 path {
@@ -40,6 +47,7 @@ defineProps(['state']);
 
   g.player2 circle {
     fill: #d68a0a !important;
+    stroke: #7a4f05 !important;
   }
 
   g.player3 path {
@@ -48,6 +56,7 @@ defineProps(['state']);
 
   g.player3 circle {
     fill: #1eac52 !important;
+    stroke: #11632f !important;
   }
 </style>
 
@@ -65,9 +74,9 @@ defineProps(['state']);
     <g
       id="g9882"
       inkscape:label="La Coruña"
-      :class="'player' + state['C'].player">
+      :class="['player' + state['C'].player, state['C'].factories > 0 ? 'has-factory' : '']">
       <title
-        id="title9884">{{  }}</title>
+        id="title9884">La Coruña</title>
       <path
         inkscape:connector-curvature="0"
         inkscape:label="La Coruña"
@@ -97,14 +106,14 @@ defineProps(['state']);
               id="tspan5136-2"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['C'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g9900"
       inkscape:label="Lugo"
-      :class="'player' + state['LU'].player">
+      :class="['player' + state['LU'].player, state['LU'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Lugo"
         inkscape:connector-curvature="0"
@@ -135,14 +144,14 @@ defineProps(['state']);
               id="tspan5136-2-3"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['LU'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g10510"
       inkscape:label="Leon"
-      :class="'player' + state['LE'].player">
+      :class="['player' + state['LE'].player, state['LE'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Leon"
         sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
@@ -174,14 +183,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['LE'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g10207"
       inkscape:label="Asturias"
-      :class="'player' + state['O'].player">
+      :class="['player' + state['O'].player, state['O'].factories > 0 ? 'has-factory' : '']">
       <title
         id="title10209">Asturias</title>
       <path
@@ -214,14 +223,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['O'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g10518"
       inkscape:label="Cantabria"
-      :class="'player' + state['S'].player"
+      :class="['player' + state['S'].player, state['S'].factories > 0 ? 'has-factory' : '']"
       >
       <path
         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.7;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
@@ -253,14 +262,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['S'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g10526"
       inkscape:label="Pais Vasco"
-      :class="'player' + state['PV'].player">
+      :class="['player' + state['PV'].player, state['PV'].factories > 0 ? 'has-factory' : '']">
       <path
         id="path8072"
         clip-path="url(#SVG_CP_1)"
@@ -290,14 +299,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['PV'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g10542"
       inkscape:label="La Rioja - Navarra"
-      :class="'player' + state['LN'].player">
+      :class="['player' + state['LN'].player, state['LN'].factories > 0 ? 'has-factory' : '']">
       <path
         id="path8120"
         clip-path="url(#SVG_CP_1)"
@@ -327,14 +336,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['LN'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g11540"
       inkscape:label="Burgos"
-      :class="'player' + state['BU'].player">
+      :class="['player' + state['BU'].player, state['BU'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:connector-curvature="0"
         inkscape:label="Burgos"
@@ -365,14 +374,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['BU'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g12212"
       inkscape:label="Soria"
-      :class="'player' + state['SO'].player">
+      :class="['player' + state['SO'].player, state['SO'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Soria"
         inkscape:connector-curvature="0"
@@ -403,14 +412,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['SO'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g15909"
       inkscape:label="Cuenca"
-      :class="'player' + state['CU'].player">
+      :class="['player' + state['CU'].player, state['CU'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Cuenca"
         inkscape:connector-curvature="0"
@@ -441,14 +450,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-1"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['CU'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g12534"
       inkscape:label="Guadalajara"
-      :class="'player' + state['GU'].player">
+      :class="['player' + state['GU'].player, state['GU'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Guadalajara"
         inkscape:connector-curvature="0"
@@ -479,14 +488,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-1-6"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['GU'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g2225"
       inkscape:label="Valladolid - Palencia"
-      :class="'player' + state['VP'].player">
+      :class="['player' + state['VP'].player, state['VP'].factories > 0 ? 'has-factory' : '']">
       <path
         id="path8176"
         clip-path="url(#SVG_CP_1)"
@@ -516,14 +525,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-1-6-6"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['VP'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g12542"
       inkscape:label="Madrid"
-      :class="'player' + state['M'].player">
+      :class="['player' + state['M'].player, state['M'].factories > 0 ? 'has-factory' : '']">
       <path
         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.7;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
         clip-path="url(#SVG_CP_1)"
@@ -554,14 +563,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-1-6-6-1-0"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['M'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g4467"
       inkscape:label="Avila - Segovia"
-      :class="'player' + state['AS'].player">
+      :class="['player' + state['AS'].player, state['AS'].factories > 0 ? 'has-factory' : '']">
       <path
         id="path8216"
         clip-path="url(#SVG_CP_1)"
@@ -591,14 +600,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-1-6-6-1-0-9"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['AS'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g13911"
       inkscape:label="Salamanca"
-      :class="'player' + state['SA'].player">
+      :class="['player' + state['SA'].player, state['SA'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Salamanca"
         inkscape:connector-curvature="0"
@@ -629,14 +638,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-1-6-6-1-0-9-6"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['SA'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g14246"
       inkscape:label="Caceres"
-      :class="'player' + state['CC'].player">
+      :class="['player' + state['CC'].player, state['CC'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Caceres"
         inkscape:connector-curvature="0"
@@ -667,14 +676,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-1-6-6-1-0-9-6-8"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['CC'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g15576"
       inkscape:label="Toledo"
-      :class="'player' + state['TO'].player">
+      :class="['player' + state['TO'].player, state['TO'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Toledo"
         inkscape:connector-curvature="0"
@@ -705,14 +714,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-1-6-6-1-0-9-6-8-4"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['TO'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g15244"
       inkscape:label="Ciudad Real"
-      :class="'player' + state['CR'].player">
+      :class="['player' + state['CR'].player, state['CR'].factories > 0 ? 'has-factory' : '']">
       <path
         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.7;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:7.84;stroke-dasharray:none;stroke-opacity:1"
         clip-path="url(#SVG_CP_1)"
@@ -742,14 +751,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-1-6-6-1-0-9-6-8-4-7"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['CR'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g16243"
       inkscape:label="Albacete"
-      :class="'player' + state['AB'].player">
+      :class="['player' + state['AB'].player, state['AB'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Albacete"
         inkscape:connector-curvature="0"
@@ -779,14 +788,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-1-6-6-1-0-9-6-8-4-7-1"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['AB'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g11532"
       inkscape:label="Alicante"
-      :class="'player' + state['A'].player">
+      :class="['player' + state['A'].player, state['A'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Alicante"
         inkscape:connector-curvature="0"
@@ -817,14 +826,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-1-6-6-1-0-9-6-8-4-7-1-4"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['A'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g16914"
       inkscape:label="Murcia"
-      :class="'player' + state['MU'].player">
+      :class="['player' + state['MU'].player, state['MU'].factories > 0 ? 'has-factory' : '']">
       <path
         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.7;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
         id="path8346"
@@ -855,14 +864,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-1-6-6-1-0-9-6-8-4-7-1-4-7"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['MU'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g14254"
       inkscape:label="Badajoz"
-      :class="'player' + state['BA'].player">
+      :class="['player' + state['BA'].player, state['BA'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Badajoz"
         inkscape:connector-curvature="0"
@@ -894,14 +903,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-1-6-6-1-0-9-6-8-3"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['BA'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g10558"
       inkscape:label="Zaragoza"
-      :class="'player' + state['Z'].player">
+      :class="['player' + state['Z'].player, state['Z'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Zaragoza"
         inkscape:connector-curvature="0"
@@ -931,14 +940,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-4-8"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['Z'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g10550"
       inkscape:label="Huesca"
-      :class="'player' + state['HU'].player">
+      :class="['player' + state['HU'].player, state['HU'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Huesca"
         inkscape:connector-curvature="0"
@@ -969,14 +978,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-4-8-3"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['HU'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g10882"
       inkscape:label="Lerida"
-      :class="'player' + state['LE'].player">
+      :class="['player' + state['LE'].player, state['LE'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Lerida"
         inkscape:connector-curvature="0"
@@ -1007,14 +1016,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-4-8-3-0"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['LE'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g2"
       inkscape:label="Barcelona - Gerona"
-      :class="'player' + state['BG'].player">
+      :class="['player' + state['BG'].player, state['BG'].factories > 0 ? 'has-factory' : '']">
       <path
         id="path8478"
         clip-path="url(#SVG_CP_1)"
@@ -1044,14 +1053,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-4-8-3-0-6"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['BG'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g11564"
       inkscape:label="Portugal Norte"
-      :class="'player' + state['PN'].player">
+      :class="['player' + state['PN'].player, state['PN'].factories > 0 ? 'has-factory' : '']">
       <path
         fill="#fefee9"
         d="m 25.157647,76.030874 c 2.495998,-0.952142 3.75593,-4.233461 6.516356,-5.500967 1.367391,-2.555109 4.76054,-2.429213 7.45595,-2.469053 2.471089,0.290899 4.970948,-2.314108 6.943969,-2.126607 -1.819747,4.134401 6.519949,2.336249 1.5186,6.056763 -1.670034,0.854309 -4.060331,3.996669 -1.241215,4.746601 -0.531295,4.407676 4.785635,3.111094 5.862993,0.441831 3.416035,-1.909567 1.951511,-2.581776 3.445472,0.69675 1.73365,-1.137201 4.988018,-2.589847 6.87363,-0.549208 1.581992,-0.751512 0.917928,4.223226 3.72657,0.66958 2.659147,-0.650819 2.126135,4.23182 4.49654,0.970966 2.923575,0.740797 6.700595,-1.595544 5.53461,-4.7602 2.143006,-2.440046 4.406115,3.241074 6.79845,0.243538 1.043221,2.425221 4.894781,1.43312 5.29365,-0.452688 0.854424,3.333288 5.620055,1.860781 6.75199,1.608633 -0.273599,2.848888 1.855695,3.280393 0.40505,6.301927 -1.507096,2.090052 -0.720995,6.414052 2.40081,5.48686 2.690958,-1.685656 6.671128,1.487954 8.040568,4.06979 -2.55143,1.820777 -3.55189,5.031545 -5.16303,7.5441 -2.066357,-1.360841 -1.142918,2.25367 -3.152738,3.07799 -2.041402,1.45084 -3.904128,2.92588 -6.36084,2.43862 -2.420377,2.49312 -3.848281,4.53635 -4.94346,7.30505 -1.889131,2.05769 -6.317369,-1.28777 -6.537924,2.57259 -3.296048,-1.09384 -3.313264,3.39363 -5.733406,1.73856 0.807264,-1.33011 0.178221,-2.78169 0.28928,-3.74853 -1.176228,1.0304 -7.170676,-0.73839 -4.85505,1.60069 2.325079,2.5948 -3.066889,1.98899 -2.39895,3.40646 1.034762,2.8876 -2.068266,3.85194 -3.35196,0.85959 -1.731943,1.34716 -5.484103,2.09825 -5.07451,-1.71965 -3.793102,-3.88199 -5.914783,-4.4175 -10.380626,-3.33103 -3.519453,-1.32884 -2.106818,3.35897 -2.329481,5.00447 -1.229052,-0.32536 -4.283186,-1.25397 -3.749421,0.468 0.12271,3.1958 -3.202093,2.22236 -4.704238,1.72726 -0.203904,2.30093 -2.837319,-0.6526 -3.525799,1.44877 -0.889988,-1.06284 -1.023006,-2.05621 -0.696435,-3.2187 1.340814,-3.39653 -2.191367,-0.93535 -1.767551,-5.73925 -3.497482,1.19634 -0.437209,-4.37286 -1.77823,-6.12984 0.07006,-1.49536 1.208926,-0.7094 -0.623496,-1.99311 -1.384366,-3.33831 -1.170133,-7.32593 -2.337426,-10.67626 -0.03739,-2.966905 0.425513,-4.723471 0.340097,-3.8501 -0.721826,-4.931045 -3.528717,-9.482203 -1.988799,-14.220196 z"
@@ -1080,14 +1089,14 @@ defineProps(['state']);
               id="tspan5136-2-3-1-3"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['PN'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g13919"
       inkscape:label="Portugal Centro"
-      :class="'player' + state['PC'].player">
+      :class="['player' + state['PC'].player, state['PC'].factories > 0 ? 'has-factory' : '']">
       <path
         id="path1"
         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.7;stroke-linecap:square;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
@@ -1116,14 +1125,14 @@ defineProps(['state']);
               id="tspan5136-2-3-1-3-6"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['PC'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g4"
       inkscape:label="Alentejo - Algarve"
-      :class="'player' + state['AL'].player">
+      :class="['player' + state['AL'].player, state['AL'].factories > 0 ? 'has-factory' : '']">
       <g
         id="g1"
         inkscape:label="Alentejo - Algarve">
@@ -1156,14 +1165,14 @@ defineProps(['state']);
               id="tspan5136-2-3-1-3-6-2-5"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['AL'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g18259"
       inkscape:label="Huelva"
-      :class="'player' + state['H'].player">
+      :class="['player' + state['H'].player, state['H'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Huelva"
         inkscape:connector-curvature="0"
@@ -1194,14 +1203,14 @@ defineProps(['state']);
               id="tspan5136-2-3-1-3-6-2-5-3"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['H'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g17589"
       inkscape:label="Sevilla"
-      :class="'player' + state['SE'].player">
+      :class="['player' + state['SE'].player, state['SE'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Sevilla"
         inkscape:connector-curvature="0"
@@ -1233,14 +1242,14 @@ defineProps(['state']);
               id="tspan5136-2-3-1-3-6-2-5-3-4"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['SE'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g17251"
       inkscape:label="Cordoba"
-      :class="'player' + state['CO'].player">
+      :class="['player' + state['CO'].player, state['CO'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Cordoba"
         inkscape:connector-curvature="0"
@@ -1271,14 +1280,14 @@ defineProps(['state']);
               id="tspan5136-2-3-1-3-6-2-5-3-4-6"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['CO'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g16578"
       inkscape:label="Jaen"
-      :class="'player' + state['J'].player">
+      :class="['player' + state['J'].player, state['J'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Jaen"
         inkscape:connector-curvature="0"
@@ -1309,14 +1318,14 @@ defineProps(['state']);
               id="tspan5136-2-3-1-3-6-2-5-3-4-6-8"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['J'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g19969"
       inkscape:label="Almeria"
-      :class="'player' + state['AM'].player">
+      :class="['player' + state['AM'].player, state['AM'].factories > 0 ? 'has-factory' : '']">
       <g
         id="g19620"
         inkscape:label="Almeria">
@@ -1355,14 +1364,14 @@ defineProps(['state']);
               id="tspan5136-2-3-1-3-6-2-5-3-4-6-8-4"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['AM'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g19282"
       inkscape:label="Granada"
-      :class="'player' + state['GR'].player">
+      :class="['player' + state['GR'].player, state['GR'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Granada"
         inkscape:connector-curvature="0"
@@ -1393,14 +1402,14 @@ defineProps(['state']);
               id="tspan5136-2-3-1-3-6-2-5-3-4-6-8-4-9"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['GR'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g3"
       inkscape:label="Malaga - Cadiz"
-      :class="'player' + state['MC'].player">
+      :class="['player' + state['MC'].player, state['MC'].factories > 0 ? 'has-factory' : '']">
       <path
         id="path8398"
         clip-path="url(#SVG_CP_1)"
@@ -1430,14 +1439,14 @@ defineProps(['state']);
               id="tspan5136-2-3-1-3-6-2-5-3-4-6-8-4-9-5-2"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['MC'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g10898"
       inkscape:label="Tarragona"
-      :class="'player' + state['T'].player">
+      :class="['player' + state['T'].player, state['T'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Tarragona"
         inkscape:connector-curvature="0"
@@ -1468,14 +1477,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-4-8-3-0-6-7"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['T'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g10566"
       inkscape:label="Teruel"
-      :class="'player' + state['TE'].player">
+      :class="['player' + state['TE'].player, state['TE'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Teruel"
         inkscape:connector-curvature="0"
@@ -1506,14 +1515,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-4-8-3-0-6-6"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['TE'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g11210"
       inkscape:label="Castellon"
-      :class="'player' + state['CS'].player">
+      :class="['player' + state['CS'].player, state['CS'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Castellon"
         inkscape:connector-curvature="0"
@@ -1544,14 +1553,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-4-8-3-0-6-6-5"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['CS'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g11218"
       inkscape:label="Valencia"
-      :class="'player' + state['V'].player">
+      :class="['player' + state['V'].player, state['V'].factories > 0 ? 'has-factory' : '']">
       <path
         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.7;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
         clip-path="url(#SVG_CP_1)"
@@ -1581,14 +1590,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-4-8-3-0-6-6-9"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['V'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g1167"
       inkscape:label="Zamora"
-      :class="'player' + state['ZA'].player">
+      :class="['player' + state['ZA'].player, state['ZA'].factories > 0 ? 'has-factory' : '']">
       <path
         inkscape:label="Zamora"
         inkscape:connector-curvature="0"
@@ -1619,14 +1628,14 @@ defineProps(['state']);
               id="tspan5136-2-3-3-3-8-6-2-5-6-5-4"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['ZA'].troops }}</tspan></text>
         </g>
       </g>
     </g>
     <g
       id="g10197"
       inkscape:label="Pontevedra - Orense"
-      :class="'player' + state['PO'].player">
+      :class="['player' + state['PO'].player, state['PO'].factories > 0 ? 'has-factory' : '']">
       <title
         id="title10199">Pontevedra - Orense</title>
       <path
@@ -1658,7 +1667,7 @@ defineProps(['state']);
               id="tspan5136-2-3-1"
               x="-15.208735"
               y="35.356674"
-              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">99</tspan></text>
+              style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:13.3333px;font-family:Lexend;-inkscape-font-specification:'Lexend Light';text-align:center;text-anchor:middle">{{ state['PO'].troops }}</tspan></text>
         </g>
       </g>
     </g>
