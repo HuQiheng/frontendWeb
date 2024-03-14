@@ -17,18 +17,22 @@
         ></Map>
       </div>
       <!-- Actions -->
-      <div class="p-8">
-        <p v-if="selected">Territorio seleccionado: {{ selected }}</p>
+      <div class="px-8 pb-8">
+        <Stepper 
+          :step="step"
+          @trigger="(action) => runAction(action)"
+        ></Stepper>
+        <p v-if="selected" class="py-2">Territorio seleccionado: {{ selected }}</p>
       </div>
     </section>
     <!-- Chat -->
-    <section class="w-96 border-l-2 border-slate-300 flex flex-col">
+    <section class="w-96 shadow-md border border-gray-200 flex flex-col">
       <div class="message-container">
         <div class="messsage"></div>
       </div>
-      <div class="p-4 w-full flex flex-row border-t-2 border-slate-300">
+      <div class="p-4 w-full flex flex-row border-t border-gray-200">
         <InputText class="w-full" placeholder="Escribe aquí"/>
-        <Button class="ml-4"><IconSend/></Button>
+        <ButtonDark class="ml-4"><IconSend/></ButtonDark>
       </div>
     </section>
   </main>
@@ -43,10 +47,43 @@
 <script setup>
 import { IconSend } from '@tabler/icons-vue';
 
+// Select territory
 const selected = ref(null);
 
 function showTerritory(territory) {
   selected.value = state[territory].name;
+}
+
+// Steps
+// Step 0 - Not your turn 
+// Step 1 - Get paid
+// Step 2 - Invest money & Move troops
+// Step 3 - Attack
+const step = ref(1);
+
+function runAction(action) {
+  switch (action) {
+    case 'get-paid':
+      step.value = 2; // Go to step 2 (Invest and move troops)
+      break;
+    case 'add-factories':
+      break;
+    case 'add-troops':
+      break;
+    case 'move-troops':
+      break;
+    case 'go-to-step-3': // Go to step 3 (Attack)
+      step.value = 3;
+      break;
+    case 'attack':
+      break;
+    case 'end-turn':
+      step.value = 0;
+      break;
+    default:
+      break;
+  }
+  console.log(action);
 }
 
 // Game state

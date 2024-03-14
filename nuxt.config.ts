@@ -5,6 +5,12 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     'nuxt-vue3-google-signin'
   ],
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    },
+  ],
   css: ['~/assets/css/main.css'],
   postcss: {
     plugins: {
