@@ -11,17 +11,11 @@
     <section class="grow">
       <!-- Map -->
       <div class="p-8 flex flex-row justify-center" style="height: 80vh">
-        <Map 
-          :state="state"
-          @select="(territory) => showTerritory(territory)"
-        ></Map>
+        <Map :state="state" @select="(territory) => showTerritory(territory)"></Map>
       </div>
       <!-- Actions -->
       <div class="px-8 pb-8">
-        <Stepper 
-          :step="step"
-          @trigger="(action) => runAction(action)"
-        ></Stepper>
+        <Stepper :step="step" @trigger="(action) => runAction(action)"></Stepper>
         <p v-if="selected" class="py-2">Territorio seleccionado: {{ selected }}</p>
       </div>
     </section>
@@ -31,316 +25,316 @@
         <div class="messsage"></div>
       </div>
       <div class="p-4 w-full flex flex-row border-t border-gray-200">
-        <InputText class="w-full" placeholder="Escribe aquí"/>
-        <ButtonDark class="ml-4"><IconSend/></ButtonDark>
+        <InputText class="w-full" placeholder="Escribe aquí" />
+        <ButtonDark class="ml-4"><IconSend /></ButtonDark>
       </div>
     </section>
   </main>
 </template>
 
 <style>
-.message-container {
-  @apply h-full;
-}
+  .message-container {
+    @apply h-full;
+  }
 </style>
 
 <script setup>
-import { IconSend } from '@tabler/icons-vue';
+  import { IconSend } from '@tabler/icons-vue';
 
-// Select territory
-const selected = ref(null);
+  // Select territory
+  const selected = ref(null);
 
-function showTerritory(territory) {
-  selected.value = state[territory].name;
-}
-
-// Steps
-// Step 0 - Not your turn 
-// Step 1 - Get paid
-// Step 2 - Invest money & Move troops
-// Step 3 - Attack
-const step = ref(1);
-
-function runAction(action) {
-  switch (action) {
-    case 'get-paid':
-      step.value = 2; // Go to step 2 (Invest and move troops)
-      break;
-    case 'add-factories':
-      break;
-    case 'add-troops':
-      break;
-    case 'move-troops':
-      break;
-    case 'go-to-step-3': // Go to step 3 (Attack)
-      step.value = 3;
-      break;
-    case 'attack':
-      break;
-    case 'end-turn':
-      step.value = 0;
-      break;
-    default:
-      break;
+  function showTerritory(territory) {
+    selected.value = state[territory].name;
   }
-  console.log(action);
-}
 
-// Game state
-const state = {
-  "A": { 
-    name: "Alicante",
-    player: 0,
-    troops: 3,
-    factories: 0
-  },
-  "AB": { 
-    name: "Albacete",
-    player: 1,
-    troops: 2,
-    factories: 1
-  },
-  "AL": { 
-    name: "Alentejo - Algarve",
-    player: 2,
-    troops: 3,
-    factories: 0
-  },
-  "AM": { 
-    name: "Almería",
-    player: 3,
-    troops: 3,
-    factories: 1
-  },
-  "AS": {
-    name: "Ávila - Segovia",
-    player: 0,
-    troops: 3,
-    factories: 1
-  },
-  "BA": {
-    name: "Badajoz",
-    player: 1,
-    troops: 3,
-    factories: 0
-  },
-  "BG": {
-    name: "Barcelona - Gerona",
-    player: 2,
-    troops: 4,
-    factories: 1
-  },
-  "BU": {
-    name: "Burgos",
-    player: 3,
-    troops: 3,
-    factories: 0
-  },
-  "C": {
-    name: "La Coruña",
-    player: 0,
-    troops: 3,
-    factories: 1
-  },
-  "CC": {
-    name: "Cáceres",
-    player: 1,
-    troops: 3,
-    factories: 0
-  },
-  "CO": {
-    name: "Córdoba",
-    player: 2,
-    troops: 3,
-    factories: 0
-  },
-  "CR": {
-    name: "Ciudad Real",
-    player: 3,
-    troops: 3,
-    factories: 0
-  },
-  "CS": {
-    name: "Castellón",
-    player: 0,
-    troops: 3,
-    factories: 0
-  },
-  "CU": {
-    name: "Cuenca",
-    player: 1,
-    troops: 3,
-    factories: 0
-  },
-  "GR": {
-    name: "Granada",
-    player: 2,
-    troops: 3,
-    factories: 0
-  },
-  "GU": {
-    name: "Guadalajara",
-    player: 3,
-    troops: 3,
-    factories: 0
-  },
-  "H": {
-    name: "Huelva",
-    player: 0,
-    troops: 3,
-    factories: 0
-  },
-  "HU": {
-    name: "Huesca",
-    player: 1,
-    troops: 3,
-    factories: 0
-  },
-  "J": {
-    name: "Jaén",
-    player: 2,
-    troops: 3,
-    factories: 1
-  },
-  "L": {
-    name: "Lérida",
-    player: 3,
-    troops: 2,
-    factories: 0
-  },
-  "LE": {
-    name: "León",
-    player: 0,
-    troops: 3,
-    factories: 0
-  },
-  "LN": {
-    name: "La Rioja - Navarra",
-    player: 1,
-    troops: 3,
-    factories: 1
-  },
-  "LU": {
-    name: "Lugo",
-    player: 2,
-    troops: 1,
-    factories: 0
-  },
-  "M": {
-    name: "Madrid",
-    player: 3,
-    troops: 3,
-    factories: 1
-  },
-  "MC": {
-    name: "Málaga - Cádiz",
-    player: 0,
-    troops: 3,
-    factories: 0
-  },
-  "MU": {
-    name: "Murcia",
-    player: 1,
-    troops: 3,
-    factories: 0
-  },
-  "O": {
-    name: "Asturias",
-    player: 2,
-    troops: 3,
-    factories: 0
-  },
-  "PC": {
-    name: "Portugal Centro",
-    player: 3,
-    troops: 3,
-    factories: 0
-  },
-  "PN": {
-    name: "Portugal Norte",
-    player: 0,
-    troops: 3,
-    factories: 0
-  },
-  "PO": {
-    name: "Pontevedra - Orense",
-    player: 1,
-    troops: 3,
-    factories: 0
-  },
-  "PV": {
-    name: "País Vasco",
-    player: 2,
-    troops: 3,
-    factories: 1
-  },
-  "S": {
-    name: "Cantabria",
-    player: 3,
-    troops: 3,
-    factories: 0
-  },
-  "SA": {
-    name: "Salamanca",
-    player: 0,
-    troops: 3,
-    factories: 0
-  },
-  "SE": {
-    name: "Sevilla",
-    player: 1,
-    troops: 3,
-    factories: 0
-  },
-  "SO": {
-    name: "Soria",
-    player: 2,
-    troops: 3,
-    factories: 0
-  },
-  "T": {
-    name: "Tarragona",
-    player: 3,
-    troops: 3,
-    factories: 1
-  },
-  "TE": {
-    name: "Teruel",
-    player: 0,
-    troops: 3,
-    factories: 0
-  },
-  "TO": {
-    name: "Toledo",
-    player: 1,
-    troops: 3,
-    factories: 0
-  },
-  "V": {
-    name: "Valencia",
-    player: 2,
-    troops: 3,
-    factories: 0
-  },
-  "VP": {
-    name: "Valladolid - Palencia",
-    player: 3,
-    troops: 3,
-    factories: 0
-  },
-  "Z": {
-    name: "Zaragoza",
-    player: 0,
-    troops: 2,
-    factories: 1
-  },
-  "ZA": {
-    name: "Zamora",
-    player: 1,
-    troops: 3,
-    factories: 0
+  // Steps
+  // Step 0 - Not your turn
+  // Step 1 - Get paid
+  // Step 2 - Invest money & Move troops
+  // Step 3 - Attack
+  const step = ref(1);
+
+  function runAction(action) {
+    switch (action) {
+      case 'get-paid':
+        step.value = 2; // Go to step 2 (Invest and move troops)
+        break;
+      case 'add-factories':
+        break;
+      case 'add-troops':
+        break;
+      case 'move-troops':
+        break;
+      case 'go-to-step-3': // Go to step 3 (Attack)
+        step.value = 3;
+        break;
+      case 'attack':
+        break;
+      case 'end-turn':
+        step.value = 0;
+        break;
+      default:
+        break;
+    }
+    console.log(action);
   }
-}
 
-console.log(Object.keys(state).length)
+  // Game state
+  const state = {
+    A: {
+      name: 'Alicante',
+      player: 0,
+      troops: 3,
+      factories: 0,
+    },
+    AB: {
+      name: 'Albacete',
+      player: 1,
+      troops: 2,
+      factories: 1,
+    },
+    AL: {
+      name: 'Alentejo - Algarve',
+      player: 2,
+      troops: 3,
+      factories: 0,
+    },
+    AM: {
+      name: 'Almería',
+      player: 3,
+      troops: 3,
+      factories: 1,
+    },
+    AS: {
+      name: 'Ávila - Segovia',
+      player: 0,
+      troops: 3,
+      factories: 1,
+    },
+    BA: {
+      name: 'Badajoz',
+      player: 1,
+      troops: 3,
+      factories: 0,
+    },
+    BG: {
+      name: 'Barcelona - Gerona',
+      player: 2,
+      troops: 4,
+      factories: 1,
+    },
+    BU: {
+      name: 'Burgos',
+      player: 3,
+      troops: 3,
+      factories: 0,
+    },
+    C: {
+      name: 'La Coruña',
+      player: 0,
+      troops: 3,
+      factories: 1,
+    },
+    CC: {
+      name: 'Cáceres',
+      player: 1,
+      troops: 3,
+      factories: 0,
+    },
+    CO: {
+      name: 'Córdoba',
+      player: 2,
+      troops: 3,
+      factories: 0,
+    },
+    CR: {
+      name: 'Ciudad Real',
+      player: 3,
+      troops: 3,
+      factories: 0,
+    },
+    CS: {
+      name: 'Castellón',
+      player: 0,
+      troops: 3,
+      factories: 0,
+    },
+    CU: {
+      name: 'Cuenca',
+      player: 1,
+      troops: 3,
+      factories: 0,
+    },
+    GR: {
+      name: 'Granada',
+      player: 2,
+      troops: 3,
+      factories: 0,
+    },
+    GU: {
+      name: 'Guadalajara',
+      player: 3,
+      troops: 3,
+      factories: 0,
+    },
+    H: {
+      name: 'Huelva',
+      player: 0,
+      troops: 3,
+      factories: 0,
+    },
+    HU: {
+      name: 'Huesca',
+      player: 1,
+      troops: 3,
+      factories: 0,
+    },
+    J: {
+      name: 'Jaén',
+      player: 2,
+      troops: 3,
+      factories: 1,
+    },
+    L: {
+      name: 'Lérida',
+      player: 3,
+      troops: 2,
+      factories: 0,
+    },
+    LE: {
+      name: 'León',
+      player: 0,
+      troops: 3,
+      factories: 0,
+    },
+    LN: {
+      name: 'La Rioja - Navarra',
+      player: 1,
+      troops: 3,
+      factories: 1,
+    },
+    LU: {
+      name: 'Lugo',
+      player: 2,
+      troops: 1,
+      factories: 0,
+    },
+    M: {
+      name: 'Madrid',
+      player: 3,
+      troops: 3,
+      factories: 1,
+    },
+    MC: {
+      name: 'Málaga - Cádiz',
+      player: 0,
+      troops: 3,
+      factories: 0,
+    },
+    MU: {
+      name: 'Murcia',
+      player: 1,
+      troops: 3,
+      factories: 0,
+    },
+    O: {
+      name: 'Asturias',
+      player: 2,
+      troops: 3,
+      factories: 0,
+    },
+    PC: {
+      name: 'Portugal Centro',
+      player: 3,
+      troops: 3,
+      factories: 0,
+    },
+    PN: {
+      name: 'Portugal Norte',
+      player: 0,
+      troops: 3,
+      factories: 0,
+    },
+    PO: {
+      name: 'Pontevedra - Orense',
+      player: 1,
+      troops: 3,
+      factories: 0,
+    },
+    PV: {
+      name: 'País Vasco',
+      player: 2,
+      troops: 3,
+      factories: 1,
+    },
+    S: {
+      name: 'Cantabria',
+      player: 3,
+      troops: 3,
+      factories: 0,
+    },
+    SA: {
+      name: 'Salamanca',
+      player: 0,
+      troops: 3,
+      factories: 0,
+    },
+    SE: {
+      name: 'Sevilla',
+      player: 1,
+      troops: 3,
+      factories: 0,
+    },
+    SO: {
+      name: 'Soria',
+      player: 2,
+      troops: 3,
+      factories: 0,
+    },
+    T: {
+      name: 'Tarragona',
+      player: 3,
+      troops: 3,
+      factories: 1,
+    },
+    TE: {
+      name: 'Teruel',
+      player: 0,
+      troops: 3,
+      factories: 0,
+    },
+    TO: {
+      name: 'Toledo',
+      player: 1,
+      troops: 3,
+      factories: 0,
+    },
+    V: {
+      name: 'Valencia',
+      player: 2,
+      troops: 3,
+      factories: 0,
+    },
+    VP: {
+      name: 'Valladolid - Palencia',
+      player: 3,
+      troops: 3,
+      factories: 0,
+    },
+    Z: {
+      name: 'Zaragoza',
+      player: 0,
+      troops: 2,
+      factories: 1,
+    },
+    ZA: {
+      name: 'Zamora',
+      player: 1,
+      troops: 3,
+      factories: 0,
+    },
+  };
+
+  console.log(Object.keys(state).length);
 </script>
