@@ -21,3 +21,35 @@
 * {
   @apply text-base;
 }
+
+.player0 {
+  color: #3b82f6;
+}
+
+.player0-dark {
+  color: #1d417b;
+}
+
+.player1 {
+  color: #f43f5e;
+}
+
+.player1-dark {
+  color: #7a202f;
+}
+
+.player2 {
+  color: #f59e0b;
+}
+
+.player2-dark {
+  color: #7a4f05;
+}
+
+.player3 {
+  color: #22c55e;
+}
+
+.player3-dark {
+  color: #11632f;
+}
