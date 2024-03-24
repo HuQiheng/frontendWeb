@@ -41,7 +41,7 @@
   const selected = ref(null);
 
   function showTerritory(territory) {
-    selected.value = state[territory].name;
+    selected.value = state.map[territory].name;
   }
 
   // Steps
@@ -113,6 +113,7 @@
 
   // Game state
   const state = {
+    turn: 0,
     players: ['Jaime', 'Javier', 'Jorge', 'Job'],
     map: {
       A: {

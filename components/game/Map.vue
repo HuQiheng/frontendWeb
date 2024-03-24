@@ -2119,8 +2119,8 @@
     <g
       id="g10882"
       inkscape:label="Lerida"
-      :class="['player' + state['LE'].player, state['LE'].factories > 0 ? 'has-factory' : '']"
-      @click="clickOnTerritory('LE')"
+      :class="['player' + state['L'].player, state['L'].factories > 0 ? 'has-factory' : '']"
+      @click="clickOnTerritory('L')"
     >
       <path
         inkscape:label="Lerida"
@@ -2197,7 +2197,7 @@
                 text-anchor: middle;
               "
             >
-              {{ state['LE'].troops }}
+              {{ state['L'].troops }}
             </tspan>
           </text>
         </g>
