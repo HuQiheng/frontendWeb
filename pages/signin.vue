@@ -12,16 +12,29 @@
 </template>
 
 <script setup lang="ts">
-  import { GoogleSignInButton, type CredentialResponse } from 'vue3-google-signin';
+import { GoogleSignInButton, type CredentialResponse } from 'vue3-google-signin';
+import { useUserStore } from "~/stores"
 
-  // Handle success event
-  const handleLoginSuccess = (response: CredentialResponse) => {
-    const { credential } = response;
-    console.log('Access Token', credential);
-  };
+const store = useUserStore()
 
-  // Handle an error event
-  const handleLoginError = () => {
-    console.error('Login failed');
-  };
+// Handle success event
+const handleLoginSuccess = async (response: CredentialResponse) => {
+  const { credential: authToken } = response;
+
+  // Validate with backend
+  console.log('Access Token', authToken);
+
+  // Sign in & navigate to dashboard
+  store.setUser({
+    email: 'jorge@gmail.com',
+    name: 'Jorge',
+    token: 'jsfksfsdjkfdsjf'
+  });
+  await navigateTo('/play');
+};
+
+// Handle an error event
+const handleLoginError = () => {
+  console.error('Login failed');
+};
 </script>

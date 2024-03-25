@@ -17,6 +17,10 @@
     // Handle success event
     const handleLoginSuccess = (response: CredentialResponse) => {
       const { credential } = response;
+      
+      console.log("app://signinresult?token=" + encodeURIComponent(
+        JSON.stringify(credential)
+      ));
 
       // Send result back to the app
       window.location.href = "app://signinresult?token=" + encodeURIComponent(
