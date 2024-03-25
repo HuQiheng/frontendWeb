@@ -10,7 +10,17 @@
     <!-- Game board -->
     <section class="grow relative">
       <!-- Leave -->
-      <ButtonRed class="m-8 absolute">Abandonar <IconArrowBarToRight class="ml-2" /></ButtonRed>
+      <ButtonRed 
+        class="m-8 absolute"
+        @click="isOpenQuitDialog = true"
+      >
+        Abandonar <IconArrowBarToRight class="ml-2" />
+      </ButtonRed>
+      <Dialog :show="isOpenQuitDialog">
+        <template v-slot:title>
+          ¿Estás seguro que quieres abandonar la partida?
+        </template>
+      </Dialog>
       <!-- Map -->
       <div class="p-8 flex flex-row justify-center" style="height: 80vh">
         <Map :state="state.map" @select="(territory) => showTerritory(territory)"></Map>
@@ -50,6 +60,9 @@ definePageMeta({
 const store = useUserStore();
 const token = store.user.token;
 const headers = {'Authorization': `Bearer ${token}`};
+
+// Quit dialog
+const isOpenQuitDialog = ref(false)
 
 // Select territory
 const selected = ref(null);
