@@ -1,5 +1,5 @@
 <template>
-  <TransitionRoot appear :show="isOpen" as="template">
+  <TransitionRoot appear :show="show" as="template">
     <Dialog as="div" @close="closeModal" class="relative z-10">
       <TransitionChild
         as="template"
@@ -40,13 +40,7 @@
               </div>
 
               <div class="mt-4 flex flex-row">
-                <ButtonRed 
-                  @click="closeModal & navigateTo('/dashboard')"
-                  class="mr-4"
-                >
-                  Sí
-                </ButtonRed>
-                <ButtonDark @click="closeModal">No</ButtonDark>
+                <slot name="buttons"></slot>
               </div>
             </DialogPanel>
           </TransitionChild>
@@ -66,14 +60,5 @@ import {
   DialogTitle,
 } from '@headlessui/vue'
 
-const props = defineProps(['show'])
-
-const isOpen = ref(true)
-
-function closeModal() {
-  isOpen.value = false
-}
-function openModal() {
-  isOpen.value = true
-}
+defineProps(['show'])
 </script>
