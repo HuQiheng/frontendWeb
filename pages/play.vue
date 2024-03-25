@@ -12,13 +12,22 @@
       <!-- Leave -->
       <ButtonRed 
         class="m-8 absolute"
-        @click="isOpenQuitDialog = true"
+        @click="openModal"
       >
         Abandonar <IconArrowBarToRight class="ml-2" />
       </ButtonRed>
       <Dialog :show="isOpenQuitDialog">
         <template v-slot:title>
           ¿Estás seguro que quieres abandonar la partida?
+        </template>
+        <template v-slot:buttons>
+          <ButtonRed 
+            @click="closeModal & navigateTo('/dashboard')"
+            class="mr-4"
+          >
+            Sí
+          </ButtonRed>
+          <ButtonDark @click="closeModal">No</ButtonDark>
         </template>
       </Dialog>
       <!-- Map -->
@@ -63,6 +72,12 @@ const headers = {'Authorization': `Bearer ${token}`};
 
 // Quit dialog
 const isOpenQuitDialog = ref(false)
+function openModal() {
+  isOpenQuitDialog.value = true
+}
+function closeModal() {
+  isOpenQuitDialog.value = false
+}
 
 // Select territory
 const selected = ref(null);

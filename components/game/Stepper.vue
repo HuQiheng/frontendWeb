@@ -73,7 +73,7 @@
     @apply flex flex-row pt-4;
   }
 
-  .actions button {
+  .actions span {
     @apply mr-4;
   }
 </style>
