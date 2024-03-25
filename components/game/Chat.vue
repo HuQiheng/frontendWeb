@@ -17,7 +17,7 @@
 
 <style scoped>
 .message-container {
-  @apply h-full max-h-[calc(100vh-73px)] px-4 pb-4 overflow-x-scroll flex flex-col-reverse;
+  @apply h-full max-h-[calc(100vh-73px)] px-4 pb-4 overflow-x-hidden overflow-y-scroll flex flex-col-reverse;
 }
 
 .message-container .message {
