@@ -32,7 +32,7 @@
     <section class="w-96 shadow-md border border-gray-200 flex flex-col">
       <Chat :messages="messages" :players="state.players" :me="me"></Chat>
       <div class="p-4 w-full flex flex-row border-t border-gray-200">
-        <InputText class="w-full" placeholder="Escribe aquí" v-model:value="message" />
+        <InputText class="w-full" @keydown.enter="sendMessage" placeholder="Escribe aquí" v-model:value="message" />
         <ButtonDark class="ml-4" @click="sendMessage"><IconSend /></ButtonDark>
       </div>
     </section>
