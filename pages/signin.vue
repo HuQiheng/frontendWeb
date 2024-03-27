@@ -30,7 +30,7 @@
       name: 'Jorge',
       token: 'jsfksfsdjkfdsjf',
     });
-    await navigateTo('/play');
+    await navigateTo('/dashboard');
   };
 
   // Handle an error event
