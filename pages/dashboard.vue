@@ -27,7 +27,8 @@
   <hr />
   <section class="flex flex-row m-6">
     <!-- Left side, match related-->
-    <div class="flex flex-col justify-center items-center rounded-xl border border-gray-800 p-6 w-full">
+    <div class="flex flex-col items-center rounded-xl border border-gray-800 p-6 w-full mr-4">
+      <h2 class="text-2xl font-bold m-4">Juego</h2>
       <!-- Start new match -->
       <div class="m-6">
         <NuxtLink to="/lobby"><Button>CREAR PARTIDA</Button></NuxtLink>
@@ -44,13 +45,17 @@
       </div>
     </div>
     <!-- Right side, friends related-->
-    <div></div>
+    <div class="flex flex-col items-center rounded-xl border border-gray-800 p-6 w-full ml-4">
+      <h2 class="text-2xl font-bold m-4">Lista de amigos</h2>
+      <FriendList :friends="friends" />
+    </div>
   </section>
   <footer></footer>
 </template>
 
 <script setup>
   import { useUserStore } from '~/stores';
+  import FriendList from '@/components/structure/FriendList.vue';
 
   // Protect route against unlogged users
   definePageMeta({
@@ -64,8 +69,8 @@
     navigateTo('/');
   };
 
-  // This should also contain the URL to the user picture
-  const user = ref({
-    name: 'Jorge',
-  });
+  const friends = [
+    { name: 'Eindres', email: '', avatar: '' },
+    { name: 'DiChorg', email: '', avatar: '' },
+  ];
 </script>
