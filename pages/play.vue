@@ -138,26 +138,25 @@
   // Game state
   const state = {
     turn: 0,
-    players: [
-  {
-    name: 'Jaime',
-    email: 'jaime@gmail.com', // Puede ser otro identificador (necesario para solicitudes de amistad)
-    picture: 'sdffd' // La que devuelva google al iniciar sesión
-  }, 
-  {
-    name: 'Javier',
-    email: 'javier@gmail.com',
-    picture: 'sfsff'
-  }, 
-  {
-    name: 'Jorge',
-    email: 'jorge@gmail.com',
-    picture: 'sfdsfd'
-  }, {
-    name: 'Job',
-    email: 'job@gmail.com',
-    picture: 'sfddsff'
-  }],
+    players: [{
+      name: 'Jaime',
+      email: 'jaime@gmail.com', // Puede ser otro identificador (necesario para solicitudes de amistad)
+      picture: 'sdffd' // La que devuelva google al iniciar sesión
+    }, 
+    {
+      name: 'Javier',
+      email: 'javier@gmail.com',
+      picture: 'sfsff'
+    }, 
+    {
+      name: 'Jorge',
+      email: 'jorge@gmail.com',
+      picture: 'sfdsfd'
+    }, {
+      name: 'Job',
+      email: 'job@gmail.com',
+      picture: 'sfddsff'
+    }],
     map: {
       A: {
         name: 'Alicante',
