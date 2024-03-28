@@ -5,7 +5,7 @@
       class="message"
     >
       <div :class="'player' + message.player" class="player">
-        <span v-if="message.player != me">{{ players[message.player] }}</span>
+        <span v-if="message.player != me">{{ players[message.player].name }}</span>
         <span v-else>Yo</span>
       </div>
       <div>
