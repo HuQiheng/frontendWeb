@@ -24,7 +24,7 @@
       </div>
       <!-- Actions -->
       <div class="px-8 pb-8">
-        <Stepper :step="step" @trigger="(action) => runAction(action)"></Stepper>
+        <Stepper :step="step" :coins="state.players[me].coins" @trigger="(action) => runAction(action)"></Stepper>
         <p v-if="selected" class="py-2">Territorio seleccionado: {{ selected }}</p>
       </div>
     </section>
@@ -143,21 +143,25 @@
         name: 'Jaime',
         email: 'jaime@gmail.com', // Puede ser otro identificador (necesario para solicitudes de amistad)
         picture: 'sdffd', // La que devuelva google al iniciar sesión
+        coins: 10
       },
       {
         name: 'Javier',
         email: 'javier@gmail.com',
         picture: 'sfsff',
+        coins: 20
       },
       {
         name: 'Jorge',
         email: 'jorge@gmail.com',
         picture: 'sfdsfd',
+        coins: 30
       },
       {
         name: 'Job',
         email: 'job@gmail.com',
         picture: 'sfddsff',
+        coins: 40
       },
     ],
     map: {

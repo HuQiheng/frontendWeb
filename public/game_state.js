@@ -4,21 +4,25 @@ const state = {
   players: [{
     name: 'Jaime',
     email: 'jaime@gmail.com', // Puede ser otro identificador (necesario para solicitudes de amistad)
-    picture: 'sdffd' // La que devuelva google al iniciar sesión
+    picture: 'sdffd', // La que devuelva google al iniciar sesión
+    coins: 10
   }, 
   {
     name: 'Javier',
     email: 'javier@gmail.com',
-    picture: 'sfsff'
+    picture: 'sfsff',
+    coins: 20
   }, 
   {
     name: 'Jorge',
     email: 'jorge@gmail.com',
-    picture: 'sfdsfd'
+    picture: 'sfdsfd',
+    coins: 30
   }, {
     name: 'Job',
     email: 'job@gmail.com',
-    picture: 'sfddsff'
+    picture: 'sfddsff',
+    coins: 40
   }],
   map: {
     A: {
