@@ -20,7 +20,11 @@
       </Dialog>
       <!-- Map -->
       <div class="p-8 flex flex-row justify-center" style="height: 80vh">
-        <Map :state="state.map" @select="(territory) => showTerritory(territory)"></Map>
+        <Map 
+          :state="state.map" 
+          :animatedTerritories="animatedTerritories" 
+          @select="(territory) => showTerritory(territory)"
+        ></Map>
       </div>
       <!-- Actions -->
       <div class="px-8 pb-8">
@@ -63,6 +67,7 @@
 
   // Select territory
   const selected = ref(null);
+  const animatedTerritories = ref([]);
 
   function showTerritory(territory) {
     selected.value = state.map[territory].name;
@@ -81,15 +86,20 @@
         step.value = 2; // Go to step 2 (Invest and move troops)
         break;
       case 'add-factories':
+        animatedTerritories.value = myTerritories;
         break;
       case 'add-troops':
+        animatedTerritories.value = myTerritories;
         break;
       case 'move-troops':
+        animatedTerritories.value = myTerritories;
         break;
       case 'go-to-step-3': // Go to step 3 (Attack)
+        animatedTerritories.value = [];
         step.value = 3;
         break;
       case 'attack':
+        animatedTerritories.value = myTerritories;
         break;
       case 'end-turn':
         step.value = 0;
@@ -419,4 +429,6 @@
       },
     },
   };
+
+  const myTerritories = Object.keys(state.map).filter(key => state.map[key].player === me);
 </script>
