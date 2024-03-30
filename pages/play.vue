@@ -6,28 +6,37 @@
       content="Un juego de estrategia donde tendrás que ganar dinero, erigir fábricas, y conquistar territorios para expandir tu influencia."
     />
   </Head>
-  <main class="w-full h-screen flex flex-row">
+  <main class="w-full h-screen flex flex-row overflow-hidden">
     <!-- Game board -->
-    <section class="grow">
+    <section class="grow relative">
+      <!-- Leave -->
+      <ButtonRed class="m-8 absolute" @click="openModal"> Abandonar <IconArrowBarToRight class="ml-2" /> </ButtonRed>
+      <Dialog :show="isOpenQuitDialog">
+        <template v-slot:title> ¿Estás seguro que quieres abandonar la partida? </template>
+        <template v-slot:buttons>
+          <ButtonRed @click="closeModal & navigateTo('/dashboard')" class="mr-4"> Sí </ButtonRed>
+          <ButtonDark @click="closeModal">No</ButtonDark>
+        </template>
+      </Dialog>
       <!-- Map -->
       <div class="p-8 flex flex-row justify-center" style="height: 80vh">
-        <Map :state="state.map" @select="(territory) => showTerritory(territory)"></Map>
+        <Map 
+          :state="state.map" 
+          :animatedTerritories="animatedTerritories" 
+          @select="(territory) => showTerritory(territory)"
+        ></Map>
       </div>
       <!-- Actions -->
       <div class="px-8 pb-8">
-        <Stepper :step="step" @trigger="(action) => runAction(action)"></Stepper>
+        <Stepper :step="step" :coins="state.players[me].coins" @trigger="(action) => runAction(action)"></Stepper>
         <p v-if="selected" class="py-2">Territorio seleccionado: {{ selected }}</p>
       </div>
     </section>
     <!-- Chat -->
     <section class="w-96 shadow-md border border-gray-200 flex flex-col">
-      <Chat 
-        :messages="messages"
-        :players="state.players"
-        :me="me"
-      ></Chat>
+      <Chat :messages="messages" :players="state.players" :me="me"></Chat>
       <div class="p-4 w-full flex flex-row border-t border-gray-200">
-        <InputText class="w-full" placeholder="Escribe aquí" v-model:value="message" />
+        <InputText class="w-full" @keydown.enter="sendMessage" placeholder="Escribe aquí" v-model:value="message" />
         <ButtonDark class="ml-4" @click="sendMessage"><IconSend /></ButtonDark>
       </div>
     </section>
@@ -35,10 +44,30 @@
 </template>
 
 <script setup>
-  import { IconSend } from '@tabler/icons-vue';
+  import { IconSend, IconArrowBarToRight } from '@tabler/icons-vue';
+  import { useUserStore } from '~/stores';
+
+  // Protect route against unlogged users
+  definePageMeta({
+    middleware: ['auth'],
+  });
+
+  const store = useUserStore();
+  const token = store.user.token;
+  const headers = { Authorization: `Bearer ${token}` };
+
+  // Quit dialog
+  const isOpenQuitDialog = ref(false);
+  function openModal() {
+    isOpenQuitDialog.value = true;
+  }
+  function closeModal() {
+    isOpenQuitDialog.value = false;
+  }
 
   // Select territory
   const selected = ref(null);
+  const animatedTerritories = ref([]);
 
   function showTerritory(territory) {
     selected.value = state.map[territory].name;
@@ -57,15 +86,20 @@
         step.value = 2; // Go to step 2 (Invest and move troops)
         break;
       case 'add-factories':
+        animatedTerritories.value = myTerritories;
         break;
       case 'add-troops':
+        animatedTerritories.value = myTerritories;
         break;
       case 'move-troops':
+        animatedTerritories.value = myTerritories;
         break;
       case 'go-to-step-3': // Go to step 3 (Attack)
+        animatedTerritories.value = [];
         step.value = 3;
         break;
       case 'attack':
+        animatedTerritories.value = myTerritories;
         break;
       case 'end-turn':
         step.value = 0;
@@ -77,26 +111,26 @@
   }
 
   // Chat
-  const message = ref('')
+  const message = ref('');
 
   const me = 3;
   const messages = ref([
     {
       player: 2,
-      text: 'Ahora te la voy a quitar yo :)'
+      text: 'Ahora te la voy a quitar yo :)',
     },
     {
       player: 1,
-      text: 'Por fin Huesca es mía jeje'
+      text: 'Por fin Huesca es mía jeje',
     },
     {
       player: 0,
-      text: 'Ayudaaa!! Me atacaaa!'
+      text: 'Ayudaaa!! Me atacaaa!',
     },
     {
       player: 1,
-      text: 'Os voy a conquistar!'
-    }
+      text: 'Os voy a conquistar!',
+    },
   ]);
 
   function sendMessage() {
@@ -104,7 +138,7 @@
     if (message.value != '') {
       messages.value.unshift({
         player: me,
-        text: message.value
+        text: message.value,
       });
       // Clean message value
       message.value = '';
@@ -114,7 +148,32 @@
   // Game state
   const state = {
     turn: 0,
-    players: ['Jaime', 'Javier', 'Jorge', 'Job'],
+    players: [
+      {
+        name: 'Jaime',
+        email: 'jaime@gmail.com', // Puede ser otro identificador (necesario para solicitudes de amistad)
+        picture: 'sdffd', // La que devuelva google al iniciar sesión
+        coins: 10
+      },
+      {
+        name: 'Javier',
+        email: 'javier@gmail.com',
+        picture: 'sfsff',
+        coins: 20
+      },
+      {
+        name: 'Jorge',
+        email: 'jorge@gmail.com',
+        picture: 'sfdsfd',
+        coins: 30
+      },
+      {
+        name: 'Job',
+        email: 'job@gmail.com',
+        picture: 'sfddsff',
+        coins: 40
+      },
+    ],
     map: {
       A: {
         name: 'Alicante',
@@ -368,6 +427,8 @@
         troops: 3,
         factories: 0,
       },
-    }
+    },
   };
+
+  const myTerritories = Object.keys(state.map).filter(key => state.map[key].player === me);
 </script>

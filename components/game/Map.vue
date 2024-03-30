@@ -1,5 +1,5 @@
 <script setup>
-  defineProps(['state']);
+  defineProps(['state', 'animatedTerritories']);
   const emit = defineEmits(['select']);
 
   function clickOnTerritory(territory) {
@@ -83,7 +83,9 @@
     <g
       id="g9882"
       inkscape:label="La Coruña"
-      :class="['player' + state['C'].player, state['C'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['C'].player, 
+                state['C'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('C') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('C')"
     >
       <title id="title9884">La Coruña</title>
@@ -166,7 +168,9 @@
     <g
       id="g9900"
       inkscape:label="Lugo"
-      :class="['player' + state['LU'].player, state['LU'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['LU'].player, 
+                state['LU'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('LU') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('LU')"
     >
       <path
@@ -249,7 +253,9 @@
     <g
       id="g10510"
       inkscape:label="Leon"
-      :class="['player' + state['LE'].player, state['LE'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['LE'].player, 
+                state['LE'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('LE') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('LE')"
     >
       <path
@@ -333,7 +339,9 @@
     <g
       id="g10207"
       inkscape:label="Asturias"
-      :class="['player' + state['O'].player, state['O'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['O'].player, 
+                state['O'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('O') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('O')"
     >
       <title id="title10209">Asturias</title>
@@ -417,7 +425,9 @@
     <g
       id="g10518"
       inkscape:label="Cantabria"
-      :class="['player' + state['S'].player, state['S'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['S'].player, 
+                state['S'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('S') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('S')"
     >
       <path
@@ -500,7 +510,9 @@
     <g
       id="g10526"
       inkscape:label="Pais Vasco"
-      :class="['player' + state['PV'].player, state['PV'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['PV'].player, 
+                state['PV'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('PV') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('PV')"
     >
       <path
@@ -582,7 +594,9 @@
     <g
       id="g10542"
       inkscape:label="La Rioja - Navarra"
-      :class="['player' + state['LN'].player, state['LN'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['LN'].player, 
+                state['LN'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('LN') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('LN')"
     >
       <path
@@ -664,7 +678,9 @@
     <g
       id="g11540"
       inkscape:label="Burgos"
-      :class="['player' + state['BU'].player, state['BU'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['BU'].player, 
+                state['BU'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('BU') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('BU')"
     >
       <path
@@ -747,7 +763,9 @@
     <g
       id="g12212"
       inkscape:label="Soria"
-      :class="['player' + state['SO'].player, state['SO'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['SO'].player, 
+                state['SO'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('SO') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('SO')"
     >
       <path
@@ -830,7 +848,9 @@
     <g
       id="g15909"
       inkscape:label="Cuenca"
-      :class="['player' + state['CU'].player, state['CU'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['CU'].player, 
+                state['CU'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('CU') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('CU')"
     >
       <path
@@ -913,7 +933,9 @@
     <g
       id="g12534"
       inkscape:label="Guadalajara"
-      :class="['player' + state['GU'].player, state['GU'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['GU'].player, 
+                state['GU'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('GU') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('GU')"
     >
       <path
@@ -1000,7 +1022,9 @@
     <g
       id="g2225"
       inkscape:label="Valladolid - Palencia"
-      :class="['player' + state['VP'].player, state['VP'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['VP'].player, 
+                state['VP'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('VP') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('VP')"
     >
       <path
@@ -1086,7 +1110,9 @@
     <g
       id="g12542"
       inkscape:label="Madrid"
-      :class="['player' + state['M'].player, state['M'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['M'].player, 
+                state['M'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('M') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('M')"
     >
       <path
@@ -1173,7 +1199,9 @@
     <g
       id="g4467"
       inkscape:label="Avila - Segovia"
-      :class="['player' + state['AS'].player, state['AS'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['AS'].player, 
+                state['AS'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('AS') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('AS')"
     >
       <path
@@ -1259,7 +1287,9 @@
     <g
       id="g13911"
       inkscape:label="Salamanca"
-      :class="['player' + state['SA'].player, state['SA'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['SA'].player, 
+                state['SA'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('SA') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('SA')"
     >
       <path
@@ -1346,7 +1376,9 @@
     <g
       id="g14246"
       inkscape:label="Caceres"
-      :class="['player' + state['CC'].player, state['CC'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['CC'].player, 
+                state['CC'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('CC') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('CC')"
     >
       <path
@@ -1433,7 +1465,9 @@
     <g
       id="g15576"
       inkscape:label="Toledo"
-      :class="['player' + state['TO'].player, state['TO'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['TO'].player, 
+                state['TO'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('TO') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('TO')"
     >
       <path
@@ -1520,7 +1554,9 @@
     <g
       id="g15244"
       inkscape:label="Ciudad Real"
-      :class="['player' + state['CR'].player, state['CR'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['CR'].player, 
+                state['CR'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('CR') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('CR')"
     >
       <path
@@ -1606,7 +1642,9 @@
     <g
       id="g16243"
       inkscape:label="Albacete"
-      :class="['player' + state['AB'].player, state['AB'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['AB'].player, 
+                state['AB'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('AB') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('AB')"
     >
       <path
@@ -1692,7 +1730,9 @@
     <g
       id="g11532"
       inkscape:label="Alicante"
-      :class="['player' + state['A'].player, state['A'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['A'].player, 
+                state['A'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('A') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('A')"
     >
       <path
@@ -1779,7 +1819,9 @@
     <g
       id="g16914"
       inkscape:label="Murcia"
-      :class="['player' + state['MU'].player, state['MU'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['MU'].player, 
+                state['MU'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('MU') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('MU')"
     >
       <path
@@ -1866,7 +1908,9 @@
     <g
       id="g14254"
       inkscape:label="Badajoz"
-      :class="['player' + state['BA'].player, state['BA'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['BA'].player, 
+                state['BA'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('BA') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('BA')"
     >
       <path
@@ -1954,7 +1998,9 @@
     <g
       id="g10558"
       inkscape:label="Zaragoza"
-      :class="['player' + state['Z'].player, state['Z'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['Z'].player, 
+                state['Z'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('Z') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('Z')"
     >
       <path
@@ -2036,7 +2082,9 @@
     <g
       id="g10550"
       inkscape:label="Huesca"
-      :class="['player' + state['HU'].player, state['HU'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['HU'].player, 
+                state['HU'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('HU') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('HU')"
     >
       <path
@@ -2119,7 +2167,9 @@
     <g
       id="g10882"
       inkscape:label="Lerida"
-      :class="['player' + state['L'].player, state['L'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['L'].player, 
+                state['L'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('L') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('L')"
     >
       <path
@@ -2206,7 +2256,9 @@
     <g
       id="g2"
       inkscape:label="Barcelona - Gerona"
-      :class="['player' + state['BG'].player, state['BG'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['BG'].player, 
+                state['BG'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('BG') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('BG')"
     >
       <path
@@ -2292,7 +2344,9 @@
     <g
       id="g11564"
       inkscape:label="Portugal Norte"
-      :class="['player' + state['PN'].player, state['PN'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['PN'].player, 
+                state['PN'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('PN') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('PN')"
     >
       <path
@@ -2372,7 +2426,9 @@
     <g
       id="g13919"
       inkscape:label="Portugal Centro"
-      :class="['player' + state['PC'].player, state['PC'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['PC'].player, 
+                state['PC'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('PC') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('PC')"
     >
       <path
@@ -2452,7 +2508,9 @@
     <g
       id="g4"
       inkscape:label="Alentejo - Algarve"
-      :class="['player' + state['AL'].player, state['AL'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['AL'].player, 
+                state['AL'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('AL') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('AL')"
     >
       <g id="g1" inkscape:label="Alentejo - Algarve">
@@ -2534,7 +2592,9 @@
     <g
       id="g18259"
       inkscape:label="Huelva"
-      :class="['player' + state['H'].player, state['H'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['H'].player, 
+                state['H'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('H') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('H')"
     >
       <path
@@ -2617,7 +2677,9 @@
     <g
       id="g17589"
       inkscape:label="Sevilla"
-      :class="['player' + state['SE'].player, state['SE'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['SE'].player, 
+                state['SE'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('SE') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('SE')"
     >
       <path
@@ -2701,7 +2763,9 @@
     <g
       id="g17251"
       inkscape:label="Cordoba"
-      :class="['player' + state['CO'].player, state['CO'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['CO'].player, 
+                state['CO'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('CO') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('CO')"
     >
       <path
@@ -2784,7 +2848,9 @@
     <g
       id="g16578"
       inkscape:label="Jaen"
-      :class="['player' + state['J'].player, state['J'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['J'].player, 
+                state['J'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('J') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('J')"
     >
       <path
@@ -2867,7 +2933,9 @@
     <g
       id="g19969"
       inkscape:label="Almeria"
-      :class="['player' + state['AM'].player, state['AM'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['AM'].player, 
+                state['AM'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('AM') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('AM')"
     >
       <g id="g19620" inkscape:label="Almeria">
@@ -2954,7 +3022,9 @@
     <g
       id="g19282"
       inkscape:label="Granada"
-      :class="['player' + state['GR'].player, state['GR'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['GR'].player, 
+                state['GR'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('GR') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('GR')"
     >
       <path
@@ -3041,7 +3111,9 @@
     <g
       id="g3"
       inkscape:label="Malaga - Cadiz"
-      :class="['player' + state['MC'].player, state['MC'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['MC'].player, 
+                state['MC'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('MC') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('MC')"
     >
       <path
@@ -3127,7 +3199,9 @@
     <g
       id="g10898"
       inkscape:label="Tarragona"
-      :class="['player' + state['T'].player, state['T'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['T'].player, 
+                state['T'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('T') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('T')"
     >
       <path
@@ -3214,7 +3288,9 @@
     <g
       id="g10566"
       inkscape:label="Teruel"
-      :class="['player' + state['TE'].player, state['TE'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['TE'].player, 
+                state['TE'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('TE') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('TE')"
     >
       <path
@@ -3301,7 +3377,9 @@
     <g
       id="g11210"
       inkscape:label="Castellon"
-      :class="['player' + state['CS'].player, state['CS'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['CS'].player, 
+                state['CS'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('CS') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('CS')"
     >
       <path
@@ -3388,7 +3466,9 @@
     <g
       id="g11218"
       inkscape:label="Valencia"
-      :class="['player' + state['V'].player, state['V'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['V'].player, 
+                state['V'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('V') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('V')"
     >
       <path
@@ -3474,7 +3554,9 @@
     <g
       id="g1167"
       inkscape:label="Zamora"
-      :class="['player' + state['ZA'].player, state['ZA'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['ZA'].player, 
+                state['ZA'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('ZA') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('ZA')"
     >
       <path
@@ -3557,7 +3639,9 @@
     <g
       id="g10197"
       inkscape:label="Pontevedra - Orense"
-      :class="['player' + state['PO'].player, state['PO'].factories > 0 ? 'has-factory' : '']"
+      :class="['player' + state['PO'].player, 
+                state['PO'].factories > 0 ? 'has-factory' : '', 
+                animatedTerritories.includes('PO') ? 'animate-pulse' : '']"
       @click="clickOnTerritory('PO')"
     >
       <title id="title10199">Pontevedra - Orense</title>

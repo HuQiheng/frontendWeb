@@ -1,5 +1,12 @@
 <template>
-  <div class="w-full p-5 flex flex-col items-start border border-gray-200 shadow-sm" style="border-radius: 2rem">
+  <div 
+    class="w-full p-5 flex flex-col items-start border border-gray-200 shadow-sm relative" 
+    style="border-radius: 2rem"
+  >
+    <div class="absolute right-0 pr-5 flex flex-row">
+      {{ coins }} 
+      <IconCoin class="ml-1 text-secondary" />
+    </div>
     <ol class="stepper">
       <li class="step" :class="{ 'text-black': step > 0 }">
         <span :class="[step > 0 ? 'border-black' : 'border-gray-500']">1</span>
@@ -73,11 +80,13 @@
     @apply flex flex-row pt-4;
   }
 
-  .actions button {
+  .actions span {
     @apply mr-4;
   }
 </style>
 
 <script setup>
-  defineProps(['step']);
+import { IconCoin } from '@tabler/icons-vue';
+
+defineProps(['step', 'coins']);
 </script>

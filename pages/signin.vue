@@ -5,23 +5,35 @@
   </Head>
   <Header></Header>
   <Main>
-    <h1 class="my-4 text-2xl">Iniciar sesión</h1>
-    <GoogleSignInButton @success="handleLoginSuccess" @error="handleLoginError"></GoogleSignInButton>
+    <h1 class="my-8 text-2xl">Iniciar sesión</h1>
+    <ButtonGoogle @click="signin" />
   </Main>
   <Footer></Footer>
 </template>
 
-<script setup lang="ts">
-  import { GoogleSignInButton, type CredentialResponse } from 'vue3-google-signin';
+<script setup>
+  import { useUserStore } from '~/stores';
 
-  // Handle success event
-  const handleLoginSuccess = (response: CredentialResponse) => {
-    const { credential } = response;
-    console.log('Access Token', credential);
-  };
+  const store = useUserStore();
 
-  // Handle an error event
-  const handleLoginError = () => {
-    console.error('Login failed');
-  };
+  // Sign in & navigate to dashboard if URL parameters indicate to do so
+  const route = useRoute().query;
+  if (Object.keys(route).length != 0) {
+    if (route.user != null) {
+      const user = JSON.parse(route.user);
+      store.setUser({
+        email: user.email,
+        name: user.name,
+        picture: 'jsfksfsdjkfdsjf',
+      });
+      navigateTo('/dashboard');
+    }
+  }
+
+  // Access backend
+  const api = useAppConfig().api
+
+  const signin = async () => {
+    navigateTo(api + '/auth/google', { external: true });
+  }
 </script>
