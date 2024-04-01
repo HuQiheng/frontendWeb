@@ -30,6 +30,7 @@
       <div class="px-8 pb-8">
         <Stepper :step="step" :coins="state.players[me].coins" @trigger="(action) => runAction(action)"></Stepper>
         <p v-if="selected" class="py-2">Territorio seleccionado: {{ selected }}</p>
+        <p class="py-2">Territorios atacables: {{ AttackTerritories }}</p>
       </div>
     </section>
     <!-- Chat -->
@@ -96,6 +97,7 @@
         break;
       case 'go-to-step-3': // Go to step 3 (Attack)
         animatedTerritories.value = [];
+        selected.value = null;
         step.value = 3;
         break;
       case 'attack':
@@ -431,4 +433,26 @@
   };
 
   const myTerritories = Object.keys(state.map).filter(key => state.map[key].player === me);
+
+  const AdjacentTerritories = ref({})
+
+  const AttackTerritories = computed(() => {
+  if (!selected.value || !myTerritories.includes(selected.value)) return null;
+
+  const selectedTerritory = selected.value;
+  const myPlayerCode = me; // Assuming me is the player code (e.g., 3)
+
+  const selectedAdjacentTerritories = AdjacentTerritories.value[selectedTerritory]?.adjacents || [];
+
+  return selectedAdjacentTerritories.filter(adjacentCode => {
+    const adjacentPlayerCode = state.map[adjacentCode]?.player;
+    return adjacentPlayerCode !== myPlayerCode;
+  });
+});
+
+
+  onMounted(async () => {
+    const response = await fetch('/territories.json')
+    AdjacentTerritories.value = await response.json()
+  })
 </script>
