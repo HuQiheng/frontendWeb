@@ -1,10 +1,10 @@
 <template>
-  <div 
-    class="w-full p-5 flex flex-col items-start border border-gray-200 shadow-sm relative" 
+  <div
+    class="w-full p-5 flex flex-col items-start border border-gray-200 shadow-sm relative"
     style="border-radius: 2rem"
   >
     <div class="absolute right-0 pr-5 flex flex-row">
-      {{ coins }} 
+      {{ coins }}
       <IconCoin class="ml-1 text-secondary" />
     </div>
     <ol class="stepper">
@@ -59,6 +59,8 @@
       <ButtonDark v-show="step == 2" @click="$emit('trigger', 'go-to-step-3')">Ir al siguiente paso</ButtonDark>
       <ButtonDark v-show="step == 3" @click="$emit('trigger', 'attack')">Atacar</ButtonDark>
       <ButtonDark v-show="step == 3" @click="$emit('trigger', 'end-turn')">Finalizar turno</ButtonDark>
+      <ButtonDark v-show="step == 4" @click="$emit('trigger', 'attack-territory')">Atacar Territorio</ButtonDark>
+      <ButtonRed v-show="step == 4" @click="$emit('trigger', 'go-to-step-3')">Volver</ButtonRed>
     </div>
   </div>
 </template>
@@ -86,7 +88,7 @@
 </style>
 
 <script setup>
-import { IconCoin } from '@tabler/icons-vue';
+  import { IconCoin } from '@tabler/icons-vue';
 
-defineProps(['step', 'coins']);
+  defineProps(['step', 'coins']);
 </script>

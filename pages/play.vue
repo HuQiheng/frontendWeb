@@ -20,9 +20,9 @@
       </Dialog>
       <!-- Map -->
       <div class="p-8 flex flex-row justify-center" style="height: 80vh">
-        <Map 
-          :state="state.map" 
-          :animatedTerritories="animatedTerritories" 
+        <Map
+          :state="state.map"
+          :animatedTerritories="animatedTerritories"
           @select="(territory) => showTerritory(territory)"
         ></Map>
       </div>
@@ -68,10 +68,12 @@
 
   // Select territory
   const selected = ref(null);
+  const selectedCode = ref(null);
   const animatedTerritories = ref([]);
 
   function showTerritory(territory) {
-    selected.value = state.map[territory].name;
+    selected.value = territory;
+    selectedCode.value = territory;
   }
 
   // Steps
@@ -96,14 +98,20 @@
         animatedTerritories.value = myTerritories;
         break;
       case 'go-to-step-3': // Go to step 3 (Attack)
-        animatedTerritories.value = [];
-        selected.value = null;
+        animatedTerritories.value = myTerritories;
+        selectedCode.value = null;
         step.value = 3;
         break;
       case 'attack':
-        animatedTerritories.value = myTerritories;
+        //animatedTerritories.value = AttackTerritories;
+        step.value = 4;
+        break;
+      case 'attack-territory':
+        animatedTerritories.value = [];
+        step.value = 0;
         break;
       case 'end-turn':
+        animatedTerritories.value = [];
         step.value = 0;
         break;
       default:
@@ -155,25 +163,25 @@
         name: 'Jaime',
         email: 'jaime@gmail.com', // Puede ser otro identificador (necesario para solicitudes de amistad)
         picture: 'sdffd', // La que devuelva google al iniciar sesión
-        coins: 10
+        coins: 10,
       },
       {
         name: 'Javier',
         email: 'javier@gmail.com',
         picture: 'sfsff',
-        coins: 20
+        coins: 20,
       },
       {
         name: 'Jorge',
         email: 'jorge@gmail.com',
         picture: 'sfdsfd',
-        coins: 30
+        coins: 30,
       },
       {
         name: 'Job',
         email: 'job@gmail.com',
         picture: 'sfddsff',
-        coins: 40
+        coins: 40,
       },
     ],
     map: {
@@ -432,27 +440,26 @@
     },
   };
 
-  const myTerritories = Object.keys(state.map).filter(key => state.map[key].player === me);
+  const myTerritories = Object.keys(state.map).filter((key) => state.map[key].player === me);
 
-  const AdjacentTerritories = ref({})
+  const AdjacentTerritories = ref({});
 
   const AttackTerritories = computed(() => {
-  if (!selected.value || !myTerritories.includes(selected.value)) return null;
+    if (!selectedCode.value || !myTerritories.includes(selectedCode.value)) return null;
 
-  const selectedTerritory = selected.value;
-  const myPlayerCode = me; // Assuming me is the player code (e.g., 3)
+    const selectedTerritory = selectedCode.value;
+    const myPlayerCode = me; // Assuming me is the player code (e.g., 3)
 
-  const selectedAdjacentTerritories = AdjacentTerritories.value[selectedTerritory]?.adjacents || [];
+    const selectedAdjacentTerritories = AdjacentTerritories.value[selectedTerritory]?.adjacents || [];
 
-  return selectedAdjacentTerritories.filter(adjacentCode => {
-    const adjacentPlayerCode = state.map[adjacentCode]?.player;
-    return adjacentPlayerCode !== myPlayerCode;
+    return selectedAdjacentTerritories.filter((adjacentCode) => {
+      const adjacentPlayerCode = state.map[adjacentCode]?.player;
+      return adjacentPlayerCode !== myPlayerCode;
+    });
   });
-});
-
 
   onMounted(async () => {
-    const response = await fetch('/territories.json')
-    AdjacentTerritories.value = await response.json()
-  })
+    const response = await fetch('/territories.json');
+    AdjacentTerritories.value = await response.json();
+  });
 </script>

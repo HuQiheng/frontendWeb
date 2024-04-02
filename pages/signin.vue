@@ -31,9 +31,9 @@
   }
 
   // Access backend
-  const api = useAppConfig().api
+  const api = useAppConfig().api;
 
   const signin = async () => {
     navigateTo(api + '/auth/google', { external: true });
-  }
+  };
 </script>
