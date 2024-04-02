@@ -30,7 +30,8 @@
       <div class="px-8 pb-8">
         <Stepper :step="step" :coins="state.players[me].coins" @trigger="(action) => runAction(action)"></Stepper>
         <p v-if="selected" class="py-2">Territorio seleccionado: {{ selected }}</p>
-        <p class="py-2">Territorios atacables: {{ AttackTerritories }}</p>
+        <!-- <p v-if="AttackTerritories" class="py-2">Territorios atacables: {{ AttackTerritories }}</p> -->
+        <!-- <p v-if="myTerritories" class="py-2">Mis Territorio: {{ myTerritories }}</p> -->
       </div>
     </section>
     <!-- Chat -->
@@ -67,12 +68,12 @@
   }
 
   // Select territory
-  const selected = ref(null);
+  const selected = ref();
   const selectedCode = ref(null);
   const animatedTerritories = ref([]);
 
   function showTerritory(territory) {
-    selected.value = territory;
+    selected.value = state.map[territory].name;
     selectedCode.value = territory;
   }
 
@@ -99,19 +100,26 @@
         break;
       case 'go-to-step-3': // Go to step 3 (Attack)
         animatedTerritories.value = myTerritories;
+        selected.value = null;
         selectedCode.value = null;
         step.value = 3;
         break;
       case 'attack':
-        //animatedTerritories.value = AttackTerritories;
-        step.value = 4;
+        if (selectedCode.value && myTerritories.includes(selectedCode.value)) {
+          animatedTerritories.value = AttackTerritories.value;
+          step.value = 4;
+        }
         break;
       case 'attack-territory':
         animatedTerritories.value = [];
+        selected.value = null;
+        selectedCode.value = null;
         step.value = 0;
         break;
       case 'end-turn':
         animatedTerritories.value = [];
+        selected.value = null;
+        selectedCode.value = null;
         step.value = 0;
         break;
       default:
