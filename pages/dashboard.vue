@@ -47,7 +47,7 @@
     <!-- Right side, friends related-->
     <div class="flex flex-col items-center rounded-xl border border-gray-800 p-6 w-full ml-4">
       <h2 class="text-2xl font-bold m-4">Lista de amigos</h2>
-      <FriendList :friends="friends" />
+      <PlayerList :players="friends" />
     </div>
   </section>
   <footer></footer>
@@ -55,7 +55,7 @@
 
 <script setup>
   import { useUserStore } from '~/stores';
-  import FriendList from '@/components/structure/FriendList.vue';
+  // import PlayerList from '@/components/structure/PlayerList.vue';
 
   // Protect route against unlogged users
   definePageMeta({
