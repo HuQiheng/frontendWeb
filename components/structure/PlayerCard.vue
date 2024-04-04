@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-grow bg-white shadow-md rounded-lg p-4 m-4 w-full">
+  <div class="flex flex-grow bg-white shadow-md rounded-lg p-4 m-4">
     <div class="flex items-center">
       <div class="flex-shrink-0 mr-3">
         <img :src="player.avatar" :alt="player.name" class="h-12 w-12 rounded-full" />

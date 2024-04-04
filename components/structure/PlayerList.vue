@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="p-4">
     <div v-if="players.length === 0" class="text-gray-600">No players to display.</div>
     <div v-else>
       <PlayerCard v-for="(player, index) in players" :key="index" :player="player" />

@@ -5,11 +5,16 @@
   <section>
     <PlayerList :players="players" />
   </section>
+  <section></section>
 </template>
 
 <script setup>
-  const players = [
-    { name: 'Eindres', email: '', avatar: '' },
-    { name: 'DiChorg', email: '', avatar: '' },
-  ];
+  const players = ref([
+    { name: 'Eindres', email: '', avatar: '/profile.svg' },
+    { name: 'DiChorg', email: '', avatar: '/profile.svg' },
+    { name: 'Eindres', email: '', avatar: '/profile.svg' },
+    { name: 'DiChorg', email: '', avatar: '/profile.svg' },
+    { name: 'Eindres', email: '', avatar: '/profile.svg' },
+    { name: 'DiChorg', email: '', avatar: '/profile.svg' },
+  ]);
 </script>
