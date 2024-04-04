@@ -5,7 +5,9 @@
   <section>
     <PlayerList :players="players" />
   </section>
-  <section></section>
+  <section>
+    <Button class="m-4"><NuxtLink to="/play">Empezar partida</NuxtLink></Button>
+  </section>
 </template>
 
 <script setup>
