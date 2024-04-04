@@ -16,7 +16,7 @@
     <div class="rounded-xl border border-gray-800 p-6">
       <!-- User's profile settings -->
       <div class="top-14 m-6 flex flex-col justify-center items-center">
-        <img src="/profile.png" alt="User Picture" style="max-width: 200px; max-height: 200px" />
+        <img src="/profile.svg" alt="User Picture" style="width: 200px; height: 200px" />
         <p class="m-6 text-xl text-g-800">{{ store.user.name }}</p>
       </div>
       <hr />
@@ -45,8 +45,9 @@
       </div>
     </div>
     <!-- Right side, friends related-->
-    <div class="flex flex-col items-center rounded-xl border border-gray-800 p-6 w-full ml-4">
-      <h2 class="text-2xl font-bold m-4">Lista de amigos</h2>
+    <div class="flex flex-col rounded-xl border border-gray-800 p-6 w-full ml-4">
+      <h2 class="text-2xl font-bold m-4 text-center">Lista de amigos</h2>
+
       <PlayerList :players="friends" />
     </div>
   </section>
@@ -70,7 +71,7 @@
   };
 
   const friends = [
-    { name: 'Eindres', email: '', avatar: '' },
-    { name: 'DiChorg', email: '', avatar: '' },
+    { name: 'Eindres', email: '', avatar: '/profile.svg' },
+    { name: 'DiChorg', email: '', avatar: '/profile.svg' },
   ];
 </script>
