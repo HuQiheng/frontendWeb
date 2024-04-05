@@ -12,9 +12,9 @@
       <!-- Leave -->
       <ButtonRed class="m-8 absolute" @click="openModal"> Abandonar <IconArrowBarToRight class="ml-2" /> </ButtonRed>
       <Dialog :show="isOpenQuitDialog">
-        <template v-slot:title> ¿Estás seguro que quieres abandonar la partida? </template>
-        <template v-slot:buttons>
-          <ButtonRed @click="closeModal & navigateTo('/dashboard')" class="mr-4"> Sí </ButtonRed>
+        <template #title>¿Estás seguro de que quieres abandonar la partida?</template>
+        <template #buttons>
+          <ButtonRed @click="closeModal & navigateTo('/dashboard')" class="mr-4">Sí</ButtonRed>
           <ButtonDark @click="closeModal">No</ButtonDark>
         </template>
       </Dialog>

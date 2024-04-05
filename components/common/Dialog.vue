@@ -30,7 +30,7 @@
               <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
                 <slot name="title"></slot>
               </DialogTitle>
-              <div class="mt-2">
+              <div class="mt-2 text-sm">
                 <slot name="description"></slot>
               </div>
 

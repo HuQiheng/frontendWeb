@@ -10,6 +10,7 @@
     <!-- Settings part, non related with the user -->
     <Button class="m-4"><NuxtLink to="/play">Jugar</NuxtLink></Button>
     <ButtonRed class="w-36 m-4" @click="signout">Cerrar Sesión</ButtonRed>
+    <RemoveAccount/>
   </section>
   <section class="m-6">
     <!-- section class="flex flex-col justify-center items-center" last -->
@@ -64,7 +65,7 @@
 
 <script setup>
   import { useUserStore } from '~/stores';
-  // import PlayerList from '@/components/structure/PlayerList.vue';
+  import { io } from "socket.io-client";
 
   // Protect route against unlogged users
   definePageMeta({
@@ -82,4 +83,7 @@
     { name: 'Eindres', email: '', avatar: '/profile.svg' },
     { name: 'DiChorg', email: '', avatar: '/profile.svg' },
   ]);
+
+  // SocketIO
+  const socket = io("http://localhost:3010");
 </script>

@@ -17,6 +17,7 @@
     "nuxt-vue3-google-signin": "^0.0.10",
     "pinia": "^2.1.7",
     "pm2": "^5.3.1",
+    "socket.io-client": "^4.7.5",
     "vue": "^3.4.19",
     "vue-router": "^4.2.5"
   },
