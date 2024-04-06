@@ -27,12 +27,18 @@ const closeModal = () => {
 }
 
 const removeAccount = async () => {
-  await useFetch(api + '/users/' + store.user.email, {
-    method: 'delete',
-    onResponse({ request, response, options }) {
-      console.log(response);
-      closeModal();
-    }
-  });
+  await fetch(api + '/users/delete/' + store.user.email, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'include',
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));
+  //closeModal();
+  store.signout();
+  navigateTo('/');
 }
 </script>
