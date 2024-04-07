@@ -32,7 +32,7 @@
       <h2 class="text-2xl font-bold m-4">Juego</h2>
       <!-- Start new match -->
       <div class="m-6">
-        <NuxtLink to="/lobby"><Button>CREAR PARTIDA</Button></NuxtLink>
+        <Button @click="createRoom">CREAR PARTIDA</Button>
       </div>
 
       <hr />
@@ -86,5 +86,14 @@
   ]);
 
   // SocketIO
-  const socket = io('http://localhost:3010');
+  const socket = io('http://localhost:3010', {
+    withCredentials: true,
+  });
+
+  const createRoom = () => {
+    socket.emit('createRoom', 'RoomNameHere');
+    socket.on('Access code', (code) => {
+      console.log(`Room created with access code: ${code}`);
+    });
+  };
 </script>
