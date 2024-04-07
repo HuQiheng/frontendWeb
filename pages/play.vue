@@ -448,6 +448,7 @@
     },
   };
 
+  // Territories animation
   const myTerritories = Object.keys(state.map).filter((key) => state.map[key].player === me);
 
   const AdjacentTerritories = ref({});

@@ -11,34 +11,34 @@
 </template>
 
 <script setup>
-import { useUserStore } from '~/stores';
-const store = useUserStore();
+  import { useUserStore } from '~/stores';
+  const store = useUserStore();
 
-const api = useAppConfig().api;
+  const api = useAppConfig().api;
 
-const isOpen = ref(false);
+  const isOpen = ref(false);
 
-const openModal = () => {
-  isOpen.value = true;
-}
+  const openModal = () => {
+    isOpen.value = true;
+  };
 
-const closeModal = () => {
-  isOpen.value = false;
-}
+  const closeModal = () => {
+    isOpen.value = false;
+  };
 
-const removeAccount = async () => {
-  await fetch(api + '/users/delete/' + store.user.email, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    credentials: 'include',
-  })
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error('Error:', error));
-  //closeModal();
-  store.signout();
-  navigateTo('/');
-}
+  const removeAccount = async () => {
+    await fetch(api + '/users/delete/' + store.user.email, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error('Error:', error));
+    //closeModal();
+    store.signout();
+    navigateTo('/');
+  };
 </script>

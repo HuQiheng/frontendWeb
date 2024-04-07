@@ -10,7 +10,7 @@
     <!-- Settings part, non related with the user -->
     <Button class="m-4"><NuxtLink to="/play">Jugar</NuxtLink></Button>
     <ButtonRed class="w-36 m-4" @click="signout">Cerrar Sesión</ButtonRed>
-    <RemoveAccount/>
+    <RemoveAccount />
   </section>
   <section class="m-6">
     <!-- section class="flex flex-col justify-center items-center" last -->
@@ -49,6 +49,7 @@
     <div class="flex flex-col rounded-xl border border-gray-800 p-6 w-full ml-4">
       <!-- Title -->
       <h2 class="text-2xl font-bold m-4 text-center">Lista de amigos</h2>
+      <hr />
       <!-- Friend Searcher -->
       <div class="flex flex-row p-4 m-4">
         <img src="/zoom.svg" alt="Search icon" />
@@ -65,7 +66,7 @@
 
 <script setup>
   import { useUserStore } from '~/stores';
-  import { io } from "socket.io-client";
+  import { io } from 'socket.io-client';
 
   // Protect route against unlogged users
   definePageMeta({
@@ -85,5 +86,5 @@
   ]);
 
   // SocketIO
-  const socket = io("http://localhost:3010");
+  const socket = io('http://localhost:3010');
 </script>
