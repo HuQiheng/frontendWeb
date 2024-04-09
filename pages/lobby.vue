@@ -8,10 +8,14 @@
   </Head>
   <main class="w-full h-screen flex flex-row overflow-hidden">
     <section class="grow flex flex-col">
-      <div class="flex m-6 justify-center">
+      <div class="flex mt-6 mr-6 ml-6 justify-start">
+        <ButtonRed @click="leaveLobby">Abandonar Sala</ButtonRed>
+      </div>
+      <div class="flex mb-6 mr-6 ml-6 justify-center">
         <h1 class="text-4xl font-bold m-4">Sala de Espera</h1>
       </div>
-      <div class="flex m-6 justify-center">
+
+      <div class="flex m-6 justify-center items-center">
         <p>Código: {{ store.user.room }}</p>
       </div>
       <div>
@@ -57,6 +61,12 @@
     { name: 'Eindres Senior', email: '', avatar: '/profile.svg' },
     { name: 'Mini-Chorg', email: '', avatar: '/profile.svg' },
   ]);
+
+  function leaveLobby() {
+    store.setRoom(null);
+    //store.unsetRoom();
+    navigateTo('/dashboard');
+  }
 
   // Chat
   const message = ref('');

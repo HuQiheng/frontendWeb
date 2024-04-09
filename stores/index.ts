@@ -15,6 +15,8 @@ export const useUserStore = defineStore('user', () => {
 
   const setRoom = (data?: any) => (user.value.room = data);
 
+  const unsetRoom = () => (user.value.room = '');
+
   const signout = () => {
     setUser();
     navigateTo('/');
@@ -24,6 +26,7 @@ export const useUserStore = defineStore('user', () => {
     user,
     setUser,
     setRoom,
+    unsetRoom,
     signout 
   }
 })
