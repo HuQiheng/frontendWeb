@@ -25,7 +25,7 @@
         email: user.email,
         name: user.name,
         picture: 'jsfksfsdjkfdsjf',
-        room: null
+        room: null,
       });
       navigateTo('/dashboard');
     }

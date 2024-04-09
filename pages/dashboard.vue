@@ -39,7 +39,11 @@
       <!-- Join match -->
       <div class="flex flex-row justify-center m-6 w-full max-w-md">
         <div class="flex flex-row w-full max-w-md">
-          <InputText class="flex-grow text-center m-4" placeholder="Introduce código de invitación" v-model:value="joinRoomCode" />
+          <InputText
+            class="flex-grow text-center m-4"
+            placeholder="Introduce código de invitación"
+            v-model:value="joinRoomCode"
+          />
           <Button class="m-4">UNIRSE</Button>
         </div>
       </div>

@@ -56,7 +56,7 @@
   });
 
   const store = useUserStore();
-  
+
   // SocketIO
   const socket = io('http://localhost:3010', {
     withCredentials: true,

@@ -5,7 +5,7 @@
         <span v-if="message.player != me">{{ players[message.player].name }}</span>
         <span v-else>Yo</span>
       </div>
-      <div>
+      <div class="message-text">
         {{ message.text }}
       </div>
     </div>
@@ -25,18 +25,22 @@
     @apply text-sm;
   }
 
+  .message-container .message .message-text {
+    @apply break-all;
+  }
+
   .scrollbar::-webkit-scrollbar {
-    width: 10px; /* Set the width of the scrollbar */
+    width: 10px;
   }
 
   .scrollbar::-webkit-scrollbar-thumb {
-    background-color: #ea970a; /* Set the color of the scrollbar thumb */
-    border-radius: 5px; /* Set the border radius of the scrollbar thumb */
+    background-color: #083344;
+    border-radius: 5px;
   }
 
   .scrollbar::-webkit-scrollbar-track {
-    background-color: #e5e7eb; /* Set the color of the scrollbar track */
-    border-radius: 5px; /* Set the border radius of the scrollbar track */
+    background-color: #e5e7eb;
+    border-radius: 5px;
   }
 </style>
 
