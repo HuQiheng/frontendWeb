@@ -7,12 +7,6 @@
     />
   </Head>
   <section class="m-6">
-    <!-- Settings part, non related with the user -->
-    <Button class="m-4"><NuxtLink to="/play">Jugar</NuxtLink></Button>
-    <ButtonRed class="w-36 m-4" @click="signout">Cerrar Sesión</ButtonRed>
-    <RemoveAccount />
-  </section>
-  <section class="m-6">
     <!-- section class="flex flex-col justify-center items-center" last -->
     <div class="rounded-xl border border-gray-800 p-6">
       <!-- User's profile settings -->
@@ -23,6 +17,11 @@
       <hr />
       <!-- Achievements -->
       <div class="m-6"></div>
+      <!-- Settings part, non related with the user -->
+      <div class="flex flex-row justify-center">
+        <ButtonRed class="w-36 m-4" @click="signout">Cerrar Sesión</ButtonRed>
+        <RemoveAccount />
+      </div>
     </div>
   </section>
   <hr />
@@ -40,7 +39,7 @@
       <!-- Join match -->
       <div class="flex flex-row justify-center m-6 w-full max-w-md">
         <div class="flex flex-row w-full max-w-md">
-          <InputText class="flex-grow text-center m-4" placeholder="Introduce código de invitación" />
+          <InputText class="flex-grow text-center m-4" placeholder="Introduce código de invitación" v-model:value="joinRoomCode" />
           <Button class="m-4">UNIRSE</Button>
         </div>
       </div>
@@ -90,10 +89,18 @@
     withCredentials: true,
   });
 
+  // Create room
   const createRoom = () => {
     socket.emit('createRoom', 'RoomNameHere');
     socket.on('Access code', (code) => {
-      console.log(`Room created with access code: ${code}`);
+      store.setRoom(code);
+      navigateTo('/lobby');
     });
   };
+
+  // Join room
+  const joinRoomCode = ref('');
+  function joinRoom() {
+    socket.emit('joinRoom', joinRoomCode.value);
+  }
 </script>

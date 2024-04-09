@@ -11,10 +11,10 @@
     <section class="grow relative">
       <!-- Leave -->
       <ButtonRed class="m-8 absolute" @click="openModal"> Abandonar <IconArrowBarToRight class="ml-2" /> </ButtonRed>
-      <Dialog :show="isOpenQuitDialog">
+      <Dialog :show="isOpenQuitDialog" @click-outside="closeModal">
         <template #title>¿Estás seguro de que quieres abandonar la partida?</template>
         <template #buttons>
-          <ButtonRed @click="closeModal & navigateTo('/dashboard')" class="mr-4">Sí</ButtonRed>
+          <ButtonRed @click="quitRoom" class="mr-4">Sí</ButtonRed>
           <ButtonDark @click="closeModal">No</ButtonDark>
         </template>
       </Dialog>
@@ -48,6 +48,7 @@
 <script setup>
   import { IconSend, IconArrowBarToRight } from '@tabler/icons-vue';
   import { useUserStore } from '~/stores';
+  import { io } from 'socket.io-client';
 
   // Protect route against unlogged users
   definePageMeta({
@@ -55,8 +56,11 @@
   });
 
   const store = useUserStore();
-  const token = store.user.token;
-  const headers = { Authorization: `Bearer ${token}` };
+  
+  // SocketIO
+  const socket = io('http://localhost:3010', {
+    withCredentials: true,
+  });
 
   // Quit dialog
   const isOpenQuitDialog = ref(false);
@@ -65,6 +69,12 @@
   }
   function closeModal() {
     isOpenQuitDialog.value = false;
+  }
+  function quitRoom() {
+    closeModal();
+    navigateTo('/dashboard');
+    socket.emit('leaveRoom');
+    store.setRoom = null;
   }
 
   // Select territory

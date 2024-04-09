@@ -11,13 +11,16 @@
       <div class="flex m-6 justify-center">
         <h1 class="text-4xl font-bold m-4">Sala de Espera</h1>
       </div>
+      <div class="flex m-6 justify-center">
+        <p>Código: {{ store.user.room }}</p>
+      </div>
       <div>
         <PlayerList :players="players" />
       </div>
       <div class="flex-grow"></div>
       <!-- Spacer to push the button to the bottom -->
       <div class="relative flex justify-center w-full">
-        <Button class="m-10 w-full max-w text-center text-lg"><NuxtLink to="/play">Empezar partida</NuxtLink></Button>
+        <Button class="m-10 w-full max-w text-center text-lg" @click="startGame">Empezar partida</Button>
       </div>
     </section>
 
@@ -34,6 +37,19 @@
 
 <script setup>
   import { IconSend, IconArrowBarToRight } from '@tabler/icons-vue';
+  import { io } from 'socket.io-client';
+
+  const store = useUserStore();
+
+  // SocketIO
+  const socket = io('http://localhost:3010', {
+    withCredentials: true,
+  });
+
+  function startGame() {
+    socket.emit('startGame');
+    navigateTo('/play');
+  }
 
   const players = ref([
     { name: 'Eindres', email: '', avatar: '/profile.svg' },
