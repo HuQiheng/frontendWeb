@@ -1,11 +1,11 @@
 <template>
-  <div class="message-container" id="scrollable">
-    <div v-for="message in messages" class="message">
+  <div class="message-container scrollbar" id="scrollable">
+    <div v-for="message in messages" class="message scrollbar">
       <div :class="'player' + message.player" class="player">
         <span v-if="message.player != me">{{ players[message.player].name }}</span>
         <span v-else>Yo</span>
       </div>
-      <div>
+      <div class="message-text">
         {{ message.text }}
       </div>
     </div>
@@ -23,6 +23,24 @@
 
   .message-container .message .player span {
     @apply text-sm;
+  }
+
+  .message-container .message .message-text {
+    @apply break-all;
+  }
+
+  .scrollbar::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background-color: #083344;
+    border-radius: 5px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    background-color: #e5e7eb;
+    border-radius: 5px;
   }
 </style>
 

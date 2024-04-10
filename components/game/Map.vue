@@ -3,7 +3,6 @@
   const emit = defineEmits(['select']);
 
   function clickOnTerritory(territory) {
-    console.log(territory);
     emit('select', territory);
   }
 </script>
