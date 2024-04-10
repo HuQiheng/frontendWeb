@@ -41,12 +41,20 @@
 
 <script setup>
   import { IconSend, IconArrowBarToRight } from '@tabler/icons-vue';
+  import { useUserStore } from '~/stores';
   import { io } from 'socket.io-client';
+
+  // Protect route against unlogged users
+  definePageMeta({
+    middleware: ['auth'],
+  });
+
+  const api = useAppConfig().api;
 
   const store = useUserStore();
 
   // SocketIO
-  const socket = io('http://localhost:3010', {
+  const socket = io(api, {
     withCredentials: true,
   });
 

@@ -55,10 +55,12 @@
     middleware: ['auth'],
   });
 
+  const api = useAppConfig().api;
+
   const store = useUserStore();
 
   // SocketIO
-  const socket = io('http://localhost:3010', {
+  const socket = io(api, {
     withCredentials: true,
   });
 
