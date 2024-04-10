@@ -73,11 +73,15 @@
     isOpenQuitDialog.value = false;
   }
   function quitRoom() {
-    closeModal();
-    navigateTo('/dashboard');
     socket.emit('leaveRoom');
-    store.setRoom = null;
+    closeModal();
   }
+  socket.on('playerLeftRoom', (player) => {
+    alert('Abandonaste');
+    console.log(player);
+    // store.setRoom = null;
+    //navigateTo('/dashboard');
+  });
 
   // Select territory
   const selected = ref();

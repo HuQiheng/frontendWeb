@@ -16,7 +16,7 @@
       </div>
 
       <div class="flex m-6 justify-center items-center">
-        <p>Código: {{ store.user.room }}</p>
+        <p>Código: {{ roomCode }}</p>
       </div>
       <div>
         <PlayerList :players="players" />
@@ -53,15 +53,7 @@
 
   const store = useUserStore();
 
-  // SocketIO
-  const socket = io(api, {
-    withCredentials: true,
-  });
-
-  function startGame() {
-    socket.emit('startGame');
-    navigateTo('/play');
-  }
+  const roomCode = store.user.room;
 
   const players = ref([
     { name: 'Eindres', email: '', avatar: '/profile.svg' },
@@ -70,9 +62,31 @@
     { name: 'Mini-Chorg', email: '', avatar: '/profile.svg' },
   ]);
 
+  // SocketIO
+  const socket = io(api, {
+    withCredentials: true,
+  });
+
+  socket.on('playerJoined', () => {
+    alert('Se unió un jugador');
+  });
+
+  socket.on('connectedPlayers', (playerList) => {
+    alert('Jugadores conectados');
+    console.log(playerList);
+  });
+
+  function startGame() {
+    socket.emit('startGame', roomCode);
+  }
+
+  socket.on('gameStarting', (code) => {
+    navigateTo('/play');
+  });
+
   function leaveLobby() {
-    store.setRoom(null);
-    //store.unsetRoom();
+    socket.emit('leaveRoom');
+    store.setRoom = null;
     navigateTo('/dashboard');
   }
 

@@ -90,17 +90,26 @@
 
   // Create room
   const createRoom = () => {
-    socket.emit('createRoom', 'RoomNameHere');
-    socket.on('Access code', (code) => {
-      store.setRoom(code);
-      navigateTo('/lobby');
-    });
+    socket.emit('createRoom');
   };
+  socket.on('accessCode', (code) => {
+    store.setRoom(code);
+    navigateTo('/lobby');
+  });
 
   // Join room
   const joinRoomCode = ref('');
   function joinRoom() {
-    socket.emit('joinRoom', 'RoomNameHere', joinRoomCode.value);
-    //navigateTo('/lobby');
+    socket.emit('joinRoom', joinRoomCode.value);
   }
+  socket.on('roomAccess', (code) => {
+    store.setRoom(code);
+    navigateTo('/lobby');
+  });
+  socket.on('roomJoinError', () => {
+    alert('Error al entrar a la sala');
+  });
+  socket.on('nonExistingRoom', () => {
+    alert('La sala no existe');
+  });
 </script>
