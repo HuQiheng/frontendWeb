@@ -44,7 +44,7 @@
             placeholder="Introduce código de invitación"
             v-model:value="joinRoomCode"
           />
-          <Button class="m-4">UNIRSE</Button>
+          <Button class="m-4" @click="joinRoom">UNIRSE</Button>
         </div>
       </div>
     </div>
@@ -98,6 +98,7 @@
   // Join room
   const joinRoomCode = ref('');
   function joinRoom() {
-    socket.emit('joinRoom', joinRoomCode.value);
+    socket.emit('joinRoom', 'RoomNameHere', joinRoomCode.value);
+    //navigateTo('/lobby');
   }
 </script>
