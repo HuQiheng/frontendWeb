@@ -69,6 +69,8 @@
     middleware: ['auth'],
   });
 
+  const api = useAppConfig().api;
+
   const store = useUserStore();
 
   const signout = () => {
@@ -82,7 +84,7 @@
   ]);
 
   // SocketIO
-  const socket = io('http://localhost:3010', {
+  const socket = io(api, {
     withCredentials: true,
   });
 
