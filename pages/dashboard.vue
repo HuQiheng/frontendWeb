@@ -53,6 +53,17 @@
       <!-- Title -->
       <h2 class="text-2xl font-bold m-4 text-center">Lista de amigos</h2>
       <hr />
+      <!-- Friend Searcher -->
+      <div class="flex flex-row p-4 m-4">
+        <img src="/zoom.svg" alt="Search icon" />
+        <InputText
+          class="flex-grow text-center m-4"
+          placeholder="Introduce el correo del amigo"
+          v-model:value="addFriendMail"
+        />
+        <Button class="m-4">UNIRSE</Button>
+      </div>
+      <hr />
       <!-- Frined List -->
       <PlayerListCompact :players="friends" />
     </div>
@@ -112,4 +123,7 @@
   socket.on('nonExistingRoom', () => {
     alert('La sala no existe');
   });
+
+  // Add a friend
+  const addFriendMail = ref('');
 </script>
