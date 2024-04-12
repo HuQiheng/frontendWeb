@@ -1,8 +1,10 @@
 <template>
-  <ButtonRed class="w-40 m-4" @click="openModal">Eliminar cuenta</ButtonRed>
+  <ButtonRed @click="openModal">Eliminar cuenta</ButtonRed>
   <Dialog :show="isOpen" @click-outside="closeModal">
     <template #title>¿Estás seguro de que quieres eliminar tu cuenta?</template>
-    <template #description>Esta acción no tiene vuelta atrás, perderás todo tu progreso.</template>
+    <template #description>
+      <p class="text-sm">Esta acción no tiene vuelta atrás, perderás todo tu progreso.</p>
+    </template>
     <template #buttons>
       <ButtonRed @click="removeAccount" class="mr-4">Eliminar cuenta</ButtonRed>
       <ButtonDark @click="closeModal">Cancelar acción</ButtonDark>
