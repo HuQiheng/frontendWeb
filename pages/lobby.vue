@@ -71,8 +71,8 @@
     withCredentials: true,
   });
 
-  socket.on('playerJoined', () => {
-    alert('Se unió un jugador');
+  socket.on('playerJoined', (name) => {
+    alert('Se unió ' + name);
   });
 
   socket.on('connectedPlayers', (playerList) => {

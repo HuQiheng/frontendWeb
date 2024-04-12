@@ -19,8 +19,9 @@
       <div class="m-6"></div>
       <!-- Settings part, non related with the user -->
       <div class="flex flex-row justify-center">
-        <ButtonRed class="w-36 m-4" @click="signout">Cerrar Sesión</ButtonRed>
-        <RemoveAccount />
+        <Settings />
+        <ButtonRed class="m-2" @click="signout">Cerrar Sesión <IconArrowBarToRight class="button-icon"/></ButtonRed>
+        <!--<RemoveAccount />-->
       </div>
     </div>
   </section>
@@ -72,6 +73,7 @@
 </template>
 
 <script setup>
+  import { IconArrowBarToRight } from '@tabler/icons-vue';
   import { useUserStore } from '~/stores';
   import { io } from 'socket.io-client';
 
@@ -85,8 +87,7 @@
   const store = useUserStore();
 
   const signout = () => {
-    store.signout();
-    navigateTo('/');
+    navigateTo('/signout');
   };
 
   const friends = ref([

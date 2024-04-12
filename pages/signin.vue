@@ -24,6 +24,7 @@
       store.setUser({
         email: user.email,
         name: user.name,
+        password: user.password,
         picture: 'jsfksfsdjkfdsjf',
         room: null,
       });
