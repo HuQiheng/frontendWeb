@@ -85,8 +85,7 @@
   const store = useUserStore();
 
   const signout = () => {
-    store.signout();
-    navigateTo('/');
+    navigateTo('/signout');
   };
 
   const friends = ref([

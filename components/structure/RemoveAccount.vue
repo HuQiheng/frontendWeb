@@ -27,7 +27,7 @@
   };
 
   const removeAccount = async () => {
-    await fetch(api + '/users/delete/' + store.user.email, {
+    await fetch(api + '/users/' + store.user.email, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

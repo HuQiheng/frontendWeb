@@ -76,7 +76,7 @@
     socket.emit('leaveRoom');
     closeModal();
   }
-  socket.on('playerLeftRoom', (player) => {
+  socket.on('playerLeftRoom', (code, player) => {
     alert('Abandonaste');
     console.log(player);
     // store.setRoom = null;
