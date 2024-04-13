@@ -31,7 +31,7 @@
         credentials: 'include',
       })
         .then((response) => response.json())
-        .then((data) => user = data)
+        .then((data) => (user = data))
         .catch((error) => console.error('Error:', error));
       store.setUser({
         email: user.email,

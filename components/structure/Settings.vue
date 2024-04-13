@@ -1,5 +1,5 @@
 <template>
-  <ButtonDark class="m-2" @click="openModal">Ajustes <IconSettings class="button-icon"/></ButtonDark>
+  <ButtonDark class="m-2" @click="openModal">Ajustes <IconSettings class="button-icon" /></ButtonDark>
   <Dialog :show="isOpen" @click-outside="closeModal">
     <template #title><b class="text-lg">Ajustes</b></template>
     <template #description>
@@ -54,8 +54,8 @@
         credentials: 'include',
         body: JSON.stringify({
           username: name.value,
-          password: store.user.password
-        })
+          password: store.user.password,
+        }),
       })
         .then((response) => {
           if (response.status == 200) {

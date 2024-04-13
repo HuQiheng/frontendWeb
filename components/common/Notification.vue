@@ -9,35 +9,35 @@
 </template>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s
-}
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.5s;
+  }
 
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+  }
 </style>
 
 <script setup>
-const text = ref('');
-const isShown = ref(false);
-const sound = '/notification.mp3';
+  const text = ref('');
+  const isShown = ref(false);
+  const sound = '/notification.mp3';
 
-// Shows notification with text given by t
-function show(t) {
-  text.value = t;
-  isShown.value = true;
-  const audio = new Audio(sound);
-  audio.loop = false;
-  audio.play();
-  setTimeout(() => {
-    isShown.value = false;
-  }, 2000);
-}
+  // Shows notification with text given by t
+  function show(t) {
+    text.value = t;
+    isShown.value = true;
+    const audio = new Audio(sound);
+    audio.loop = false;
+    audio.play();
+    setTimeout(() => {
+      isShown.value = false;
+    }, 2000);
+  }
 
-defineExpose({
-  show,
-});
+  defineExpose({
+    show,
+  });
 </script>

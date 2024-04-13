@@ -6,9 +6,10 @@
       content="Un juego de estrategia donde tendrás que ganar dinero, erigir fábricas, y conquistar territorios para expandir tu influencia."
     />
   </Head>
-  <section class="m-6">
+  <!-- Top section -->
+  <section class="m-6 justify-center items-center">
     <!-- section class="flex flex-col justify-center items-center" last -->
-    <div class="rounded-xl border border-gray-800 p-6">
+    <div class="rounded-xl border shadow-md p-6">
       <!-- User's profile settings -->
       <div class="top-14 m-6 flex flex-col justify-center items-center">
         <img src="/profile.svg" alt="User Picture" style="width: 200px; height: 200px" />
@@ -20,26 +21,30 @@
       <!-- Settings part, non related with the user -->
       <div class="flex flex-row justify-center">
         <Settings />
-        <ButtonRed class="m-2" @click="signout">Cerrar Sesión <IconArrowBarToRight class="button-icon"/></ButtonRed>
+        <ButtonRed class="m-2" @click="signout">Cerrar Sesión <IconArrowBarToRight class="button-icon" /></ButtonRed>
         <!--<RemoveAccount />-->
       </div>
     </div>
   </section>
   <hr />
-  <section class="flex flex-row m-6">
+  <!-- Bottom section -->
+  <section class="flex flex-col m-6 lg:flex-row">
     <!-- Left side, match related-->
-    <div class="flex flex-col items-center rounded-xl border border-gray-800 p-6 w-full mr-4">
-      <h2 class="text-2xl font-bold m-4">Juego</h2>
+    <div class="flex flex-col grow w-full rounded-xl border shadow-md m-2 p-6 lg:mt-0 lg:mb-0 lg:ml-0 lg:mr-4">
+      <h2 class="flex text-2xl font-bold m-4 text-center justify-center w-full">Juego</h2>
+      <hr />
       <!-- Start new match -->
-      <div class="m-6">
-        <Button @click="createRoom">CREAR PARTIDA</Button>
+      <div class="flex flex-grow items-center justify-center w-full">
+        <div class="flex justify-center w-full m-6">
+          <Button @click="createRoom">CREAR PARTIDA</Button>
+        </div>
       </div>
 
       <hr />
 
       <!-- Join match -->
-      <div class="flex flex-row justify-center m-6 w-full max-w-md">
-        <div class="flex flex-row w-full max-w-md">
+      <div class="flex flex-row flex-grow justify-center items-center w-full">
+        <div class="flex flex-row flex-grow p-4 m-4">
           <InputText
             class="flex-grow text-center m-4"
             placeholder="Introduce código de invitación"
@@ -50,7 +55,7 @@
       </div>
     </div>
     <!-- Right side, friends related-->
-    <div class="flex flex-col rounded-xl border border-gray-800 p-6 w-full ml-4">
+    <div class="flex flex-col rounded-xl border shadow-md p-6 w-full m-2 lg:mt-0 lg:mb-0 lg:ml-4 lg:mr-0">
       <!-- Title -->
       <h2 class="text-2xl font-bold m-4 text-center">Lista de amigos</h2>
       <hr />

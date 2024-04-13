@@ -1,9 +1,7 @@
-<template>
-Cerrando sesión
-</template>
+<template>Cerrando sesión</template>
 
 <script setup>
-const store = useUserStore();
-store.signout();
-navigateTo('/');
+  const store = useUserStore();
+  store.signout();
+  navigateTo('/');
 </script>
