@@ -14,18 +14,30 @@
 <script setup>
   import { useUserStore } from '~/stores';
 
+  const api = useAppConfig().api;
+
   const store = useUserStore();
 
   // Sign in & navigate to dashboard if URL parameters indicate to do so
   const route = useRoute().query;
   if (Object.keys(route).length != 0) {
     if (route.user != null) {
-      const user = JSON.parse(route.user);
+      let user = JSON.parse(route.user);
+      await fetch(api + '/users/' + user.email, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      })
+        .then((response) => response.json())
+        .then((data) => user = data)
+        .catch((error) => console.error('Error:', error));
       store.setUser({
         email: user.email,
-        name: user.name,
+        name: user.username.trimEnd(),
         password: user.password,
-        picture: 'jsfksfsdjkfdsjf',
+        picture: user.picture,
         room: null,
       });
       navigateTo('/dashboard');
@@ -33,8 +45,6 @@
   }
 
   // Access backend
-  const api = useAppConfig().api;
-
   const signin = async () => {
     navigateTo(api + '/auth/google', { external: true });
   };

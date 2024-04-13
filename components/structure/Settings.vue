@@ -17,6 +17,7 @@
       <ButtonDark @click="closeModal">Cerrar ventana</ButtonDark>
     </template>
   </Dialog>
+  <Notification ref="notification" />
 </template>
 
 <script setup>
@@ -26,6 +27,10 @@
 
   const api = useAppConfig().api;
 
+  // Notification
+  const notification = ref(null);
+
+  // Modal window
   const isOpen = ref(false);
 
   const openModal = () => {
@@ -36,6 +41,7 @@
     isOpen.value = false;
   };
 
+  // Change name
   const name = ref(store.user.name);
 
   const changeName = async () => {
@@ -51,13 +57,19 @@
           password: store.user.password
         })
       })
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.error('Error:', error));
-      store.setName(name.value);
-      closeModal();
+        .then((response) => {
+          if (response.status == 200) {
+            store.setName(name.value);
+            notification.value.show('El nombre se ha cambiado con éxito.');
+            closeModal();
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          notification.value.show('Error al cambiar el nombre.');
+        });
     } else {
-      alert('No se permiten nombres vacíos');
+      notification.value.show('No se permiten nombres vacíos.');
     }
   };
 </script>

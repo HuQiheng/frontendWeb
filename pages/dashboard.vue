@@ -69,7 +69,6 @@
       <PlayerListCompact :players="friends" />
     </div>
   </section>
-  <footer></footer>
 </template>
 
 <script setup>
