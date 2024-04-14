@@ -5,17 +5,22 @@ export const useUserStore = defineStore('user', () => {
   interface UserData {
     email: string;
     name: string;
+    password: string;
     picture: string;
     room: string;
   }
 
   const user = useCookie<UserData>('userData', { maxAge: 60*60 });
 
+  const connectedPlayers = ref(null);
+  const gameState = ref(null);
+
+  // Methods
   const setUser = (data?: any) => (user.value = data);
 
-  const setRoom = (data?: any) => (user.value.room = data);
+  const setName = (data?: any) => (user.value.name = data);
 
-  const unsetRoom = () => (user.value.room = '');
+  const setRoom = (data?: any) => (user.value.room = data);
 
   const signout = () => {
     setUser();
@@ -24,9 +29,11 @@ export const useUserStore = defineStore('user', () => {
 
   return { 
     user,
+    connectedPlayers,
+    gameState,
     setUser,
+    setName,
     setRoom,
-    unsetRoom,
     signout 
   }
-})
+});

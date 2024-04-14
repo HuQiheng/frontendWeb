@@ -6,6 +6,7 @@
       content="Un juego de estrategia donde tendrás que ganar dinero, erigir fábricas, y conquistar territorios para expandir tu influencia."
     />
   </Head>
+  <Notification ref="notification" />
   <main class="w-full h-screen flex flex-row overflow-hidden">
     <!-- Game board -->
     <section class="grow relative">
@@ -36,7 +37,7 @@
     </section>
     <!-- Chat -->
     <section class="w-96 shadow-md border border-gray-200 flex flex-col">
-      <Chat :messages="messages" :players="state.players" :me="me"></Chat>
+      <!--<Chat :messages="messages" :players="state.players" :me="me"></Chat>-->
       <div class="p-4 w-full flex flex-row border-t border-gray-200">
         <InputText class="w-full" @keydown.enter="sendMessage" placeholder="Escribe aquí" v-model:value="message" />
         <ButtonDark class="ml-4" @click="sendMessage"><IconSend /></ButtonDark>
@@ -73,11 +74,15 @@
     isOpenQuitDialog.value = false;
   }
   function quitRoom() {
-    closeModal();
-    navigateTo('/dashboard');
     socket.emit('leaveRoom');
-    store.setRoom = null;
+    closeModal();
   }
+  socket.on('playerLeftRoom', (code, player) => {
+    alert('Abandonaste');
+    console.log(player);
+    // store.setRoom = null;
+    //navigateTo('/dashboard');
+  });
 
   // Select territory
   const selected = ref();
@@ -85,7 +90,7 @@
   const animatedTerritories = ref([]);
 
   function showTerritory(territory) {
-    selected.value = state.map[territory].name;
+    selected.value = state.value.map[territory].name;
     selectedCode.value = territory;
   }
 
@@ -143,7 +148,7 @@
   // Chat
   const message = ref('');
 
-  const me = 3;
+  const me = 0;
   const messages = ref([
     {
       player: 2,
@@ -176,7 +181,10 @@
   }
 
   // Game state
-  const state = {
+  console.log('Game state!!');
+  console.log(store.gameState);
+  const state = ref(store.gameState);
+  /*const state = {
     turn: 0,
     players: [
       {
@@ -458,10 +466,10 @@
         factories: 0,
       },
     },
-  };
+  };*/
 
   // Territories animation
-  const myTerritories = Object.keys(state.map).filter((key) => state.map[key].player === me);
+  const myTerritories = Object.keys(state.value.map).filter((key) => state.value.map[key].player === me);
 
   const AdjacentTerritories = ref({});
 
@@ -474,7 +482,7 @@
     const selectedAdjacentTerritories = AdjacentTerritories.value[selectedTerritory]?.adjacents || [];
 
     return selectedAdjacentTerritories.filter((adjacentCode) => {
-      const adjacentPlayerCode = state.map[adjacentCode]?.player;
+      const adjacentPlayerCode = state.value.map[adjacentCode]?.player;
       return adjacentPlayerCode !== myPlayerCode;
     });
   });

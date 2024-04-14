@@ -6,61 +6,83 @@
       content="Un juego de estrategia donde tendrás que ganar dinero, erigir fábricas, y conquistar territorios para expandir tu influencia."
     />
   </Head>
-  <section class="m-6">
-    <!-- section class="flex flex-col justify-center items-center" last -->
-    <div class="rounded-xl border border-gray-800 p-6">
-      <!-- User's profile settings -->
-      <div class="top-14 m-6 flex flex-col justify-center items-center">
-        <img src="/profile.svg" alt="User Picture" style="width: 200px; height: 200px" />
-        <p class="m-6 text-xl text-g-800">{{ store.user.name }}</p>
-      </div>
-      <hr />
-      <!-- Achievements -->
-      <div class="m-6"></div>
-      <!-- Settings part, non related with the user -->
-      <div class="flex flex-row justify-center">
-        <ButtonRed class="w-36 m-4" @click="signout">Cerrar Sesión</ButtonRed>
-        <RemoveAccount />
-      </div>
-    </div>
-  </section>
-  <hr />
-  <section class="flex flex-row m-6">
-    <!-- Left side, match related-->
-    <div class="flex flex-col items-center rounded-xl border border-gray-800 p-6 w-full mr-4">
-      <h2 class="text-2xl font-bold m-4">Juego</h2>
-      <!-- Start new match -->
-      <div class="m-6">
-        <Button @click="createRoom">CREAR PARTIDA</Button>
-      </div>
-
-      <hr />
-
-      <!-- Join match -->
-      <div class="flex flex-row justify-center m-6 w-full max-w-md">
-        <div class="flex flex-row w-full max-w-md">
-          <InputText
-            class="flex-grow text-center m-4"
-            placeholder="Introduce código de invitación"
-            v-model:value="joinRoomCode"
-          />
-          <Button class="m-4" @click="joinRoom">UNIRSE</Button>
+  <Notification ref="notification" />
+  <main class="w-full h-screen flex flex-col">
+    <!-- Top section -->
+    <section class="flex-1 justify-center items-center p-6">
+      <!-- section class="flex flex-col justify-center items-center" last -->
+      <div class="rounded-xl border shadow-md p-6">
+        <!-- User's profile settings -->
+        <div class="top-14 flex flex-col justify-center items-center">
+          <img v-if="store.user.picture" :src="store.user.picture" alt="User Picture" class="rounded-full" style="width: 180px; height: 180px" />
+          <img v-else src="/profile.svg" alt="User Picture" style="width: 180px; height: 180px" />
+          <p class="m-6 text-xl text-g-800">{{ store.user.name }}</p>
+        </div>
+        <hr />
+        <!-- Achievements -->
+        <div class="m-6"></div>
+        <!-- Settings part, non related with the user -->
+        <div class="flex flex-row justify-center">
+          <Settings />
+          <ButtonRed class="m-2" @click="signout">Cerrar Sesión <IconArrowBarToRight class="button-icon" /></ButtonRed>
+          <!--<RemoveAccount />-->
         </div>
       </div>
-    </div>
-    <!-- Right side, friends related-->
-    <div class="flex flex-col rounded-xl border border-gray-800 p-6 w-full ml-4">
-      <!-- Title -->
-      <h2 class="text-2xl font-bold m-4 text-center">Lista de amigos</h2>
-      <hr />
-      <!-- Frined List -->
-      <PlayerListCompact :players="friends" />
-    </div>
-  </section>
-  <footer></footer>
+    </section>
+    <!-- Bottom section -->
+    <section class="flex-1 flex flex-col lg:flex-row">
+      <!-- Left side, match related-->
+      <div class="flex-1 p-6">
+        <div class="flex flex-col w-full h-full rounded-xl border shadow-md p-6">
+          <h2 class="flex text-2xl font-bold m-4 text-center justify-center w-full">Juego</h2>
+          <hr />
+          <!-- Start new match -->
+          <div class="flex flex-grow items-center justify-center w-full">
+            <div class="flex my-6 justify-center w-full">
+              <Button @click="createRoom">CREAR PARTIDA</Button>
+            </div>
+          </div>
+          <hr />
+          <!-- Join match -->
+          <div class="flex flex-row flex-grow justify-center items-center w-full">
+            <div class="flex flex-row flex-grow p-4 m-4">
+              <InputText
+                class="flex-grow text-center m-4"
+                placeholder="Introduce código de invitación"
+                v-model:value="joinRoomCode"
+              />
+              <Button class="m-4" @click="joinRoom">UNIRSE</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Right side, friends related-->
+      <div class="flex-1 p-6">
+        <div class="flex flex-col h-full rounded-xl border shadow-md p-6 w-full">
+          <!-- Title -->
+          <h2 class="text-2xl font-bold m-4 text-center">Lista de amigos</h2>
+          <hr />
+          <!-- Friend Searcher -->
+          <div class="flex flex-row m-6">
+            <!--<img src="/zoom.svg" alt="Search icon" />-->
+            <InputText
+              class="flex-grow text-center m-4"
+              placeholder="Introduce el correo del amigo"
+              v-model:value="addFriendMail"
+            />
+            <Button class="m-4">UNIRSE</Button>
+          </div>
+          <hr />
+          <!-- Frined List -->
+          <PlayerListCompact :players="friends" />
+        </div>
+      </div>
+    </section>
+  </main>
 </template>
 
 <script setup>
+  import { IconArrowBarToRight } from '@tabler/icons-vue';
   import { useUserStore } from '~/stores';
   import { io } from 'socket.io-client';
 
@@ -73,14 +95,16 @@
 
   const store = useUserStore();
 
+  // Notification
+  const notification = ref(null);
+
   const signout = () => {
-    store.signout();
-    navigateTo('/');
+    navigateTo('/signout');
   };
 
   const friends = ref([
-    { name: 'Eindres', email: '', avatar: '/profile.svg' },
-    { name: 'DiChorg', email: '', avatar: '/profile.svg' },
+    { name: 'Eindres', email: '', picture: '/profile.svg' },
+    { name: 'DiChorg', email: '', picture: '/profile.svg' },
   ]);
 
   // SocketIO
@@ -90,17 +114,38 @@
 
   // Create room
   const createRoom = () => {
-    socket.emit('createRoom', 'RoomNameHere');
-    socket.on('Access code', (code) => {
-      store.setRoom(code);
-      navigateTo('/lobby');
-    });
+    socket.emit('createRoom');
   };
+
+  socket.on('accessCode', (code) => {
+    store.setRoom(code);
+    navigateTo('/lobby');
+  });
 
   // Join room
   const joinRoomCode = ref('');
   function joinRoom() {
-    socket.emit('joinRoom', 'RoomNameHere', joinRoomCode.value);
-    //navigateTo('/lobby');
+    socket.emit('joinRoom', joinRoomCode.value);
   }
+
+  socket.on('roomAccess', (code) => {
+    store.setRoom(code);
+  });
+
+  socket.on('roomJoinError', () => {
+    notification.value.show('Error al entrar a la sala');
+  });
+
+  socket.on('nonExistingRoom', () => {
+    notification.value.show('La sala no existe');
+  });
+
+  // This event can only be received if the user is in a room
+  socket.on('connectedPlayers', (players) => {
+    store.connectedPlayers = players;
+    navigateTo('/lobby');
+  });
+
+  // Add a friend
+  const addFriendMail = ref('');
 </script>
