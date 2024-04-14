@@ -6,6 +6,7 @@
       content="Un juego de estrategia donde tendrás que ganar dinero, erigir fábricas, y conquistar territorios para expandir tu influencia."
     />
   </Head>
+  <Notification ref="notification"/>
   <main class="w-full h-screen flex">
     <section class="grow flex flex-col">
       <div class="flex mt-6 mr-6 ml-6 justify-start">
@@ -57,14 +58,20 @@
 
   const store = useUserStore();
 
+  // Notifications
+  const notification = ref(null);
+
   const roomCode = store.user.room;
 
   const players = ref([
-    { name: 'Eindres', email: '', avatar: '/profile.svg' },
-    { name: 'DiChorg', email: '', avatar: '/profile.svg' },
-    { name: 'Eindres Senior', email: '', avatar: '/profile.svg' },
-    { name: 'Mini-Chorg', email: '', avatar: '/profile.svg' },
+    { name: '', email: store.user.email, picture: store.user.picture },
   ]);
+
+  if (store.connectedPlayers) {
+    players.value = store.connectedPlayers.map(player => {
+      return { name: '', email: player, picture: '/profile.svg' };
+    });
+  }
 
   // SocketIO
   const socket = io(api, {
@@ -72,25 +79,32 @@
   });
 
   socket.on('playerJoined', (name) => {
-    alert('Se unió ' + name);
+    notification.value.show('Se unió ' + name);
   });
 
   socket.on('connectedPlayers', (playerList) => {
-    alert('Jugadores conectados');
-    console.log(playerList);
+    players.value = playerList.map(player => {
+      return { name: '', email: player, picture: '/profile.svg' };
+    });
   });
 
   function startGame() {
     socket.emit('startGame', roomCode);
   }
 
-  socket.on('gameStarting', (code) => {
+  // Event not used since have to wait for mapSended
+  /*socket.on('gameStarting', (code) => {
+    //navigateTo('/play');
+  });*/
+
+  socket.on('mapSended', (map) => {
+    store.gameState = map;
     navigateTo('/play');
-  });
+  })
 
   function leaveLobby() {
     socket.emit('leaveRoom');
-    store.setRoom = null;
+    store.setRoom(null);
     navigateTo('/dashboard');
   }
 

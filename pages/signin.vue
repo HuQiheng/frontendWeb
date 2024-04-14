@@ -22,7 +22,8 @@
   const route = useRoute().query;
   if (Object.keys(route).length != 0) {
     if (route.user != null) {
-      let user = JSON.parse(route.user);
+      const user = JSON.parse(route.user);
+      let queriedUser;
       await fetch(api + '/users/' + user.email, {
         method: 'GET',
         headers: {
@@ -31,11 +32,11 @@
         credentials: 'include',
       })
         .then((response) => response.json())
-        .then((data) => (user = data))
+        .then((data) => (queriedUser = data))
         .catch((error) => console.error('Error:', error));
       store.setUser({
         email: user.email,
-        name: user.username.trimEnd(),
+        name: queriedUser.username.trimEnd(),
         password: user.password,
         picture: user.picture,
         room: null,
