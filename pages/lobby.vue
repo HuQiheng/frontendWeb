@@ -98,6 +98,7 @@
   });*/
 
   socket.on('mapSended', (map) => {
+    console.log('guardando mapa');
     store.gameState = map;
     navigateTo('/play');
   })
