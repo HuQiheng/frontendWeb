@@ -14,7 +14,13 @@
       <div class="rounded-xl border shadow-md p-6">
         <!-- User's profile settings -->
         <div class="top-14 flex flex-col justify-center items-center">
-          <img v-if="store.user.picture" :src="store.user.picture" alt="User Picture" class="rounded-full" style="width: 180px; height: 180px" />
+          <img
+            v-if="store.user.picture"
+            :src="store.user.picture"
+            alt="User Picture"
+            class="rounded-full"
+            style="width: 180px; height: 180px"
+          />
           <img v-else src="/profile.svg" alt="User Picture" style="width: 180px; height: 180px" />
           <p class="m-6 text-xl text-g-800">{{ store.user.name }}</p>
         </div>

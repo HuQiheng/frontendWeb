@@ -6,8 +6,8 @@
       content="Un juego de estrategia donde tendrás que ganar dinero, erigir fábricas, y conquistar territorios para expandir tu influencia."
     />
   </Head>
-  <Notification ref="notification"/>
-  <main class="w-full h-screen flex">
+  <Notification ref="notification" />
+  <main class="w-full h-screen flex flex-row">
     <section class="grow flex flex-col">
       <div class="flex mt-6 mr-6 ml-6 justify-start">
         <ButtonRed @click="leaveLobby">Abandonar Sala</ButtonRed>
@@ -41,6 +41,13 @@
         <Button class="m-10 w-full max-w text-center text-lg" @click="startGame">Empezar partida</Button>
       </div>
     </section>
+    <!-- Chat -->
+    <section class="w-96 shadow-md border border-gray-200 flex flex-col p-4">
+      <h2 class="font-bold m-4 text-center">Invita a tus amigos</h2>
+      <hr />
+      <!-- It has to be friends, but for debugging purpouse it's players -->
+      <InviteFriendsList :players="players" />
+    </section>
   </main>
 </template>
 
@@ -63,12 +70,10 @@
 
   const roomCode = store.user.room;
 
-  const players = ref([
-    { name: '', email: store.user.email, picture: store.user.picture },
-  ]);
+  const players = ref([{ name: store.user.name, email: store.user.email, picture: store.user.picture }]);
 
   if (store.connectedPlayers) {
-    players.value = store.connectedPlayers.map(player => {
+    players.value = store.connectedPlayers.map((player) => {
       return { name: '', email: player, picture: '/profile.svg' };
     });
   }
@@ -83,7 +88,7 @@
   });
 
   socket.on('connectedPlayers', (playerList) => {
-    players.value = playerList.map(player => {
+    players.value = playerList.map((player) => {
       return { name: '', email: player, picture: '/profile.svg' };
     });
   });
@@ -100,47 +105,12 @@
   socket.on('mapSended', (map) => {
     store.gameState = map;
     navigateTo('/play');
-  })
+  });
 
   function leaveLobby() {
     socket.emit('leaveRoom');
     store.setRoom(null);
     navigateTo('/dashboard');
-  }
-
-  // Chat
-  const message = ref('');
-
-  const me = 3;
-  const messages = ref([
-    {
-      player: 2,
-      text: 'Ahora te la voy a quitar yo :)',
-    },
-    {
-      player: 1,
-      text: 'Por fin Huesca es mía jeje',
-    },
-    {
-      player: 0,
-      text: 'Ayudaaa!! Me atacaaa!',
-    },
-    {
-      player: 1,
-      text: 'Os voy a conquistar!',
-    },
-  ]);
-
-  function sendMessage() {
-    // Check message value is not empty
-    if (message.value != '') {
-      messages.value.unshift({
-        player: me,
-        text: message.value,
-      });
-      // Clean message value
-      message.value = '';
-    }
   }
 
   // Copy to Clipboard
@@ -152,6 +122,7 @@
     try {
       await navigator.clipboard.writeText(clipboard);
       showIconCheck.value = true;
+      notification.value.show('Código de sala copiado');
       setTimeout(() => {
         showIconCheck.value = false;
       }, 3000);
@@ -159,33 +130,6 @@
       console.error('Failed to copy: ', err);
     }
   };
-
-  /*const players = ref([
-  {
-        name: 'Jaime',
-        email: 'jaime@gmail.com', // Puede ser otro identificador (necesario para solicitudes de amistad)
-        picture: 'sdffd', // La que devuelva google al iniciar sesión
-        coins: 10,
-      },
-      {
-        name: 'Javier',
-        email: 'javier@gmail.com',
-        picture: 'sfsff',
-        coins: 20,
-      },
-      {
-        name: 'Jorge',
-        email: 'jorge@gmail.com',
-        picture: 'sfdsfd',
-        coins: 30,
-      },
-      {
-        name: 'Job',
-        email: 'job@gmail.com',
-        picture: 'sfddsff',
-        coins: 40,
-      }
-  ]);*/
 </script>
 
 <style scoped>
