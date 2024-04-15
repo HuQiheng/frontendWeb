@@ -8,7 +8,7 @@
   </Head>
   <div class="flex flex-col justify-center items-center h-screen w-full background mb-16">
     <h1 class="lg:text-8xl text-4xl font-bold text-center mb-4">WealthWars</h1>
-    <h2 class="max-w-2xl text-sm lg:text-lg text-center mb-8">
+    <h2 class="max-w-2xl text-sm lg:text-lg text-center mb-8 p-4">
       Un juego de estrategia donde tendrás que ganar dinero, erigir fábricas, y conquistar territorios para expandir tu
       influencia.
     </h2>
