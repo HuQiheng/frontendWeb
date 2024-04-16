@@ -6,12 +6,25 @@
       content="Un juego de estrategia donde tendrás que ganar dinero, erigir fábricas, y conquistar territorios para expandir tu influencia."
     />
   </Head>
+  <!-- Notification -->
   <Notification ref="notification" />
+  <!-- Dialogs -->
   <Dialog :show="isOpenAddFactoryDialog" @click-outside="isOpenAddFactoryDialog = false">
-    <template #title>¿Deseas añadir una fábrica a {{ selected }}?</template>
+    <template #title>¿Deseas añadir una fábrica a <b>{{ selected }}</b>?</template>
     <template #buttons>
       <ButtonRed @click="addFactory(selectedCode)" class="mr-4">Sí</ButtonRed>
       <ButtonDark @click="isOpenAddFactoryDialog = false">No</ButtonDark>
+    </template>
+  </Dialog>
+  <Dialog :show="isOpenAttackDialog" @click-outside="isOpenAttackDialog = false">
+    <template #title>¿Deseas atacar <b>{{ state.map[attackTo].name }}</b> desde <b>{{ state.map[attackFrom].name }}</b>?</template>
+    <template #description>
+      <p>Selecciona el número de tropas que emplearás en el ataque:</p>
+      <InputNumber v-model:value="actionQuantity" min="0" :max="state.map[attackFrom].troops" placeholder="Número de tropas" class="w-full my-2"/>
+    </template>
+    <template #buttons>
+      <ButtonRed @click="attack(attackFrom, attackTo, actionQuantity)" class="mr-4">Sí</ButtonRed>
+      <ButtonDark @click="isOpenAttackDialog = false">No</ButtonDark>
     </template>
   </Dialog>
   <main class="w-full h-screen flex flex-row overflow-hidden">
@@ -67,10 +80,21 @@
 
   const store = useUserStore();
 
+  // SocketIO
+  const socket = io(api, {
+    withCredentials: true,
+  });
+
+  // Notification
+  const notification = ref(null);
+
   // Game state
   console.log('Game state!!');
   console.log(store.gameState);
   const state = ref(store.gameState);
+  socket.on('mapSent', (map) => {
+    state.value = map;
+  });
 
   /*const players = store.gameState.players;
   let me = -1;
@@ -96,11 +120,6 @@
     return index;
   });*/
 
-  // SocketIO
-  const socket = io(api, {
-    withCredentials: true,
-  });
-
   // Quit dialog
   const isOpenQuitDialog = ref(false);
   function openModal() {
@@ -110,11 +129,12 @@
     isOpenQuitDialog.value = false;
   }
   function quitRoom() {
+    socket.emit('surrender');
     socket.emit('leaveRoom');
     navigateTo('/dashboard');
   }
   socket.on('playerLeftRoom', (player) => {
-    notification.value.show(player + 'abandonó la partida');
+    notification.value.show(player + ' abandonó la partida');
   });
 
   // Select territory
@@ -124,6 +144,12 @@
   const currentAction = ref(null);
 
   const isOpenAddFactoryDialog = ref(false);
+  const isOpenAttackDialog = ref(false);
+
+  const attackFrom = ref('');
+  const attackTo = ref('');
+  const canAttackTo = ref(null); // List of territories that can be attacked
+  const actionQuantity = ref(0);
 
   function selectTerritory(territory) {
     selected.value = state.value.map[territory].name;
@@ -135,13 +161,36 @@
           isOpenAddFactoryDialog.value = true;
         }
         break;
+      case 'attack':
+        //
+        if (myTerritories.includes(selectedCode.value)) {
+          animatedTerritories.value = attackTerritories.value;
+          canAttackTo.value = attackTerritories.value;
+          currentAction.value = 'attacking';
+          attackFrom.value = selectedCode.value;
+          //step.value = 4;
+        }
+        break;
+      case 'attacking':
+        if (canAttackTo.value.includes(selectedCode.value)) {
+          attackTo.value = selectedCode.value;
+          isOpenAttackDialog.value = true;
+        }
       default:
         break;
     }
   }
 
   function addFactory(territory) {
+    console.log('Comprando una fábrica en ' + territory);
     socket.emit('buyActives', 'factory', territory, 1);
+  }
+
+  function attack(from, to, troops) {
+    console.log('Atacando desde ' + from + ' a ' + to + ' con ' + troops + 'tropas');
+    socket.emit('attackTerritories', from, to, troops);
+    actionQuantity.value = 0;
+    isOpenAttackDialog.value = false;
   }
 
   // Steps
@@ -162,18 +211,21 @@
         break;
       case 'go-to-step-2':
         step.value = 2; // Go to step 2 (Attack)
+        socket.emit('nextPhase');
         break;
       case 'attack':
-        if (selectedCode.value && myTerritories.includes(selectedCode.value)) {
+        animatedTerritories.value = myTerritories;
+        /*if (selectedCode.value && myTerritories.includes(selectedCode.value)) {
           animatedTerritories.value = attackTerritories.value;
           step.value = 4;
-        }
+        }*/
         break;
       case 'go-to-step-3': // Go to step 3 (Move troops)
         //animatedTerritories.value = myTerritories;
         selected.value = null;
         selectedCode.value = null;
         step.value = 3;
+        socket.emit('nextPhase');
         break;
       case 'move-troops':
         animatedTerritories.value = myTerritories;
@@ -189,6 +241,7 @@
         selected.value = null;
         selectedCode.value = null;
         step.value = 0;
+        socket.emit('nextTurn');
         break;
       default:
         break;

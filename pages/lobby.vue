@@ -97,12 +97,13 @@
     socket.emit('startGame', roomCode);
   }
 
-  // Event not used since have to wait for mapSended
-  /*socket.on('gameStarting', (code) => {
+  // Game is starting
+  socket.on('gameStarting', (code) => {
+    notification.value.show('El juego va a empezar');
     //navigateTo('/play');
-  });*/
+  });
 
-  socket.on('mapSended', (map) => {
+  socket.on('mapSent', (map) => {
     console.log('guardando mapa');
     store.gameState = map;
     navigateTo('/play');
