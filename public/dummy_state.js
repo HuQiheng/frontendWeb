@@ -1,29 +1,32 @@
-// Game state
-const state = {
+export const dummyState = {
   turn: 0,
-  players: [{
-    name: 'Jaime',
-    email: 'jaime@gmail.com', // Puede ser otro identificador (necesario para solicitudes de amistad)
-    picture: 'sdffd', // La que devuelva google al iniciar sesión
-    coins: 10
-  }, 
-  {
-    name: 'Javier',
-    email: 'javier@gmail.com',
-    picture: 'sfsff',
-    coins: 20
-  }, 
-  {
-    name: 'Jorge',
-    email: 'jorge@gmail.com',
-    picture: 'sfdsfd',
-    coins: 30
-  }, {
-    name: 'Job',
-    email: 'job@gmail.com',
-    picture: 'sfddsff',
-    coins: 40
-  }],
+  phase: 0,
+  players: [
+    {
+      name: 'Jaime',
+      email: 'jaime@gmail.com', // Puede ser otro identificador (necesario para solicitudes de amistad)
+      picture: 'sdffd', // La que devuelva google al iniciar sesión
+      coins: 10,
+    },
+    {
+      name: 'Javier',
+      email: 'javier@gmail.com',
+      picture: 'sfsff',
+      coins: 20,
+    },
+    {
+      name: 'Jorge',
+      email: 'jorge@gmail.com',
+      picture: 'sfdsfd',
+      coins: 30,
+    },
+    {
+      name: 'Job',
+      email: 'job@gmail.com',
+      picture: 'sfddsff',
+      coins: 40,
+    },
+  ],
   map: {
     A: {
       name: 'Alicante',

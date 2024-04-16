@@ -12,7 +12,7 @@ export const useUserStore = defineStore('user', () => {
 
   const user = useCookie<UserData>('userData', { maxAge: 60*60 });
 
-  const connectedPlayers = ref(null);
+  const connectedPlayers = useCookie('playersData', { maxAge: 60*60 });
   const gameState = ref(null);
 
   // Methods

@@ -1,7 +1,7 @@
 <template>
   <Transition name="fade" mode="out-in">
     <div class="fixed top-0 right-0 p-8 z-20" v-show="isShown">
-      <div class="px-4 py-2 bg-white border border-gray-200 shadow-sm text-md rounded-full">
+      <div class="px-4 py-2 bg-white border border-gray-200 shadow-md text-md rounded-full">
         {{ text }}
       </div>
     </div>

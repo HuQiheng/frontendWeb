@@ -10,7 +10,7 @@
     <ol class="stepper">
       <li class="step" :class="{ 'text-black': step > 0 }">
         <span :class="[step > 0 ? 'border-black' : 'border-gray-500']">1</span>
-        Cobrar
+        Invertir
         <svg
           class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180"
           aria-hidden="true"
@@ -29,7 +29,7 @@
       </li>
       <li class="step" :class="{ 'text-black': step > 1 }">
         <span :class="[step > 1 ? 'border-black' : 'border-gray-500']">2</span>
-        Invertir
+        Conquistar
         <svg
           class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180"
           aria-hidden="true"
@@ -48,16 +48,16 @@
       </li>
       <li class="step" :class="{ 'text-black': step > 2 }">
         <span :class="[step > 2 ? 'border-black' : 'border-gray-500']">3</span>
-        Atacar
+        Mover tropas
       </li>
     </ol>
     <div class="actions" v-show="step > 0">
-      <ButtonDark v-show="step == 1" @click="$emit('trigger', 'get-paid')">Cobrar e ir al siguiente paso</ButtonDark>
-      <ButtonDark v-show="step == 2" @click="$emit('trigger', 'add-factories')">Añadir fábricas</ButtonDark>
-      <ButtonDark v-show="step == 2" @click="$emit('trigger', 'add-troops')">Añadir tropas</ButtonDark>
-      <ButtonDark v-show="step == 2" @click="$emit('trigger', 'move-troops')">Mover tropas</ButtonDark>
+      <ButtonDark v-show="step == 1" @click="$emit('trigger', 'add-factories')">Añadir fábricas</ButtonDark>
+      <ButtonDark v-show="step == 1" @click="$emit('trigger', 'add-troops')">Añadir tropas</ButtonDark>
+      <ButtonDark v-show="step == 1" @click="$emit('trigger', 'go-to-step-2')">Ir al siguiente paso</ButtonDark>
+      <ButtonDark v-show="step == 2" @click="$emit('trigger', 'attack')">Atacar</ButtonDark>
       <ButtonDark v-show="step == 2" @click="$emit('trigger', 'go-to-step-3')">Ir al siguiente paso</ButtonDark>
-      <ButtonDark v-show="step == 3" @click="$emit('trigger', 'attack')">Atacar</ButtonDark>
+      <ButtonDark v-show="step == 3" @click="$emit('trigger', 'move-troops')">Mover tropas</ButtonDark>
       <ButtonDark v-show="step == 3" @click="$emit('trigger', 'end-turn')">Finalizar turno</ButtonDark>
       <ButtonDark v-show="step == 4" @click="$emit('trigger', 'attack-territory')">Atacar Territorio</ButtonDark>
       <ButtonRed v-show="step == 4" @click="$emit('trigger', 'go-to-step-3')">Volver</ButtonRed>
