@@ -14,7 +14,12 @@
     </h2>
     <NuxtLink to="/signin"><Button>JUGAR</Button></NuxtLink>
   </div>
+  <!-- Images -->
   <CardContainer class="flex flex-col xl:flex-row justify-center items-center" />
+  <div class="flex-grow w-full">
+    <Faq />
+  </div>
+
   <!-- FOOTER -->
   <Footer></Footer>
 </template>
