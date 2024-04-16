@@ -16,11 +16,22 @@
       <ButtonDark @click="isOpenAddFactoryDialog = false">No</ButtonDark>
     </template>
   </Dialog>
+  <Dialog :show="isOpenAddTroopsDialog" @click-outside="isOpenAddTroopsDialog = false">
+    <template #title>¿Deseas añadir tropas a <b>{{ selected }}</b>?</template>
+    <template #description>
+      <p>Selecciona el número de tropas:</p>
+      <InputNumber v-model:value="actionQuantity" min="0" max="10" placeholder="Número de tropas" class="w-full my-2"/>
+    </template>
+    <template #buttons>
+      <ButtonRed @click="addTroops(selectedCode, actionQuantity)" class="mr-4">Sí</ButtonRed>
+      <ButtonDark @click="isOpenAddTroopsDialog = false">No</ButtonDark>
+    </template>
+  </Dialog>
   <Dialog :show="isOpenAttackDialog" @click-outside="isOpenAttackDialog = false">
     <template #title>¿Deseas atacar <b>{{ state.map[attackTo].name }}</b> desde <b>{{ state.map[attackFrom].name }}</b>?</template>
     <template #description>
       <p>Selecciona el número de tropas que emplearás en el ataque:</p>
-      <InputNumber v-model:value="actionQuantity" min="0" :max="state.map[attackFrom].troops" placeholder="Número de tropas" class="w-full my-2"/>
+      <InputNumber v-model:value="actionQuantity" min="0" :max="state.map[attackFrom].troops-1" placeholder="Número de tropas" class="w-full my-2"/>
     </template>
     <template #buttons>
       <ButtonRed @click="attack(attackFrom, attackTo, actionQuantity)" class="mr-4">Sí</ButtonRed>
@@ -70,6 +81,7 @@
   import { IconSend, IconArrowBarToRight } from '@tabler/icons-vue';
   import { useUserStore } from '~/stores';
   import { io } from 'socket.io-client';
+  import { dummyState } from '@/public/dummy_state.js';
 
   // Protect route against unlogged users
   definePageMeta({
@@ -89,36 +101,34 @@
   const notification = ref(null);
 
   // Game state
-  console.log('Game state!!');
-  console.log(store.gameState);
-  const state = ref(store.gameState);
+  const state = ref(dummyState);
+  socket.emit('sendMap');
   socket.on('mapSent', (map) => {
     state.value = map;
+    if (state.value.turn == me.value) {
+      // It's my turn
+      if (state.value.phase == 0) {
+        step.value = 1;
+      }
+    } else {
+      // Not my turn
+      step.value = 0;
+    }
+    console.log(map);
   });
 
-  /*const players = store.gameState.players;
-  let me = -1;
-  for (let i = 0; i < players.length; i++) {
-    console.log(players[i].email);
-    console.log(store.user.email);
-    if (players[i].email === store.user.email) {
-      me = i; // Return the index if email matches
-    }
-  }*/
-
-  const me = 0;
-  /*const me = computed(() => {
-    const players = store.gameState.players;
-    let index = -1;
+  // Compute who I am
+  const me = computed(() => {
+    const players = state.value.players;
+    let index = 0;
     for (let i = 0; i < players.length; i++) {
-      console.log(players[i].email);
-      console.log(store.user.email);
-      if (players[i].email === store.user.email) {
+      if (players[i].email.trim() == store.user.email.trim()) {
         index = i; // Return the index if email matches
       }
     }
+    console.log('I\'m player ' + index);
     return index;
-  });*/
+  });
 
   // Quit dialog
   const isOpenQuitDialog = ref(false);
@@ -137,6 +147,11 @@
     notification.value.show(player + ' abandonó la partida');
   });
 
+  // Surrender
+  socket.on('userSurrendered', (player) => {
+    notification.value.show(player + ' se ha rendido');
+  });
+
   // Select territory
   const selected = ref();
   const selectedCode = ref(null);
@@ -144,6 +159,7 @@
   const currentAction = ref(null);
 
   const isOpenAddFactoryDialog = ref(false);
+  const isOpenAddTroopsDialog = ref(false);
   const isOpenAttackDialog = ref(false);
 
   const attackFrom = ref('');
@@ -157,17 +173,22 @@
 
     switch (currentAction.value) {
       case 'add-factories':
-        if (myTerritories.includes(selectedCode.value)) {
+        if (myTerritories.value.includes(selectedCode.value)) {
           isOpenAddFactoryDialog.value = true;
+        }
+        break;
+      case 'add-troops':
+        if (myTerritories.value.includes(selectedCode.value)) {
+          isOpenAddTroopsDialog.value = true;
         }
         break;
       case 'attack':
         //
-        if (myTerritories.includes(selectedCode.value)) {
+        if (myTerritories.value.includes(selectedCode.value)) {
+          attackFrom.value = selectedCode.value;
           animatedTerritories.value = attackTerritories.value;
           canAttackTo.value = attackTerritories.value;
           currentAction.value = 'attacking';
-          attackFrom.value = selectedCode.value;
           //step.value = 4;
         }
         break;
@@ -182,14 +203,25 @@
   }
 
   function addFactory(territory) {
-    console.log('Comprando una fábrica en ' + territory);
+    console.log('Añadiendo una fábrica en ' + territory);
     socket.emit('buyActives', 'factory', territory, 1);
+    animatedTerritories.value = [];
+    isOpenAddFactoryDialog.value = false;
+  }
+
+  function addTroops(territory, troops) {
+    console.log('Añadiendo ' + troops + ' tropas en ' + territory);
+    socket.emit('buyActives', 'troop', territory, troops);
+    actionQuantity.value = 0;
+    animatedTerritories.value = [];
+    isOpenAddTroopsDialog.value = false;
   }
 
   function attack(from, to, troops) {
-    console.log('Atacando desde ' + from + ' a ' + to + ' con ' + troops + 'tropas');
+    console.log('Atacando desde ' + from + ' a ' + to + ' con ' + troops + ' tropas');
     socket.emit('attackTerritories', from, to, troops);
     actionQuantity.value = 0;
+    animatedTerritories.value = [];
     isOpenAttackDialog.value = false;
   }
 
@@ -204,31 +236,33 @@
     currentAction.value = action;
     switch (action) {
       case 'add-factories':
-        animatedTerritories.value = myTerritories;
+        console.log(myTerritories.value);
+        animatedTerritories.value = myTerritories.value;
         break;
       case 'add-troops':
-        animatedTerritories.value = myTerritories;
+        animatedTerritories.value = myTerritories.value;
         break;
       case 'go-to-step-2':
+        animatedTerritories.value = [];
         step.value = 2; // Go to step 2 (Attack)
         socket.emit('nextPhase');
         break;
       case 'attack':
-        animatedTerritories.value = myTerritories;
+        animatedTerritories.value = myTerritories.value;
         /*if (selectedCode.value && myTerritories.includes(selectedCode.value)) {
           animatedTerritories.value = attackTerritories.value;
           step.value = 4;
         }*/
         break;
       case 'go-to-step-3': // Go to step 3 (Move troops)
-        //animatedTerritories.value = myTerritories;
+        animatedTerritories.value = [];
         selected.value = null;
         selectedCode.value = null;
         step.value = 3;
         socket.emit('nextPhase');
         break;
       case 'move-troops':
-        animatedTerritories.value = myTerritories;
+        animatedTerritories.value = myTerritories.value;
         break;
       case 'attack-territory':
         animatedTerritories.value = [];
@@ -270,7 +304,7 @@
     // Check message value is not empty
     if (message.value != '') {
       messages.value.unshift({
-        player: me,
+        player: me.value,
         text: message.value,
       });
       // Clean message value
@@ -279,15 +313,17 @@
   }
 
   // Territories animation
-  const myTerritories = Object.keys(state.value.map).filter((key) => state.value.map[key].player === me);
+  const myTerritories = computed(() => {
+    return Object.keys(state.value.map).filter((key) => state.value.map[key].player === me.value);
+  });
 
   const adjacentTerritories = ref({});
 
   const attackTerritories = computed(() => {
-    if (!selectedCode.value || !myTerritories.includes(selectedCode.value)) return null;
+    if (!selectedCode.value || !myTerritories.value.includes(selectedCode.value)) return null;
 
     const selectedTerritory = selectedCode.value;
-    const myPlayerCode = me; // Assuming me is the player code (e.g., 3)
+    const myPlayerCode = me.value; // Assuming me is the player code (e.g., 3)
 
     const selectedAdjacentTerritories = adjacentTerritories.value[selectedTerritory]?.adjacents || [];
 

@@ -38,7 +38,8 @@
       <div class="flex-grow"></div>
       <!-- Spacer to push the button to the bottom -->
       <div class="relative flex justify-center w-full">
-        <Button class="m-10 w-full max-w text-center text-lg" @click="startGame">Empezar partida</Button>
+        <Button v-show="canStartGame" class="w-full m-10 max-w text-center text-lg" @click="startGame">Empezar partida</Button>
+        <p v-show="!canStartGame" class="m-10">Tienes que esperar a que el que creó la sala inicie la partida.</p>
       </div>
     </section>
     <!-- Chat -->
@@ -71,6 +72,14 @@
   const roomCode = store.user.room;
 
   const players = ref([{ name: store.user.name, email: store.user.email, picture: store.user.picture }]);
+
+  const canStartGame = computed(() => {
+    if (players.value[0].email.trim() == store.user.email.trim()) {
+      return true;
+    } else {
+      return false;
+    }
+  });
 
   if (store.connectedPlayers) {
     players.value = store.connectedPlayers.map((player) => {

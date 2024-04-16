@@ -76,7 +76,7 @@
               placeholder="Introduce el correo del amigo"
               v-model:value="addFriendMail"
             />
-            <Button class="m-4">UNIRSE</Button>
+            <Button class="m-4">AÑADIR</Button>
           </div>
           <hr />
           <!-- Frined List -->
