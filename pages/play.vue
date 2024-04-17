@@ -38,6 +38,17 @@
       <ButtonDark @click="isOpenAttackDialog = false">No</ButtonDark>
     </template>
   </Dialog>
+  <Dialog :show="isOpenMoveDialog" @click-outside="isOpenMoveDialog = false">
+    <template #title>¿Cuántas tropas deseas mover de <b>{{ state.map[moveFrom].name }}</b> a <b>{{ state.map[moveTo].name }}</b>?</template>
+    <template #description>
+      <p>Selecciona el número de tropas que moverás:</p>
+      <InputNumber v-model:value="actionQuantity" min="0" :max="state.map[moveFrom].troops-1" placeholder="Número de tropas" class="w-full my-2"/>
+    </template>
+    <template #buttons>
+      <ButtonRed @click="move(moveFrom, moveTo, actionQuantity)" class="mr-4">Sí</ButtonRed>
+      <ButtonDark @click="isOpenMoveDialog = false">No</ButtonDark>
+    </template>
+  </Dialog>
   <main class="w-full h-screen flex flex-row overflow-hidden">
     <!-- Game board -->
     <section class="grow relative">
@@ -161,10 +172,13 @@
   const isOpenAddFactoryDialog = ref(false);
   const isOpenAddTroopsDialog = ref(false);
   const isOpenAttackDialog = ref(false);
+  const isOpenMoveDialog = ref(false);
 
   const attackFrom = ref('');
   const attackTo = ref('');
   const canAttackTo = ref(null); // List of territories that can be attacked
+  const moveFrom = ref('');
+  const moveTo = ref('');
   const actionQuantity = ref(0);
 
   function selectTerritory(territory) {
@@ -197,6 +211,18 @@
           attackTo.value = selectedCode.value;
           isOpenAttackDialog.value = true;
         }
+      case 'move-troops':
+        if (myTerritories.value.includes(selectedCode.value)) {
+          moveFrom.value = selectedCode.value;
+          currentAction.value = 'moving';
+        }
+        break;
+      case 'moving':
+        if (myTerritories.value.includes(selectedCode.value)) {
+          moveTo.value = selectedCode.value;
+          isOpenMoveDialog.value = true;
+        }
+        break;
       default:
         break;
     }
@@ -223,6 +249,14 @@
     actionQuantity.value = 0;
     animatedTerritories.value = [];
     isOpenAttackDialog.value = false;
+  }
+
+  function move(from, to, troops) {
+    console.log('Moviendo ' + troops + ' tropas desde ' + from + ' a ' + to);
+    socket.emit('moveTroops', from, to, troops);
+    actionQuantity.value = 0;
+    animatedTerritories.value = [];
+    isOpenMoveDialog.value = false;
   }
 
   // Steps
