@@ -7,6 +7,7 @@
     />
   </Head>
   <Notification ref="notification" />
+  <GameInvitation ref="invitation" />
   <main class="w-full h-screen flex flex-col">
     <!-- Top section -->
     <section class="flex-1 justify-center items-center p-6">
@@ -76,7 +77,7 @@
               placeholder="Introduce el correo del amigo"
               v-model:value="addFriendMail"
             />
-            <Button class="m-4">AÑADIR</Button>
+            <Button class="m-4" @click ="test" >AÑADIR</Button>
           </div>
           <hr />
           <!-- Frined List -->
@@ -103,6 +104,20 @@
 
   // Notification
   const notification = ref(null);
+
+  // Game invitation
+  const invitation = ref(null);
+
+  async function test() {
+  try {
+    const result = await invitation.value.notificate('Hola');
+    console.log('User answered:', result);
+    // Handle the user's answer here
+  } catch (error) {
+    console.error('Error occurred:', error);
+    // Handle errors here
+  }
+}
 
   const signout = () => {
     navigateTo('/signout');
