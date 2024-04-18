@@ -9,8 +9,8 @@
           <div>
             <div class="font-bold text-xl">{{ player.name }} te ha invitado a jugar</div>
           </div>
-          <Button class="ml-4 mr-2" @click="acceptEvent"><IconCheck/></Button>
-          <ButtonRed class="mr-2" @click="rejectEvent"><IconX/></ButtonRed>
+          <Button class="ml-4 mr-2" @click="acceptEvent"><IconCheck /></Button>
+          <ButtonRed class="mr-2" @click="rejectEvent"><IconX /></ButtonRed>
         </div>
       </div>
     </div>
@@ -18,43 +18,43 @@
 </template>
 
 <script setup>
-import { IconCheck, IconX } from '@tabler/icons-vue';
-import { useUserStore } from '~/stores';
+  import { IconCheck, IconX } from '@tabler/icons-vue';
+  import { useUserStore } from '~/stores';
 
-const store = useUserStore();
+  const store = useUserStore();
 
-const player = ref({ name: 'Eindres', email: '', picture: '/profile.svg' });
-const isShown = ref(false);
-const roomCode = ref('');
-const sound = '/notification.mp3';
+  const player = ref({ name: 'Eindres', email: '', picture: '/profile.svg' });
+  const isShown = ref(false);
+  const roomCode = ref('');
+  const sound = '/notification.mp3';
 
-const emit = defineEmits(['accept']);
+  const emit = defineEmits(['accept']);
 
-function notificate(p, rmCode) {
-  player.value.name = p.name; // Set the name property of player
-  player.value.picture = p.picture; // Set the picture property of player
-  roomCode.value = rmCode;
-  isShown.value = true;
-  const audio = new Audio(sound);
-  audio.loop = false;
-  audio.play();
-  setTimeout(() => {
+  function notificate(p, rmCode) {
+    player.value.name = p.name; // Set the name property of player
+    player.value.picture = p.picture; // Set the picture property of player
+    roomCode.value = rmCode;
+    isShown.value = true;
+    const audio = new Audio(sound);
+    audio.loop = false;
+    audio.play();
+    setTimeout(() => {
+      isShown.value = false;
+    }, 10000);
+  }
+
+  function acceptEvent() {
+    store.setRoom(roomCode.value);
     isShown.value = false;
-  }, 10000);
-}
+    // Emit the 'accept' event
+    emit('accept');
+  }
 
-function acceptEvent() {
-  store.setRoom(roomCode.value);
-  isShown.value = false;
-  // Emit the 'accept' event
-  emit('accept');
-}
+  function rejectEvent() {
+    isShown.value = false;
+  }
 
-function rejectEvent() {
-  isShown.value = false;
-}
-
-defineExpose({
-  notificate,
-});
+  defineExpose({
+    notificate,
+  });
 </script>

@@ -8,7 +8,7 @@
   </Head>
   <Notification ref="notification" />
   <GameInvitation ref="invitation" @accept="handleAccept" />
-    <main class="w-full h-screen flex flex-col">
+  <main class="w-full h-screen flex flex-col">
     <!-- Top section -->
     <section class="flex-1 justify-center items-center p-6">
       <!-- section class="flex flex-col justify-center items-center" last -->
@@ -77,7 +77,7 @@
               placeholder="Introduce el correo del amigo"
               v-model:value="addFriendMail"
             />
-            <Button class="m-4" @click ="test" >AÑADIR</Button>
+            <Button class="m-4" @click="test">AÑADIR</Button>
           </div>
           <hr />
           <!-- Frined List -->
@@ -110,7 +110,7 @@
   // This has to be a socket.io call
   function test() {
     const a = { name: 'Eindres', email: '', picture: '/profile.svg' };
-    invitation.value.notificate(a,'2345');
+    invitation.value.notificate(a, '2345');
   }
 
   // Function to handle the accept event

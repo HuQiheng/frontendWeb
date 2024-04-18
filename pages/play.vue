@@ -10,17 +10,23 @@
   <Notification ref="notification" />
   <!-- Dialogs -->
   <Dialog :show="isOpenAddFactoryDialog" @click-outside="isOpenAddFactoryDialog = false">
-    <template #title>¿Deseas añadir una fábrica a <b>{{ selected }}</b>?</template>
+    <template #title
+      >¿Deseas añadir una fábrica a <b>{{ selected }}</b
+      >?</template
+    >
     <template #buttons>
       <ButtonRed @click="addFactory(selectedCode)" class="mr-4">Sí</ButtonRed>
       <ButtonDark @click="isOpenAddFactoryDialog = false">No</ButtonDark>
     </template>
   </Dialog>
   <Dialog :show="isOpenAddTroopsDialog" @click-outside="isOpenAddTroopsDialog = false">
-    <template #title>¿Deseas añadir tropas a <b>{{ selected }}</b>?</template>
+    <template #title
+      >¿Deseas añadir tropas a <b>{{ selected }}</b
+      >?</template
+    >
     <template #description>
       <p>Selecciona el número de tropas:</p>
-      <InputNumber v-model:value="actionQuantity" min="0" max="10" placeholder="Número de tropas" class="w-full my-2"/>
+      <InputNumber v-model:value="actionQuantity" min="0" max="10" placeholder="Número de tropas" class="w-full my-2" />
     </template>
     <template #buttons>
       <ButtonRed @click="addTroops(selectedCode, actionQuantity)" class="mr-4">Sí</ButtonRed>
@@ -28,10 +34,19 @@
     </template>
   </Dialog>
   <Dialog :show="isOpenAttackDialog" @click-outside="isOpenAttackDialog = false">
-    <template #title>¿Deseas atacar <b>{{ state.map[attackTo].name }}</b> desde <b>{{ state.map[attackFrom].name }}</b>?</template>
+    <template #title
+      >¿Deseas atacar <b>{{ state.map[attackTo].name }}</b> desde <b>{{ state.map[attackFrom].name }}</b
+      >?</template
+    >
     <template #description>
       <p>Selecciona el número de tropas que emplearás en el ataque:</p>
-      <InputNumber v-model:value="actionQuantity" min="0" :max="state.map[attackFrom].troops-1" placeholder="Número de tropas" class="w-full my-2"/>
+      <InputNumber
+        v-model:value="actionQuantity"
+        min="0"
+        :max="state.map[attackFrom].troops - 1"
+        placeholder="Número de tropas"
+        class="w-full my-2"
+      />
     </template>
     <template #buttons>
       <ButtonRed @click="attack(attackFrom, attackTo, actionQuantity)" class="mr-4">Sí</ButtonRed>
@@ -39,10 +54,19 @@
     </template>
   </Dialog>
   <Dialog :show="isOpenMoveDialog" @click-outside="isOpenMoveDialog = false">
-    <template #title>¿Cuántas tropas deseas mover de <b>{{ state.map[moveFrom].name }}</b> a <b>{{ state.map[moveTo].name }}</b>?</template>
+    <template #title
+      >¿Cuántas tropas deseas mover de <b>{{ state.map[moveFrom].name }}</b> a <b>{{ state.map[moveTo].name }}</b
+      >?</template
+    >
     <template #description>
       <p>Selecciona el número de tropas que moverás:</p>
-      <InputNumber v-model:value="actionQuantity" min="0" :max="state.map[moveFrom].troops-1" placeholder="Número de tropas" class="w-full my-2"/>
+      <InputNumber
+        v-model:value="actionQuantity"
+        min="0"
+        :max="state.map[moveFrom].troops - 1"
+        placeholder="Número de tropas"
+        class="w-full my-2"
+      />
     </template>
     <template #buttons>
       <ButtonRed @click="move(moveFrom, moveTo, actionQuantity)" class="mr-4">Sí</ButtonRed>
@@ -137,7 +161,7 @@
         index = i; // Return the index if email matches
       }
     }
-    console.log('I\'m player ' + index);
+    console.log("I'm player " + index);
     return index;
   });
 
