@@ -7,8 +7,8 @@
     />
   </Head>
   <Notification ref="notification" />
-  <GameInvitation ref="invitation" />
-  <main class="w-full h-screen flex flex-col">
+  <GameInvitation ref="invitation" @accept="handleAccept" />
+    <main class="w-full h-screen flex flex-col">
     <!-- Top section -->
     <section class="flex-1 justify-center items-center p-6">
       <!-- section class="flex flex-col justify-center items-center" last -->
@@ -107,17 +107,18 @@
 
   // Game invitation
   const invitation = ref(null);
-
-  async function test() {
-  try {
-    const result = await invitation.value.notificate('Hola');
-    console.log('User answered:', result);
-    // Handle the user's answer here
-  } catch (error) {
-    console.error('Error occurred:', error);
-    // Handle errors here
+  // This has to be a socket.io call
+  function test() {
+    const a = { name: 'Eindres', email: '', picture: '/profile.svg' };
+    invitation.value.notificate(a,'2345');
   }
-}
+
+  // Function to handle the accept event
+  function handleAccept() {
+    joinRoomCode.value = store.getRoom();
+    joinRoom();
+    // Perform actions needed when the accept event occurs
+  }
 
   const signout = () => {
     navigateTo('/signout');
