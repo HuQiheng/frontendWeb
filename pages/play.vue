@@ -361,14 +361,21 @@
   function sendMessage() {
     // Check message value is not empty
     if (message.value != '') {
-      messages.value.unshift({
+      /*messages.value.unshift({
         player: me.value,
         text: message.value,
-      });
+      });*/
+      socket.emit('sendMessage', message.value);
       // Clean message value
       message.value = '';
     }
   }
+  socket.on('messageReceived', (message) => {
+    messages.value.unshift({
+      player: 0,
+      text: message,
+    });
+  });
 
   // Territories animation
   const myTerritories = computed(() => {

@@ -163,8 +163,10 @@
   });
 
   // This event can only be received if the user is in a room
-  socket.on('connectedPlayers', (players) => {
-    store.connectedPlayers = players;
+  socket.on('connectedPlayers', (playerList) => {
+    store.connectedPlayers = playerList.map((player) => {
+      return { name: player.username.trim(), email: player.email.trim(), picture: player.picture };
+    });
     navigateTo('/lobby');
   });
 

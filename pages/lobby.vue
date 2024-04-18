@@ -84,9 +84,7 @@
   });
 
   if (store.connectedPlayers) {
-    players.value = store.connectedPlayers.map((player) => {
-      return { name: '', email: player, picture: '/profile.svg' };
-    });
+    players.value = store.connectedPlayers;
   }
 
   // SocketIO
@@ -99,8 +97,9 @@
   });
 
   socket.on('connectedPlayers', (playerList) => {
+    console.log(playerList);
     players.value = playerList.map((player) => {
-      return { name: '', email: player, picture: '/profile.svg' };
+      return { name: player.username.trim(), email: player.email.trim(), picture: player.picture };
     });
   });
 
