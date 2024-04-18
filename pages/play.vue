@@ -10,17 +10,23 @@
   <Notification ref="notification" />
   <!-- Dialogs -->
   <Dialog :show="isOpenAddFactoryDialog" @click-outside="isOpenAddFactoryDialog = false">
-    <template #title>¿Deseas añadir una fábrica a <b>{{ selected }}</b>?</template>
+    <template #title
+      >¿Deseas añadir una fábrica a <b>{{ selected }}</b
+      >?</template
+    >
     <template #buttons>
       <ButtonRed @click="addFactory(selectedCode)" class="mr-4">Sí</ButtonRed>
       <ButtonDark @click="isOpenAddFactoryDialog = false">No</ButtonDark>
     </template>
   </Dialog>
   <Dialog :show="isOpenAddTroopsDialog" @click-outside="isOpenAddTroopsDialog = false">
-    <template #title>¿Deseas añadir tropas a <b>{{ selected }}</b>?</template>
+    <template #title
+      >¿Deseas añadir tropas a <b>{{ selected }}</b
+      >?</template
+    >
     <template #description>
       <p>Selecciona el número de tropas:</p>
-      <InputNumber v-model:value="actionQuantity" min="0" max="10" placeholder="Número de tropas" class="w-full my-2"/>
+      <InputNumber v-model:value="actionQuantity" min="0" max="10" placeholder="Número de tropas" class="w-full my-2" />
     </template>
     <template #buttons>
       <ButtonRed @click="addTroops(selectedCode, actionQuantity)" class="mr-4">Sí</ButtonRed>
@@ -28,14 +34,43 @@
     </template>
   </Dialog>
   <Dialog :show="isOpenAttackDialog" @click-outside="isOpenAttackDialog = false">
-    <template #title>¿Deseas atacar <b>{{ state.map[attackTo].name }}</b> desde <b>{{ state.map[attackFrom].name }}</b>?</template>
+    <template #title
+      >¿Deseas atacar <b>{{ state.map[attackTo].name }}</b> desde <b>{{ state.map[attackFrom].name }}</b
+      >?</template
+    >
     <template #description>
       <p>Selecciona el número de tropas que emplearás en el ataque:</p>
-      <InputNumber v-model:value="actionQuantity" min="0" :max="state.map[attackFrom].troops-1" placeholder="Número de tropas" class="w-full my-2"/>
+      <InputNumber
+        v-model:value="actionQuantity"
+        min="0"
+        :max="state.map[attackFrom].troops - 1"
+        placeholder="Número de tropas"
+        class="w-full my-2"
+      />
     </template>
     <template #buttons>
       <ButtonRed @click="attack(attackFrom, attackTo, actionQuantity)" class="mr-4">Sí</ButtonRed>
       <ButtonDark @click="isOpenAttackDialog = false">No</ButtonDark>
+    </template>
+  </Dialog>
+  <Dialog :show="isOpenMoveDialog" @click-outside="isOpenMoveDialog = false">
+    <template #title
+      >¿Cuántas tropas deseas mover de <b>{{ state.map[moveFrom].name }}</b> a <b>{{ state.map[moveTo].name }}</b
+      >?</template
+    >
+    <template #description>
+      <p>Selecciona el número de tropas que moverás:</p>
+      <InputNumber
+        v-model:value="actionQuantity"
+        min="0"
+        :max="state.map[moveFrom].troops - 1"
+        placeholder="Número de tropas"
+        class="w-full my-2"
+      />
+    </template>
+    <template #buttons>
+      <ButtonRed @click="move(moveFrom, moveTo, actionQuantity)" class="mr-4">Sí</ButtonRed>
+      <ButtonDark @click="isOpenMoveDialog = false">No</ButtonDark>
     </template>
   </Dialog>
   <main class="w-full h-screen flex flex-row overflow-hidden">
@@ -126,7 +161,7 @@
         index = i; // Return the index if email matches
       }
     }
-    console.log('I\'m player ' + index);
+    console.log("I'm player " + index);
     return index;
   });
 
@@ -161,10 +196,13 @@
   const isOpenAddFactoryDialog = ref(false);
   const isOpenAddTroopsDialog = ref(false);
   const isOpenAttackDialog = ref(false);
+  const isOpenMoveDialog = ref(false);
 
   const attackFrom = ref('');
   const attackTo = ref('');
   const canAttackTo = ref(null); // List of territories that can be attacked
+  const moveFrom = ref('');
+  const moveTo = ref('');
   const actionQuantity = ref(0);
 
   function selectTerritory(territory) {
@@ -197,6 +235,18 @@
           attackTo.value = selectedCode.value;
           isOpenAttackDialog.value = true;
         }
+      case 'move-troops':
+        if (myTerritories.value.includes(selectedCode.value)) {
+          moveFrom.value = selectedCode.value;
+          currentAction.value = 'moving';
+        }
+        break;
+      case 'moving':
+        if (myTerritories.value.includes(selectedCode.value)) {
+          moveTo.value = selectedCode.value;
+          isOpenMoveDialog.value = true;
+        }
+        break;
       default:
         break;
     }
@@ -223,6 +273,14 @@
     actionQuantity.value = 0;
     animatedTerritories.value = [];
     isOpenAttackDialog.value = false;
+  }
+
+  function move(from, to, troops) {
+    console.log('Moviendo ' + troops + ' tropas desde ' + from + ' a ' + to);
+    socket.emit('moveTroops', from, to, troops);
+    actionQuantity.value = 0;
+    animatedTerritories.value = [];
+    isOpenMoveDialog.value = false;
   }
 
   // Steps
@@ -303,14 +361,21 @@
   function sendMessage() {
     // Check message value is not empty
     if (message.value != '') {
-      messages.value.unshift({
+      /*messages.value.unshift({
         player: me.value,
         text: message.value,
-      });
+      });*/
+      socket.emit('sendMessage', message.value);
       // Clean message value
       message.value = '';
     }
   }
+  socket.on('messageReceived', (message) => {
+    messages.value.unshift({
+      player: 0,
+      text: message,
+    });
+  });
 
   // Territories animation
   const myTerritories = computed(() => {

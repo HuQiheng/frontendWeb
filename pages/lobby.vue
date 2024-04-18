@@ -38,7 +38,9 @@
       <div class="flex-grow"></div>
       <!-- Spacer to push the button to the bottom -->
       <div class="relative flex justify-center w-full">
-        <Button v-show="canStartGame" class="w-full m-10 max-w text-center text-lg" @click="startGame">Empezar partida</Button>
+        <Button v-show="canStartGame" class="w-full m-10 max-w text-center text-lg" @click="startGame"
+          >Empezar partida</Button
+        >
         <p v-show="!canStartGame" class="m-10">Tienes que esperar a que el que creó la sala inicie la partida.</p>
       </div>
     </section>
@@ -82,9 +84,7 @@
   });
 
   if (store.connectedPlayers) {
-    players.value = store.connectedPlayers.map((player) => {
-      return { name: '', email: player, picture: '/profile.svg' };
-    });
+    players.value = store.connectedPlayers;
   }
 
   // SocketIO
@@ -97,8 +97,9 @@
   });
 
   socket.on('connectedPlayers', (playerList) => {
+    console.log(playerList);
     players.value = playerList.map((player) => {
-      return { name: '', email: player, picture: '/profile.svg' };
+      return { name: player.username.trim(), email: player.email.trim(), picture: player.picture };
     });
   });
 
