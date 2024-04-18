@@ -102,18 +102,46 @@
       </div>
     </section>
     <!-- Chat -->
+    <!--<div 
+      v-show="isOpenEmojiDialog" 
+      class="fixed h-screen w-full bg-transparent"
+      @click="isOpenEmojiDialog = false">
+    </div>-->
     <section class="w-96 shadow-md border border-gray-200 flex flex-col">
-      <Chat :messages="messages" :players="state.players" :me="me"></Chat>
+      <Chat :messages="messages" :players="state.players" :me="me" class="relative">
+        <EmojiPicker 
+          v-show="isOpenEmojiDialog" 
+          class="absolute ml-4 mb-4" 
+          :native="true" 
+          @select="onSelectEmoji" />
+      </Chat>
       <div class="p-4 w-full flex flex-row border-t border-gray-200">
-        <InputText class="w-full" @keydown.enter="sendMessage" placeholder="Escribe aquí" v-model:value="message" />
-        <ButtonDark class="ml-4" @click="sendMessage"><IconSend /></ButtonDark>
+        <span @click="isOpenEmojiDialog = !isOpenEmojiDialog">
+          <IconMoodSmile class="h-10 w-10 cursor-pointer" />
+        </span>
+        <InputText 
+          class="w-full ml-4" 
+          @keydown.enter="sendMessage" 
+          placeholder="Escribe aquí" 
+          v-model:value="message" 
+          @click="isOpenEmojiDialog = false"
+        />
+        <ButtonDark 
+          class="ml-4" 
+          style="padding-left: 7px; padding-right: 9px;" 
+          @click="sendMessage"
+        >
+          <IconSend />
+        </ButtonDark>
       </div>
     </section>
   </main>
 </template>
 
 <script setup>
-  import { IconSend, IconArrowBarToRight } from '@tabler/icons-vue';
+  import EmojiPicker from 'vue3-emoji-picker';
+  import 'vue3-emoji-picker/css';
+  import { IconSend, IconArrowBarToRight, IconMoodSmile } from '@tabler/icons-vue';
   import { useUserStore } from '~/stores';
   import { io } from 'socket.io-client';
   import { dummyState } from '@/public/dummy_state.js';
@@ -343,37 +371,36 @@
 
   // Chat
   const message = ref('');
-  const messages = ref([
-    {
-      player: 1,
-      text: 'Por fin Huesca es mía jeje',
-    },
-    {
-      player: 0,
-      text: 'Ayudaaa!! Me atacaaa!',
-    },
-    {
-      player: 1,
-      text: 'Os voy a conquistar!',
-    },
-  ]);
+  const messages = ref([]);
+  const isOpenEmojiDialog = ref(false);
+
+  function onSelectEmoji(emoji) {
+    message.value += emoji.i;
+    //isOpenEmojiDialog.value = false;
+  }
 
   function sendMessage() {
     // Check message value is not empty
     if (message.value != '') {
-      /*messages.value.unshift({
-        player: me.value,
-        text: message.value,
-      });*/
       socket.emit('sendMessage', message.value);
       // Clean message value
       message.value = '';
     }
+    isOpenEmojiDialog.value = false;
   }
+
   socket.on('messageReceived', (message) => {
+    const text = message.message;
+    const email = message.user;
+    let playerIndex = 0;
+    for (let [index, player] of state.value.players.entries()) {
+      if (player.email.trim() == email.trim()) {
+        playerIndex = index;
+      }
+    }
     messages.value.unshift({
-      player: 0,
-      text: message,
+      player: playerIndex,
+      text: message.message,
     });
   });
 
