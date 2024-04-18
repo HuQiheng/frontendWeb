@@ -400,7 +400,7 @@
     }
     messages.value.unshift({
       player: playerIndex,
-      text: message.message,
+      text: text,
     });
   });
 
