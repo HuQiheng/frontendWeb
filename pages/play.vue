@@ -391,16 +391,15 @@
 
   socket.on('messageReceived', (message) => {
     const text = message.message;
-    const email = message.user;
     let playerIndex = 0;
     for (let [index, player] of state.value.players.entries()) {
-      if (player.email.trim() == email.trim()) {
+      if (player.email.trim() == message.user.trim()) {
         playerIndex = index;
       }
     }
     messages.value.unshift({
       player: playerIndex,
-      text: message.message,
+      text: text,
     });
   });
 
