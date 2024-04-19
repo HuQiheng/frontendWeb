@@ -23,9 +23,9 @@
         <DisclosurePanel class="px-4 pb-2 pt-4">
           Cada turno está dividido en varias fases: 
           <ul class="pl-10 list-disc">
-            <li>En la fase inicial, se lleva a cabo la adquisición de fábricas y tropas. Se permite la compra de hasta 100 tropas por territorio, con un límite máximo de 5 territorios.</li>
-            <li>En la segunda fase, se puede atacar a un territorio enemigo próximo a uno de tus territorios.</li>
-            <li>En la tercera fase, se pueden mover tropas entre territorios
+            <li>En la <strong>fase inicial</strong>, se lleva a cabo la adquisición de fábricas y tropas. Se permite compra ilimitada tanto de tropas como de fábricas.</li>
+            <li>En la <strong>segunda fase</strong>, se puede atacar a un territorio enemigo próximo a uno de los territorios del atacante. Puedes hacer todos lo ataques que se desee.</li>
+            <li>En la <strong>tercera fase</strong>, se pueden mover tropas entre territorios. Se puede mover el número de tropas que se desee las veces que se quiera. Tiene que haber un mínimo de 1 tropa. 
             adyacentes.</li>
           </ul>
         </DisclosurePanel>
@@ -40,6 +40,7 @@
         <DisclosurePanel class="px-4 pb-2 pt-4">
           Las fábricas se pueden adquirir en la primera fase del turno. Cada fábrica cuesta 15 monedas y genera 4
           monedas a la hora de cobrar monedas. Se puede tener hasta un máximo de 1 fábrica por territorio.
+          Puedes comprar todas la fábricas que puedas en tu turno.
         </DisclosurePanel>
       </Disclosure>
       <Disclosure as="div" class="mt-2" v-slot="{ open }">
