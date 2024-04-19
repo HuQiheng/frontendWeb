@@ -21,9 +21,13 @@
           <ChevronUpIcon :class="open ? 'rotate-180 transform' : ''" class="h-5 w-5 text-amber-900" />
         </DisclosureButton>
         <DisclosurePanel class="px-4 pb-2 pt-4">
-          Cada turno está dividido en varias fases. En la primera fase, se gestiona la compra de fábircas o tropas,
-          asignandose a un territorio en esta misma fase. En la segunda fase, se pueden mover tropas entre territorios
-          adyacentes. En la tercera fase, se puede atacar a un territorio enemigo próximo a uno de tus territorios.
+          Cada turno está dividido en varias fases: 
+          <ul class="pl-10 list-disc">
+            <li>En la fase inicial, se lleva a cabo la adquisición de fábricas y tropas. Se permite la compra de hasta 100 tropas por territorio, con un límite máximo de 5 territorios.</li>
+            <li>En la segunda fase, se puede atacar a un territorio enemigo próximo a uno de tus territorios.</li>
+            <li>En la tercera fase, se pueden mover tropas entre territorios
+            adyacentes.</li>
+          </ul>
         </DisclosurePanel>
       </Disclosure>
       <Disclosure as="div" class="mt-2" v-slot="{ open }">
