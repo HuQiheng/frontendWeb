@@ -15,6 +15,9 @@
 </template>
 
 <script setup>
+  const emit = defineEmits(['sendInvitation']);
+
+
   // Prop defined
   const props = defineProps({
     players: {
@@ -28,5 +31,7 @@
 
   function inviteFriend(player) {
     notification.value.show(`${player.name} invitado`);
+    emit('sendInvitation',player);
+
   }
 </script>

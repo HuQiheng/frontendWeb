@@ -77,7 +77,7 @@
     <!-- Game board -->
     <section class="grow relative">
       <!-- Leave -->
-      <ButtonRed class="m-8 absolute" @click="openModal"> Abandonar <IconArrowBarToRight class="ml-2" /> </ButtonRed>
+      <ButtonRed class="m-3 absolute" @click="openModal"> Abandonar <IconArrowBarToRight class="ml-2" /> </ButtonRed>
       <Dialog :show="isOpenQuitDialog" @click-outside="closeModal">
         <template #title>¿Estás seguro de que quieres abandonar la partida?</template>
         <template #buttons>

@@ -79,7 +79,7 @@
               placeholder="Introduce el correo del amigo"
               v-model:value="addFriendMail"
             />
-            <Button class="m-4" @click="test">AÑADIR</Button>
+            <Button class="m-4">AÑADIR</Button>
           </div>
           <hr />
           <!-- Frined List -->
@@ -172,9 +172,8 @@
     navigateTo('/lobby');
   });
 
-  socket.on('invitationRecevied', (userCode, userInfo) => {
-    console.log(userCode);
-    console.log(userInfo);
+  socket.on('invitationRecevied', (response) => {
+    invitation.value.notificate(response.userInfo, response.userCode);
   });
 
   // Add a friend
