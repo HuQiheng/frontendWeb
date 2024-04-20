@@ -139,7 +139,7 @@
         showIconCheck.value = false;
       }, 3000);
     } catch (err) {
-      console.error('Failed to copy: ', err);
+      console.error('Error al copiar: ', err);
     }
   };
 </script>

@@ -172,6 +172,11 @@
     navigateTo('/lobby');
   });
 
+  socket.on('invitationRecevied', (userCode, userInfo) => {
+    console.log(userCode);
+    console.log(userInfo);
+  });
+
   // Add a friend
   const addFriendMail = ref('');
 </script>
