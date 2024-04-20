@@ -49,7 +49,7 @@
       <h2 class="font-bold m-4 text-center">Invita a tus amigos</h2>
       <hr />
       <!-- It has to be friends, but for debugging purpouse it's players -->
-      <InviteFriendsList :players="players" @sendInvitation="sendInvitation"/>
+      <InviteFriendsList :players="players" @sendInvitation="sendInvitation" />
     </section>
   </main>
 </template>
@@ -130,21 +130,19 @@
     navigateTo('/play');
   });
 
-
   // Leaving the room
   function leaveLobby() {
     socket.emit('leaveRoom');
     store.setRoom(null);
     navigateTo('/dashboard');
-  };
+  }
 
   // Invite friends to lobby
   function sendInvitation(player) {
     // Debug version
-    const email = '839756@unizar.es'
+    const email = '839756@unizar.es';
     socket.emit('invite', email);
-  };
-
+  }
 
   // Copy to Clipboard
 
