@@ -25,7 +25,7 @@
           <img v-else src="/profile.svg" alt="User Picture" style="width: 180px; height: 180px" />
           <p class="m-6 text-xl text-g-800">{{ store.user.name }}</p>
           <!-- This is not completed yet-->
-          <p class="mb-3 text-xl text-g-800">Victorias: 0 🏆</p>
+          <p class="mb-3 text-lg text-g-800">Victorias: 0 🏆</p>
         </div>
         <hr />
         <!-- Achievements -->

@@ -77,7 +77,7 @@
     <!-- Game board -->
     <section class="grow relative">
       <!-- Leave -->
-      <ButtonRed class="m-3 absolute" @click="openModal"> Abandonar <IconArrowBarToRight class="ml-2" /> </ButtonRed>
+      <ButtonRed class="m-8 absolute" @click="openModal"> Abandonar <IconArrowBarToRight class="ml-2" /> </ButtonRed>
       <Dialog :show="isOpenQuitDialog" @click-outside="closeModal">
         <template #title>¿Estás seguro de que quieres abandonar la partida?</template>
         <template #buttons>
@@ -86,12 +86,18 @@
         </template>
       </Dialog>
       <!-- Map -->
-      <div class="p-8 flex flex-row justify-center" style="height: 80vh">
-        <Map
-          :state="state.map"
-          :animatedTerritories="animatedTerritories"
-          @select="(territory) => selectTerritory(territory)"
-        ></Map>
+      <div class="p-8 flex flex-row justify-between" style="height: 80vh">
+        <!-- Players -->
+        <div class="flex-none flex flex-col justify-center">
+          <Players :players="state.players" :turn="state.turn" />
+        </div>
+        <div class="w-full pl-8 flex flex-row justify-center">
+          <Map
+            :state="state.map"
+            :animatedTerritories="animatedTerritories"
+            @select="(territory) => selectTerritory(territory)"
+          ></Map>
+        </div>
       </div>
       <!-- Actions -->
       <div class="px-8 pb-8">
@@ -102,12 +108,7 @@
       </div>
     </section>
     <!-- Chat -->
-    <!--<div 
-      v-show="isOpenEmojiDialog" 
-      class="fixed h-screen w-full bg-transparent"
-      @click="isOpenEmojiDialog = false">
-    </div>-->
-    <section class="w-96 shadow-md border border-gray-200 flex flex-col">
+    <section class="flex-none w-72 xl:w-80 2xl:w-96 shadow-md border border-gray-200 flex flex-col">
       <Chat :messages="messages" :players="state.players" :me="me" class="relative">
         <EmojiPicker v-show="isOpenEmojiDialog" class="absolute ml-4 mb-4" :native="true" @select="onSelectEmoji" />
       </Chat>
