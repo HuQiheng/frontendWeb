@@ -49,10 +49,21 @@
       <h2 class="font-bold m-4 text-center">Invita a tus amigos</h2>
       <hr />
       <!-- It has to be friends, but for debugging purpouse it's players -->
-      <InviteFriendsList :players="players" />
+      <InviteFriendsList :players="players" @sendInvitation="sendInvitation" />
     </section>
   </main>
 </template>
+
+<style scoped>
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.5s;
+  }
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
+  }
+</style>
 
 <script setup>
   import { IconClipboard, IconCheck } from '@tabler/icons-vue';
@@ -119,10 +130,18 @@
     navigateTo('/play');
   });
 
+  // Leaving the room
   function leaveLobby() {
     socket.emit('leaveRoom');
     store.setRoom(null);
     navigateTo('/dashboard');
+  }
+
+  // Invite friends to lobby
+  function sendInvitation(player) {
+    // Debug version
+    const email = '839756@unizar.es';
+    socket.emit('invite', email);
   }
 
   // Copy to Clipboard
@@ -139,18 +158,7 @@
         showIconCheck.value = false;
       }, 3000);
     } catch (err) {
-      console.error('Failed to copy: ', err);
+      console.error('Error al copiar: ', err);
     }
   };
 </script>
-
-<style scoped>
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.5s;
-  }
-  .fade-enter,
-  .fade-leave-to {
-    opacity: 0;
-  }
-</style>

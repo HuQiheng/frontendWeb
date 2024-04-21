@@ -77,7 +77,7 @@
     <!-- Game board -->
     <section class="grow relative">
       <!-- Leave -->
-      <ButtonRed class="m-8 absolute" @click="openModal"> Abandonar <IconArrowBarToRight class="ml-2" /> </ButtonRed>
+      <ButtonRed class="m-3 absolute" @click="openModal"> Abandonar <IconArrowBarToRight class="ml-2" /> </ButtonRed>
       <Dialog :show="isOpenQuitDialog" @click-outside="closeModal">
         <template #title>¿Estás seguro de que quieres abandonar la partida?</template>
         <template #buttons>
@@ -109,28 +109,20 @@
     </div>-->
     <section class="w-96 shadow-md border border-gray-200 flex flex-col">
       <Chat :messages="messages" :players="state.players" :me="me" class="relative">
-        <EmojiPicker 
-          v-show="isOpenEmojiDialog" 
-          class="absolute ml-4 mb-4" 
-          :native="true" 
-          @select="onSelectEmoji" />
+        <EmojiPicker v-show="isOpenEmojiDialog" class="absolute ml-4 mb-4" :native="true" @select="onSelectEmoji" />
       </Chat>
       <div class="p-4 w-full flex flex-row border-t border-gray-200">
         <span @click="isOpenEmojiDialog = !isOpenEmojiDialog">
           <IconMoodSmile class="h-10 w-10 cursor-pointer" />
         </span>
-        <InputText 
-          class="w-full ml-4" 
-          @keydown.enter="sendMessage" 
-          placeholder="Escribe aquí" 
-          v-model:value="message" 
+        <InputText
+          class="w-full ml-4"
+          @keydown.enter="sendMessage"
+          placeholder="Escribe aquí"
+          v-model:value="message"
           @click="isOpenEmojiDialog = false"
         />
-        <ButtonDark 
-          class="ml-4" 
-          style="padding-left: 7px; padding-right: 9px;" 
-          @click="sendMessage"
-        >
+        <ButtonDark class="ml-4" style="padding-left: 7px; padding-right: 9px" @click="sendMessage">
           <IconSend />
         </ButtonDark>
       </div>

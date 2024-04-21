@@ -24,6 +24,8 @@
           />
           <img v-else src="/profile.svg" alt="User Picture" style="width: 180px; height: 180px" />
           <p class="m-6 text-xl text-g-800">{{ store.user.name }}</p>
+          <!-- This is not completed yet-->
+          <p class="mb-3 text-xl text-g-800">Victorias: 0 🏆</p>
         </div>
         <hr />
         <!-- Achievements -->
@@ -77,7 +79,7 @@
               placeholder="Introduce el correo del amigo"
               v-model:value="addFriendMail"
             />
-            <Button class="m-4" @click="test">AÑADIR</Button>
+            <Button class="m-4">AÑADIR</Button>
           </div>
           <hr />
           <!-- Frined List -->
@@ -168,6 +170,10 @@
       return { name: player.username.trim(), email: player.email.trim(), picture: player.picture };
     });
     navigateTo('/lobby');
+  });
+
+  socket.on('invitationRecevied', (response) => {
+    invitation.value.notificate(response.userInfo, response.userCode);
   });
 
   // Add a friend

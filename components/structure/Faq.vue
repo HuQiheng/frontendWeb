@@ -21,9 +21,21 @@
           <ChevronUpIcon :class="open ? 'rotate-180 transform' : ''" class="h-5 w-5 text-amber-900" />
         </DisclosureButton>
         <DisclosurePanel class="px-4 pb-2 pt-4">
-          Cada turno está dividido en varias fases. En la primera fase, se gestiona la compra de fábircas o tropas,
-          asignandose a un territorio en esta misma fase. En la segunda fase, se pueden mover tropas entre territorios
-          adyacentes. En la tercera fase, se puede atacar a un territorio enemigo próximo a uno de tus territorios.
+          Cada turno está dividido en varias fases:
+          <ul class="pl-10 list-disc">
+            <li>
+              En la <strong>fase inicial</strong>, se lleva a cabo la adquisición de fábricas y tropas. Se permite
+              compra ilimitada tanto de tropas como de fábricas.
+            </li>
+            <li>
+              En la <strong>segunda fase</strong>, se puede atacar a un territorio enemigo próximo a uno de los
+              territorios del atacante. Puedes hacer todos lo ataques que se desee.
+            </li>
+            <li>
+              En la <strong>tercera fase</strong>, se pueden mover tropas entre territorios. Se puede mover el número de
+              tropas que se desee las veces que se quiera. Tiene que haber un mínimo de 1 tropa. adyacentes.
+            </li>
+          </ul>
         </DisclosurePanel>
       </Disclosure>
       <Disclosure as="div" class="mt-2" v-slot="{ open }">
@@ -35,7 +47,8 @@
         </DisclosureButton>
         <DisclosurePanel class="px-4 pb-2 pt-4">
           Las fábricas se pueden adquirir en la primera fase del turno. Cada fábrica cuesta 15 monedas y genera 4
-          monedas a la hora de cobrar monedas. Se puede tener hasta un máximo de 1 fábrica por territorio.
+          monedas a la hora de cobrar monedas. Se puede tener hasta un máximo de 1 fábrica por territorio. Puedes
+          comprar todas la fábricas que puedas en tu turno.
         </DisclosurePanel>
       </Disclosure>
       <Disclosure as="div" class="mt-2" v-slot="{ open }">
