@@ -39,7 +39,7 @@
       </div>
     </section>
     <!-- Bottom section -->
-    <section class="flex-1 flex flex-col lg:flex-row">
+    <section class="flex-1 flex flex-col xl:flex-row">
       <!-- Left side, match related-->
       <div class="flex-1 p-6">
         <div class="flex flex-col w-full h-full rounded-xl border shadow-md p-6">
@@ -47,7 +47,7 @@
           <hr />
           <!-- Start new match -->
           <div class="flex flex-grow items-center justify-center w-full">
-            <div class="flex my-6 justify-center w-full">
+            <div class="flex m-6 justify-center w-full">
               <Button @click="createRoom">CREAR PARTIDA</Button>
             </div>
           </div>
@@ -56,7 +56,7 @@
           <div class="flex flex-row flex-grow justify-center items-center w-full">
             <div class="flex flex-row flex-grow p-4 m-4">
               <InputText
-                class="flex-grow text-center m-4"
+                class="flex-grow flex-text-center m-4"
                 placeholder="Introduce código de invitación"
                 v-model:value="joinRoomCode"
               />
@@ -74,6 +74,7 @@
           <!-- Friend Searcher -->
           <div class="flex flex-row m-6">
             <!--<img src="/zoom.svg" alt="Search icon" />-->
+            <InvitationsRequest />
             <InputText
               class="flex-grow text-center m-4"
               placeholder="Introduce el correo del amigo"
@@ -91,7 +92,7 @@
 </template>
 
 <script setup>
-  import { IconArrowBarToRight } from '@tabler/icons-vue';
+  import { IconArrowBarToRight, IconMail } from '@tabler/icons-vue';
   import { useUserStore } from '~/stores';
   import { io } from 'socket.io-client';
 

@@ -26,16 +26,10 @@
     >
     <template #description>
       <p>
-        Selecciona el número de tropas: 
-        <b>
-          {{ actionQuantity }} {{actionQuantity == 1 ? 'tropa' : 'tropas' }}
-        </b>
+        Selecciona el número de tropas:
+        <b> {{ actionQuantity }} {{ actionQuantity == 1 ? 'tropa' : 'tropas' }} </b>
       </p>
-      <InputRange 
-        v-model:value="actionQuantity" 
-        min="0" 
-        max="10"
-        class="w-full my-2" />
+      <InputRange v-model:value="actionQuantity" min="0" max="10" class="w-full my-2" />
     </template>
     <template #buttons>
       <ButtonRed @click="addTroops(selectedCode, actionQuantity)" class="mr-4">Sí</ButtonRed>
@@ -50,16 +44,9 @@
     <template #description>
       <p>
         Selecciona el número de tropas que emplearás en el ataque:
-        <b>
-          {{ actionQuantity }} {{actionQuantity == 1 ? 'tropa' : 'tropas' }}
-        </b>
+        <b> {{ actionQuantity }} {{ actionQuantity == 1 ? 'tropa' : 'tropas' }} </b>
       </p>
-      <InputRange
-        v-model:value="actionQuantity"
-        min="0"
-        :max="state.map[attackFrom].troops - 1"
-        class="w-full my-2"
-      />
+      <InputRange v-model:value="actionQuantity" min="0" :max="state.map[attackFrom].troops - 1" class="w-full my-2" />
     </template>
     <template #buttons>
       <ButtonRed @click="attack(attackFrom, attackTo, actionQuantity)" class="mr-4">Sí</ButtonRed>
@@ -73,17 +60,10 @@
     >
     <template #description>
       <p>
-        Selecciona el número de tropas que moverás: 
-        <b>
-          {{ actionQuantity }} {{actionQuantity == 1 ? 'tropa' : 'tropas' }}
-        </b>
+        Selecciona el número de tropas que moverás:
+        <b> {{ actionQuantity }} {{ actionQuantity == 1 ? 'tropa' : 'tropas' }} </b>
       </p>
-      <InputRange
-        v-model:value="actionQuantity"
-        min="0"
-        :max="state.map[moveFrom].troops - 1"
-        class="w-full my-2"
-      />
+      <InputRange v-model:value="actionQuantity" min="0" :max="state.map[moveFrom].troops - 1" class="w-full my-2" />
     </template>
     <template #buttons>
       <ButtonRed @click="move(moveFrom, moveTo, actionQuantity)" class="mr-4">Sí</ButtonRed>

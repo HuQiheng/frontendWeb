@@ -1,11 +1,12 @@
 <template>
-  <input 
-    type="range" 
+  <input
+    type="range"
     @input="$emit('update:value', $event.target.value)"
     :value="value"
     :min="min"
     :max="max"
-    class="w-full h-2 bg-gray-950 rounded-lg appearance-none cursor-pointer focus:outline-none">
+    class="w-full h-2 bg-gray-950 rounded-lg appearance-none cursor-pointer focus:outline-none"
+  />
 </template>
 
 <script setup>
