@@ -2,12 +2,7 @@
   <div class="p-4">
     <div v-if="players.length === 0" class="text-gray-600">No players to display.</div>
     <div v-else class="overflow-y-auto overflow-x-hidden max-h-60 scrollbar">
-      <PlayerCard
-        v-for="(player, index) in players"
-        :key="index"
-        :player="player"
-        class="cursor-pointer hover:bg-gray-100"
-      />
+      <PlayerInfo v-for="(player, index) in players" :key="index" :player="player" />
     </div>
   </div>
 </template>

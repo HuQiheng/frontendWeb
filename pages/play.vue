@@ -15,8 +15,8 @@
       >?</template
     >
     <template #buttons>
-      <ButtonRed @click="addFactory(selectedCode)" class="mr-4">Sí</ButtonRed>
-      <ButtonDark @click="isOpenAddFactoryDialog = false">No</ButtonDark>
+      <Button @click="addFactory(selectedCode)" class="mr-4">Sí</Button>
+      <ButtonRed @click="isOpenAddFactoryDialog = false">No</ButtonRed>
     </template>
   </Dialog>
   <Dialog :show="isOpenAddTroopsDialog" @click-outside="isOpenAddTroopsDialog = false">
@@ -32,8 +32,8 @@
       <InputRange v-model:value="actionQuantity" min="0" max="10" class="w-full my-2" />
     </template>
     <template #buttons>
-      <ButtonRed @click="addTroops(selectedCode, actionQuantity)" class="mr-4">Sí</ButtonRed>
-      <ButtonDark @click="isOpenAddTroopsDialog = false">No</ButtonDark>
+      <Button @click="addTroops(selectedCode, actionQuantity)" class="mr-4">Sí</Button>
+      <ButtonRed @click="isOpenAddTroopsDialog = false">No</ButtonRed>
     </template>
   </Dialog>
   <Dialog :show="isOpenAttackDialog" @click-outside="isOpenAttackDialog = false">
@@ -49,8 +49,8 @@
       <InputRange v-model:value="actionQuantity" min="0" :max="state.map[attackFrom].troops - 1" class="w-full my-2" />
     </template>
     <template #buttons>
-      <ButtonRed @click="attack(attackFrom, attackTo, actionQuantity)" class="mr-4">Sí</ButtonRed>
-      <ButtonDark @click="isOpenAttackDialog = false">No</ButtonDark>
+      <Button @click="attack(attackFrom, attackTo, actionQuantity)" class="mr-4">Sí</Button>
+      <ButtonRed @click="isOpenAttackDialog = false">No</ButtonRed>
     </template>
   </Dialog>
   <Dialog :show="isOpenMoveDialog" @click-outside="isOpenMoveDialog = false">
@@ -66,8 +66,8 @@
       <InputRange v-model:value="actionQuantity" min="0" :max="state.map[moveFrom].troops - 1" class="w-full my-2" />
     </template>
     <template #buttons>
-      <ButtonRed @click="move(moveFrom, moveTo, actionQuantity)" class="mr-4">Sí</ButtonRed>
-      <ButtonDark @click="isOpenMoveDialog = false">No</ButtonDark>
+      <Button @click="move(moveFrom, moveTo, actionQuantity)" class="mr-4">Sí</Button>
+      <ButtonRed @click="isOpenMoveDialog = false">No</ButtonRed>
     </template>
   </Dialog>
   <main class="w-full h-screen flex flex-row overflow-hidden">
