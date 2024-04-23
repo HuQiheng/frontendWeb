@@ -84,7 +84,7 @@
           </div>
           <hr />
           <!-- Frined List -->
-          <PlayerListCompact :players="friends" />
+          <PlayerListCompact :players="friends1" />
         </div>
       </div>
     </section>
@@ -127,10 +127,28 @@
     navigateTo('/signout');
   };
 
-  const friends = ref([
+  const friends1 = ref([
     { name: 'Eindres', email: '', picture: '/profile.svg' },
     { name: 'DiChorg', email: '', picture: '/profile.svg' },
   ]);
+
+  const friends = ref([]);
+
+  friends.value = useFetch(() => {
+    return fetch(api + '/users/' + store.user.email + '/friends')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch friends');
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        console.error('Error fetching friends:', error);
+        return [];
+      });
+  });
+
+  console.log('Fetched friends:', friends.value);
 
   // SocketIO
   const socket = io(api, {
