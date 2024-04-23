@@ -134,21 +134,22 @@
 
   const friends = ref([]);
 
-  friends.value = useFetch(() => {
-    return fetch(api + '/users/' + store.user.email + '/friends')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch friends');
-        }
-        return response.json();
-      })
-      .catch((error) => {
-        console.error('Error fetching friends:', error);
-        return [];
+  useFetch(async () => {
+    try {
+      const response = await fetch(api + '/users/' + store.user.email + '/friends', {
+        method: 'GET',
+        credentials: 'include',
       });
+      if (!response.ok) {
+        throw new Error('Failed to fetch friends');
+      }
+      friends.value = await response.json();
+      console.log('Fetched friends:', friends.value);
+    } catch (error) {
+      console.error('Error fetching friends:', error);
+      friends.value = [];
+    }
   });
-
-  console.log('Fetched friends:', friends.value);
 
   // SocketIO
   const socket = io(api, {
