@@ -48,8 +48,7 @@
     <section class="w-96 shadow-md border border-gray-200 flex flex-col p-4">
       <h2 class="font-bold m-4 text-center">Invita a tus amigos</h2>
       <hr />
-      <!-- It has to be friends, but for debugging purpouse it's players -->
-      <InviteFriendsList :players="players" @sendInvitation="sendInvitation" />
+      <InviteFriendsList :players="friends" @sendInvitation="sendInvitation" />
     </section>
   </main>
 </template>
@@ -137,11 +136,32 @@
     navigateTo('/dashboard');
   }
 
-  // Invite friends to lobby
+  // Friends list
+
+  const friends = ref([]);
+
+  useFetch(async () => {
+    try {
+      const response = await fetch(api + '/users/' + store.user.email + '/friends', {
+        method: 'GET',
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch friends');
+      }
+      friends.value = await response.json();
+      console.log('Fetched friends:', friends.value);
+    } catch (error) {
+      console.error('Error fetching friends:', error);
+      friends.value = [];
+    }
+  });
+
   function sendInvitation(player) {
+    console.log(player);
     // Debug version
-    const email = '839756@unizar.es';
-    socket.emit('invite', email);
+    // const email = '839756@unizar.es';
+    socket.emit('invite', player.email);
   }
 
   // Copy to Clipboard

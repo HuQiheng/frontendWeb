@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <div v-if="friends.length === 0" class="text-gray-600">No players to display.</div>
+    <div v-if="friends.length === 0" class="text-gray-600 text-center text-xl">No players to display.</div>
     <div v-else class="overflow-y-auto overflow-x-hidden max-h-96 scrollbar">
       <div v-for="(player, index) in friends" :key="index" class="flex flex-grow m-1">
         <div class="flex flex-grow bg-white shadow-md border rounded-lg p-4 m-1">

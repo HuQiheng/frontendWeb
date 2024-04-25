@@ -84,7 +84,7 @@
           </div>
           <hr />
           <!-- Frined List -->
-          <PlayerListCompact :players="friends1" />
+          <PlayerListCompact :players="friends" />
         </div>
       </div>
     </section>
