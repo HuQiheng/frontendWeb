@@ -57,6 +57,7 @@
             <div class="flex flex-row flex-grow p-4 m-4">
               <InputText
                 class="flex-grow flex-text-center m-4"
+                @keydown.enter="joinRoom"
                 placeholder="Introduce código de invitación"
                 v-model:value="joinRoomCode"
               />
@@ -77,6 +78,7 @@
             <InvitationsRequest />
             <InputText
               class="flex-grow text-center m-4"
+              @keydown.enter=""
               placeholder="Introduce el correo del amigo"
               v-model:value="addFriendMail"
             />
