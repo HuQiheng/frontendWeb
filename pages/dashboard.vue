@@ -56,7 +56,7 @@
           <div class="flex flex-row flex-grow justify-center items-center w-full">
             <div class="flex flex-row flex-grow p-4 m-4">
               <InputText
-                class="flex-grow flex-text-center m-4"
+                class="flex-grow flex text-center m-4"
                 @keydown.enter="joinRoom"
                 placeholder="Introduce código de invitación"
                 v-model:value="joinRoomCode"
@@ -78,11 +78,11 @@
             <InvitationsRequest />
             <InputText
               class="flex-grow text-center m-4"
-              @keydown.enter=""
+              @keydown.enter="sendFriendRequest"
               placeholder="Introduce el correo del amigo"
               v-model:value="addFriendMail"
             />
-            <Button class="m-4">AÑADIR</Button>
+            <Button class="m-4" @click="sendFriendRequest">AÑADIR</Button>
           </div>
           <hr />
           <!-- Frined List -->
@@ -112,11 +112,6 @@
 
   // Game invitation
   const invitation = ref(null);
-  // This has to be a socket.io call
-  function test() {
-    const a = { name: 'Eindres', email: '', picture: '/profile.svg' };
-    invitation.value.notificate(a, '2345');
-  }
 
   // Function to handle the accept event
   function handleAccept() {
@@ -128,11 +123,6 @@
   const signout = () => {
     navigateTo('/signout');
   };
-
-  const friends1 = ref([
-    { name: 'Eindres', email: '', picture: '/profile.svg' },
-    { name: 'DiChorg', email: '', picture: '/profile.svg' },
-  ]);
 
   const friends = ref([]);
 
@@ -200,4 +190,28 @@
 
   // Add a friend
   const addFriendMail = ref('');
+
+  async function sendFriendRequest() {
+    try {
+      console.log(api);
+      const response = await fetch(api + '/users/' + store.user.email + '/friendRequests', {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ to: addFriendMail.value }),
+      });
+
+      if (!response.ok) {
+        notification.value.show('Error mandando solicitud de amistad.');
+        throw new Error('Error sending friend request');
+      }
+
+      notification.value.show('Invitación enviada.');
+      console.log(addFriendMail.value);
+    } catch (error) {
+      console.error('Error sending friend request', error);
+    }
+  }
 </script>

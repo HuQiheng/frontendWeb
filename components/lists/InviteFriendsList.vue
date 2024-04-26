@@ -1,7 +1,7 @@
 <template>
   <Notification ref="notification" />
   <div class="p-4">
-    <div v-if="players.length === 0" class="text-gray-600 text-center text-xl">No players to display.</div>
+    <div v-if="players.length === 0" class="text-gray-600 text-center text-xl">No hay amigos para mostrar.</div>
     <div v-else>
       <PlayerCard
         v-for="(player, index) in players"

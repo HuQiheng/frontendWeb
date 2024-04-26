@@ -1,6 +1,6 @@
 <template>
   <div class="p-4">
-    <div v-if="friends.length === 0" class="text-gray-600 text-center text-xl">No players to display.</div>
+    <div v-if="friends.length === 0" class="text-gray-600 text-center text-xl">No hay peticiones de amistad.</div>
     <div v-else class="overflow-y-auto overflow-x-hidden max-h-96 scrollbar">
       <div v-for="(player, index) in friends" :key="index" class="flex flex-grow m-1">
         <div class="flex flex-grow bg-white shadow-md border rounded-lg p-4 m-1">
@@ -44,19 +44,30 @@
 
 <script setup>
   import { IconCheck, IconX } from '@tabler/icons-vue';
+  import { useUserStore } from '~/stores';
 
-  const props = defineProps({
-    players: {
-      type: Array,
-      required: true,
-    },
+  const api = useAppConfig().api;
+
+  const store = useUserStore();
+
+  const friends = ref([]);
+
+  useFetch(async () => {
+    try {
+      const response = await fetch(api + '/users/' + store.user.email + '/friendsRequests', {
+        method: 'GET',
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch friends');
+      }
+      friends.value = await response.json();
+      console.log('Fetched friends:', friends.value);
+    } catch (error) {
+      console.error('Error fetching friends:', error);
+      friends.value = [];
+    }
   });
-
-  // This needs to be bd request. Debug version
-  const friends = ref([
-    { name: 'Eindres', email: '', picture: '/profile.svg' },
-    { name: 'DiChorg', email: '', picture: '/profile.svg' },
-  ]);
 
   function acceptEvent(player) {}
 
