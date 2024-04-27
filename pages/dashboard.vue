@@ -156,6 +156,7 @@
 
   socket.on('accessCode', (code) => {
     store.setRoom(code);
+    console.log(store.user.room);
     navigateTo('/lobby');
   });
 
