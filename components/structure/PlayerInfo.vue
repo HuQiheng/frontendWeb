@@ -121,7 +121,6 @@
   // Function that ends the friendship between the user and the other player
   async function deleteFriend() {
     try {
-      console.log('Hola');
       const response = await fetch(api + '/users/' + store.user.email + '/friends', {
         method: 'DELETE',
         credentials: 'include',

@@ -195,7 +195,6 @@
 
   async function sendFriendRequest() {
     try {
-      console.log(api);
       const response = await fetch(api + '/users/' + store.user.email + '/friendRequests', {
         method: 'PUT',
         credentials: 'include',
