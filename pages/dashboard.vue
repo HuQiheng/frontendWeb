@@ -18,12 +18,15 @@
           <img
             v-if="store.user.picture"
             :src="store.user.picture"
+            referrerPolicy="no-referrer"
             alt="User Picture"
             class="rounded-full"
             style="width: 180px; height: 180px"
           />
           <img v-else src="/profile.svg" alt="User Picture" style="width: 180px; height: 180px" />
           <p class="m-6 text-xl text-g-800">{{ store.user.name }}</p>
+          <!-- This is not completed yet-->
+          <p class="mb-3 text-lg text-g-800">Victorias: 0 🏆</p>
         </div>
         <hr />
         <!-- Achievements -->
@@ -37,7 +40,7 @@
       </div>
     </section>
     <!-- Bottom section -->
-    <section class="flex-1 flex flex-col lg:flex-row">
+    <section class="flex-1 flex flex-col xl:flex-row">
       <!-- Left side, match related-->
       <div class="flex-1 p-6">
         <div class="flex flex-col w-full h-full rounded-xl border shadow-md p-6">
@@ -45,7 +48,7 @@
           <hr />
           <!-- Start new match -->
           <div class="flex flex-grow items-center justify-center w-full">
-            <div class="flex my-6 justify-center w-full">
+            <div class="flex m-6 justify-center w-full">
               <Button @click="createRoom">CREAR PARTIDA</Button>
             </div>
           </div>
@@ -54,7 +57,8 @@
           <div class="flex flex-row flex-grow justify-center items-center w-full">
             <div class="flex flex-row flex-grow p-4 m-4">
               <InputText
-                class="flex-grow text-center m-4"
+                class="flex-grow flex text-center m-4"
+                @keydown.enter="joinRoom"
                 placeholder="Introduce código de invitación"
                 v-model:value="joinRoomCode"
               />
@@ -72,15 +76,17 @@
           <!-- Friend Searcher -->
           <div class="flex flex-row m-6">
             <!--<img src="/zoom.svg" alt="Search icon" />-->
+            <InvitationsRequest />
             <InputText
               class="flex-grow text-center m-4"
+              @keydown.enter="sendFriendRequest"
               placeholder="Introduce el correo del amigo"
               v-model:value="addFriendMail"
             />
-            <Button class="m-4" @click="test">AÑADIR</Button>
+            <Button class="m-4" @click="sendFriendRequest">AÑADIR</Button>
           </div>
           <hr />
-          <!-- Frined List -->
+          <!-- Friend List -->
           <PlayerListCompact :players="friends" />
         </div>
       </div>
@@ -89,7 +95,7 @@
 </template>
 
 <script setup>
-  import { IconArrowBarToRight } from '@tabler/icons-vue';
+  import { IconArrowBarToRight, IconMail } from '@tabler/icons-vue';
   import { useUserStore } from '~/stores';
   import { io } from 'socket.io-client';
 
@@ -107,11 +113,6 @@
 
   // Game invitation
   const invitation = ref(null);
-  // This has to be a socket.io call
-  function test() {
-    const a = { name: 'Eindres', email: '', picture: '/profile.svg' };
-    invitation.value.notificate(a, '2345');
-  }
 
   // Function to handle the accept event
   function handleAccept() {
@@ -124,10 +125,24 @@
     navigateTo('/signout');
   };
 
-  const friends = ref([
-    { name: 'Eindres', email: '', picture: '/profile.svg' },
-    { name: 'DiChorg', email: '', picture: '/profile.svg' },
-  ]);
+  const friends = ref([]);
+
+  useFetch(async () => {
+    try {
+      const response = await fetch(api + '/users/' + store.user.email + '/friends', {
+        method: 'GET',
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch friends');
+      }
+      friends.value = await response.json();
+      console.log('Fetched friends:', friends.value);
+    } catch (error) {
+      console.error('Error fetching friends:', error);
+      friends.value = [];
+    }
+  });
 
   // SocketIO
   const socket = io(api, {
@@ -141,6 +156,7 @@
 
   socket.on('accessCode', (code) => {
     store.setRoom(code);
+    console.log(store.user.room);
     navigateTo('/lobby');
   });
 
@@ -170,6 +186,34 @@
     navigateTo('/lobby');
   });
 
+  socket.on('invitationRecevied', (response) => {
+    invitation.value.notificate(response.userInfo, response.userCode);
+  });
+
   // Add a friend
   const addFriendMail = ref('');
+
+  async function sendFriendRequest() {
+    try {
+      console.log(api);
+      const response = await fetch(api + '/users/' + store.user.email + '/friendRequests', {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ to: addFriendMail.value }),
+      });
+
+      if (!response.ok) {
+        notification.value.show('Error mandando solicitud de amistad.');
+        throw new Error('Error sending friend request');
+      }
+
+      notification.value.show('Invitación enviada.');
+      console.log(addFriendMail.value);
+    } catch (error) {
+      console.error('Error sending friend request', error);
+    }
+  }
 </script>

@@ -14,6 +14,11 @@
 <script setup>
   import { useUserStore } from '~/stores';
 
+  // If user has already signed in, redirect to dashboard
+  definePageMeta({
+    middleware: ['auth'],
+  });
+
   const api = useAppConfig().api;
 
   const store = useUserStore();

@@ -48,11 +48,21 @@
     <section class="w-96 shadow-md border border-gray-200 flex flex-col p-4">
       <h2 class="font-bold m-4 text-center">Invita a tus amigos</h2>
       <hr />
-      <!-- It has to be friends, but for debugging purpouse it's players -->
-      <InviteFriendsList :players="players" />
+      <InviteFriendsList :players="friends" @sendInvitation="sendInvitation" />
     </section>
   </main>
 </template>
+
+<style scoped>
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity 0.5s;
+  }
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
+  }
+</style>
 
 <script setup>
   import { IconClipboard, IconCheck } from '@tabler/icons-vue';
@@ -119,10 +129,39 @@
     navigateTo('/play');
   });
 
+  // Leaving the room
   function leaveLobby() {
     socket.emit('leaveRoom');
     store.setRoom(null);
     navigateTo('/dashboard');
+  }
+
+  // Friends list
+
+  const friends = ref([]);
+
+  useFetch(async () => {
+    try {
+      const response = await fetch(api + '/users/' + store.user.email + '/friends', {
+        method: 'GET',
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch friends');
+      }
+      friends.value = await response.json();
+      console.log('Fetched friends:', friends.value);
+    } catch (error) {
+      console.error('Error fetching friends:', error);
+      friends.value = [];
+    }
+  });
+
+  function sendInvitation(player) {
+    console.log(player);
+    // Debug version
+    // const email = '839756@unizar.es';
+    socket.emit('invite', player.email);
   }
 
   // Copy to Clipboard
@@ -139,18 +178,7 @@
         showIconCheck.value = false;
       }, 3000);
     } catch (err) {
-      console.error('Failed to copy: ', err);
+      console.error('Error al copiar: ', err);
     }
   };
 </script>
-
-<style scoped>
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity 0.5s;
-  }
-  .fade-enter,
-  .fade-leave-to {
-    opacity: 0;
-  }
-</style>

@@ -15,8 +15,8 @@
       >?</template
     >
     <template #buttons>
-      <ButtonRed @click="addFactory(selectedCode)" class="mr-4">Sí</ButtonRed>
-      <ButtonDark @click="isOpenAddFactoryDialog = false">No</ButtonDark>
+      <Button @click="addFactory(selectedCode)" class="mr-4">Sí</Button>
+      <ButtonRed @click="isOpenAddFactoryDialog = false">No</ButtonRed>
     </template>
   </Dialog>
   <Dialog :show="isOpenAddTroopsDialog" @click-outside="isOpenAddTroopsDialog = false">
@@ -25,12 +25,15 @@
       >?</template
     >
     <template #description>
-      <p>Selecciona el número de tropas:</p>
-      <InputNumber v-model:value="actionQuantity" min="0" max="10" placeholder="Número de tropas" class="w-full my-2" />
+      <p>
+        Selecciona el número de tropas:
+        <b> {{ actionQuantity }} {{ actionQuantity == 1 ? 'tropa' : 'tropas' }} </b>
+      </p>
+      <InputRange v-model:value="actionQuantity" min="0" max="10" class="w-full mt-6 mb-2" />
     </template>
     <template #buttons>
-      <ButtonRed @click="addTroops(selectedCode, actionQuantity)" class="mr-4">Sí</ButtonRed>
-      <ButtonDark @click="isOpenAddTroopsDialog = false">No</ButtonDark>
+      <Button @click="addTroops(selectedCode, actionQuantity)" class="mr-4">Sí</Button>
+      <ButtonRed @click="isOpenAddTroopsDialog = false">No</ButtonRed>
     </template>
   </Dialog>
   <Dialog :show="isOpenAttackDialog" @click-outside="isOpenAttackDialog = false">
@@ -39,18 +42,15 @@
       >?</template
     >
     <template #description>
-      <p>Selecciona el número de tropas que emplearás en el ataque:</p>
-      <InputNumber
-        v-model:value="actionQuantity"
-        min="0"
-        :max="state.map[attackFrom].troops - 1"
-        placeholder="Número de tropas"
-        class="w-full my-2"
-      />
+      <p>
+        Selecciona el número de tropas que emplearás en el ataque:
+        <b> {{ actionQuantity }} {{ actionQuantity == 1 ? 'tropa' : 'tropas' }} </b>
+      </p>
+      <InputRange v-model:value="actionQuantity" min="0" :max="state.map[attackFrom].troops - 1" class="w-full mt-6 mb-2" />
     </template>
     <template #buttons>
-      <ButtonRed @click="attack(attackFrom, attackTo, actionQuantity)" class="mr-4">Sí</ButtonRed>
-      <ButtonDark @click="isOpenAttackDialog = false">No</ButtonDark>
+      <Button @click="attack(attackFrom, attackTo, actionQuantity)" class="mr-4">Sí</Button>
+      <ButtonRed @click="isOpenAttackDialog = false">No</ButtonRed>
     </template>
   </Dialog>
   <Dialog :show="isOpenMoveDialog" @click-outside="isOpenMoveDialog = false">
@@ -59,18 +59,15 @@
       >?</template
     >
     <template #description>
-      <p>Selecciona el número de tropas que moverás:</p>
-      <InputNumber
-        v-model:value="actionQuantity"
-        min="0"
-        :max="state.map[moveFrom].troops - 1"
-        placeholder="Número de tropas"
-        class="w-full my-2"
-      />
+      <p>
+        Selecciona el número de tropas que moverás:
+        <b> {{ actionQuantity }} {{ actionQuantity == 1 ? 'tropa' : 'tropas' }} </b>
+      </p>
+      <InputRange v-model:value="actionQuantity" min="0" :max="state.map[moveFrom].troops - 1" class="w-full mt-6 mb-2" />
     </template>
     <template #buttons>
-      <ButtonRed @click="move(moveFrom, moveTo, actionQuantity)" class="mr-4">Sí</ButtonRed>
-      <ButtonDark @click="isOpenMoveDialog = false">No</ButtonDark>
+      <Button @click="move(moveFrom, moveTo, actionQuantity)" class="mr-4">Sí</Button>
+      <ButtonRed @click="isOpenMoveDialog = false">No</ButtonRed>
     </template>
   </Dialog>
   <main class="w-full h-screen flex flex-row overflow-hidden">
@@ -86,12 +83,18 @@
         </template>
       </Dialog>
       <!-- Map -->
-      <div class="p-8 flex flex-row justify-center" style="height: 80vh">
-        <Map
-          :state="state.map"
-          :animatedTerritories="animatedTerritories"
-          @select="(territory) => selectTerritory(territory)"
-        ></Map>
+      <div class="p-8 flex flex-row justify-between" style="height: 80vh">
+        <!-- Players -->
+        <div class="flex-none flex flex-col justify-center">
+          <Players :players="state.players" :turn="state.turn" />
+        </div>
+        <div class="w-full pl-8 flex flex-row justify-center">
+          <Map
+            :state="state.map"
+            :animatedTerritories="animatedTerritories"
+            @select="(territory) => selectTerritory(territory)"
+          ></Map>
+        </div>
       </div>
       <!-- Actions -->
       <div class="px-8 pb-8">
@@ -102,35 +105,22 @@
       </div>
     </section>
     <!-- Chat -->
-    <!--<div 
-      v-show="isOpenEmojiDialog" 
-      class="fixed h-screen w-full bg-transparent"
-      @click="isOpenEmojiDialog = false">
-    </div>-->
-    <section class="w-96 shadow-md border border-gray-200 flex flex-col">
+    <section class="flex-none w-72 xl:w-80 2xl:w-96 shadow-md border border-gray-200 flex flex-col">
       <Chat :messages="messages" :players="state.players" :me="me" class="relative">
-        <EmojiPicker 
-          v-show="isOpenEmojiDialog" 
-          class="absolute ml-4 mb-4" 
-          :native="true" 
-          @select="onSelectEmoji" />
+        <EmojiPicker v-show="isOpenEmojiDialog" class="absolute ml-4 mb-4" :native="true" @select="onSelectEmoji" />
       </Chat>
       <div class="p-4 w-full flex flex-row border-t border-gray-200">
         <span @click="isOpenEmojiDialog = !isOpenEmojiDialog">
           <IconMoodSmile class="h-10 w-10 cursor-pointer" />
         </span>
-        <InputText 
-          class="w-full ml-4" 
-          @keydown.enter="sendMessage" 
-          placeholder="Escribe aquí" 
-          v-model:value="message" 
+        <InputText
+          class="w-full ml-4"
+          @keydown.enter="sendMessage"
+          placeholder="Escribe aquí"
+          v-model:value="message"
           @click="isOpenEmojiDialog = false"
         />
-        <ButtonDark 
-          class="ml-4" 
-          style="padding-left: 7px; padding-right: 9px;" 
-          @click="sendMessage"
-        >
+        <ButtonDark class="ml-4" style="padding-left: 7px; padding-right: 9px" @click="sendMessage">
           <IconSend />
         </ButtonDark>
       </div>
@@ -204,6 +194,7 @@
   function quitRoom() {
     socket.emit('surrender');
     socket.emit('leaveRoom');
+    store.setRoom(null);
     navigateTo('/dashboard');
   }
   socket.on('playerLeftRoom', (player) => {
@@ -391,9 +382,10 @@
 
   socket.on('messageReceived', (message) => {
     const text = message.message;
+    const email = message.user;
     let playerIndex = 0;
     for (let [index, player] of state.value.players.entries()) {
-      if (player.email.trim() == message.user.trim()) {
+      if (player.email.trim() == email.trim()) {
         playerIndex = index;
       }
     }

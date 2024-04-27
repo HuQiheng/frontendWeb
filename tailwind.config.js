@@ -13,7 +13,7 @@ export default {
       colors: {
         primary: '#083344',
         secondary: '#ea970a',
-        'secondary-dark': '#d68a0a'
+        'secondary-dark': '#d68a0a',
       },
     },
     fontFamily: {
