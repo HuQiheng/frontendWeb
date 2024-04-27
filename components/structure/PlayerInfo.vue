@@ -7,12 +7,11 @@
           <div class="flex flex-grow"></div>
           <!-- Needs logic to render -->
           <div v-if="areFriends">
-            <ButtonRed><IconHeartBroken /></ButtonRed>
+            <ButtonRed @click="deleteFriend"><IconHeartBroken /></ButtonRed>
           </div>
           <div v-else>
             <Button @click="sendFriendRequest"><IconHeartPlus /></Button>
           </div>
-          
         </div>
 
         <!-- User's profile settings -->
@@ -72,10 +71,11 @@
     isOpen.value = false;
   };
 
-  // Check if the user and other player are friends
+  // Check if the user and the other player are already friends
   const areFriends = ref('');
 
-   const fetchFriendship = async () => {
+  // Function that checks friendship between the user and the other player
+  const fetchFriendship = async () => {
     try {
       const response = await fetch(api + '/users/' + store.user.email + '/' + props.player.email + '/friendship', {
         method: 'GET',
@@ -94,9 +94,9 @@
     }
   };
 
+  // Function that send the other player a friend request
   async function sendFriendRequest() {
     try {
-      console.log(api);
       const response = await fetch(api + '/users/' + store.user.email + '/friendRequests', {
         method: 'PUT',
         credentials: 'include',
@@ -118,9 +118,28 @@
     }
   }
 
+  // Function that ends the friendship between the user and the other player
   async function deleteFriend() {
+    try {
+      console.log('Hola');
+      const response = await fetch(api + '/users/' + store.user.email + '/friends', {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: props.player.email }),
+      });
 
+      if (!response.ok) {
+        notification.value.show('Error mandando solicitud de amistad.');
+        throw new Error('Error sending friend request');
+      }
+
+      notification.value.show('Amigo eliminado');
+      window.location.reload();
+    } catch (error) {
+      console.error('Error sending friend request', error);
+    }
   }
-
-  
 </script>

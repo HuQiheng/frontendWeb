@@ -46,7 +46,12 @@
         Selecciona el número de tropas que emplearás en el ataque:
         <b> {{ actionQuantity }} {{ actionQuantity == 1 ? 'tropa' : 'tropas' }} </b>
       </p>
-      <InputRange v-model:value="actionQuantity" min="0" :max="state.map[attackFrom].troops - 1" class="w-full mt-6 mb-2" />
+      <InputRange
+        v-model:value="actionQuantity"
+        min="0"
+        :max="state.map[attackFrom].troops - 1"
+        class="w-full mt-6 mb-2"
+      />
     </template>
     <template #buttons>
       <Button @click="attack(attackFrom, attackTo, actionQuantity)" class="mr-4">Sí</Button>
@@ -63,7 +68,12 @@
         Selecciona el número de tropas que moverás:
         <b> {{ actionQuantity }} {{ actionQuantity == 1 ? 'tropa' : 'tropas' }} </b>
       </p>
-      <InputRange v-model:value="actionQuantity" min="0" :max="state.map[moveFrom].troops - 1" class="w-full mt-6 mb-2" />
+      <InputRange
+        v-model:value="actionQuantity"
+        min="0"
+        :max="state.map[moveFrom].troops - 1"
+        class="w-full mt-6 mb-2"
+      />
     </template>
     <template #buttons>
       <Button @click="move(moveFrom, moveTo, actionQuantity)" class="mr-4">Sí</Button>
