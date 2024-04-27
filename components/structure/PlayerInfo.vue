@@ -6,8 +6,13 @@
         <div v-if="player.email != store.user.email" class="flex flex-1">
           <div class="flex flex-grow"></div>
           <!-- Needs logic to render -->
-          <Button><IconHeartPlus /></Button>
-          <ButtonRed><IconHeartBroken /></ButtonRed>
+          <div v-if="areFriends">
+            <ButtonRed><IconHeartBroken /></ButtonRed>
+          </div>
+          <div v-else>
+            <Button @click="sendFriendRequest"><IconHeartPlus /></Button>
+          </div>
+          
         </div>
 
         <!-- User's profile settings -->
@@ -58,11 +63,64 @@
   // Modal window
   const isOpen = ref(false);
 
-  const openModal = () => {
+  const openModal = async () => {
     isOpen.value = true;
+    await fetchFriendship();
   };
 
   const closeModal = () => {
     isOpen.value = false;
   };
+
+  // Check if the user and other player are friends
+  const areFriends = ref('');
+
+   const fetchFriendship = async () => {
+    try {
+      const response = await fetch(api + '/users/' + store.user.email + '/' + props.player.email + '/friendship', {
+        method: 'GET',
+        credentials: 'include',
+      });
+      // If something goes wrong throw an error
+      if (!response.ok) {
+        areFriends = false;
+        throw new Error('Failed to fetch friends');
+      }
+      // Are they friends;
+      areFriends.value = await response.json();
+    } catch (error) {
+      console.error('Error fetching friends:', error);
+      areFriends.value = false;
+    }
+  };
+
+  async function sendFriendRequest() {
+    try {
+      console.log(api);
+      const response = await fetch(api + '/users/' + store.user.email + '/friendRequests', {
+        method: 'PUT',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ to: props.player.email }),
+      });
+
+      if (!response.ok) {
+        notification.value.show('Error mandando solicitud de amistad.');
+        throw new Error('Error sending friend request');
+      }
+
+      notification.value.show('Invitación enviada.');
+      console.log(addFriendMail.value);
+    } catch (error) {
+      console.error('Error sending friend request', error);
+    }
+  }
+
+  async function deleteFriend() {
+
+  }
+
+  
 </script>
