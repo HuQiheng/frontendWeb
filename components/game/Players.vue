@@ -10,6 +10,7 @@
         class="w-20 h-20 rounded-full border-8"
         :class="'border-player' + index"
         :src="player.picture"
+        referrerPolicy="no-referrer"
         :alt="player.name"
       />
       <!--<p class="text-xs py-1">{{ player.name }}</p>-->

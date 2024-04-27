@@ -18,6 +18,7 @@
           <img
             v-if="store.user.picture"
             :src="store.user.picture"
+            referrerPolicy="no-referrer"
             alt="User Picture"
             class="rounded-full"
             style="width: 180px; height: 180px"
@@ -85,7 +86,7 @@
             <Button class="m-4" @click="sendFriendRequest">AÑADIR</Button>
           </div>
           <hr />
-          <!-- Frined List -->
+          <!-- Friend List -->
           <PlayerListCompact :players="friends" />
         </div>
       </div>

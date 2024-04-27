@@ -15,6 +15,7 @@
           <img
             v-if="player.picture"
             :src="player.picture"
+            referrerPolicy="no-referrer"
             alt="User Picture"
             class="rounded-full"
             style="width: 180px; height: 180px"
