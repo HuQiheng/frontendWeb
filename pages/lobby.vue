@@ -38,7 +38,7 @@
       <div class="flex-grow"></div>
       <!-- Spacer to push the button to the bottom -->
       <div class="relative flex justify-center w-full">
-        <Button v-show="canStartGame" class="w-full m-10 max-w text-center text-lg" @click="startGame"
+        <Button v-show="canStartGame" class="w-full m-10 max-w block text-center text-lg" @click="startGame"
           >Empezar partida</Button
         >
         <p v-show="!canStartGame" class="m-10">Tienes que esperar a que el que creó la sala inicie la partida.</p>
@@ -77,6 +77,17 @@
   const api = useAppConfig().api;
 
   const store = useUserStore();
+
+  // Music
+  const audio = new Audio('/elevator_music.mp3');
+  audio.loop = true;
+  onMounted(() => {
+    audio.play();
+  });
+
+  onBeforeUnmount(() => {
+    audio.pause();
+  });
 
   // Notifications
   const notification = ref(null);

@@ -55,6 +55,7 @@
         body: JSON.stringify({
           username: name.value,
           password: store.user.password,
+          picture: store.user.picture
         }),
       })
         .then((response) => {
