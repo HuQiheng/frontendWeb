@@ -15,6 +15,8 @@
 <script setup>
   import { IconMail } from '@tabler/icons-vue';
 
+  const emit = defineEmits(['Modified']);
+
   // Notification
   const notification = ref(null);
 
@@ -38,7 +40,7 @@
     isOpen.value = false;
     // If the user has accepted a request reload the page
     if (hasBeenModified.value) {
-      window.location.reload();
+      emit('Modified');
     }
   };
 </script>

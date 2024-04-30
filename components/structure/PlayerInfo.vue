@@ -52,6 +52,9 @@
       required: true,
     },
   });
+
+  const emit = defineEmits(['friendDeleted']);
+
   const store = useUserStore();
 
   const api = useAppConfig().api;
@@ -136,7 +139,7 @@
       }
 
       notification.value.show('Amigo eliminado');
-      window.location.reload();
+      emit('friendDeleted');
     } catch (error) {
       console.error('Error sending friend request', error);
     }
