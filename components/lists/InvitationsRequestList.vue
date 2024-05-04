@@ -95,7 +95,7 @@
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ friend: email }),
+        body: JSON.stringify({ email: email }),
       });
       if (!response.ok) {
         notification.value.show('Error al aceptar solicitud de amistad.');

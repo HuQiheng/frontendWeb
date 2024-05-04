@@ -1,5 +1,13 @@
 <template>
-  <Button class="m-4 justify-center items-center" @click="openModal"> <IconMail /> </Button>
+  <Button class="m-4 justify-center items-center relative" @click="openModal"> 
+    <IconMail /> 
+    <div 
+      v-show="requestNumber > 0"
+      class="absolute -top-2 -right-2 bg-yellow-700 px-2 py-1 rounded-full text-center text-sm flex flex-row items-center"
+      style="width: 1.5rem; height: 1.5rem;">
+      {{ requestNumber }}
+    </div>
+  </Button>
   <DialogBig :show="isOpen" @click-outside="closeModal" style="width: 600px; height: 400px">
     <template #title><b class="flex text-2xl justify-center text-center"> Peticiones de amistad</b> </template>
     <template #description>
@@ -15,6 +23,10 @@
 <script setup>
   import { IconMail } from '@tabler/icons-vue';
 
+  const api = useAppConfig().api;
+
+  const store = useUserStore();
+
   const emit = defineEmits(['Modified']);
 
   // Notification
@@ -28,6 +40,7 @@
 
   // If so set it to true.
   function handdleModification() {
+    requestNumber.value = requestNumber.value - 1;
     hasBeenModified.value = true;
   }
 
@@ -43,4 +56,12 @@
       emit('Modified');
     }
   };
+
+  // Get request number
+  const response = await fetch(api + '/users/' + store.user.email + '/friendsRequests', {
+    method: 'GET',
+    credentials: 'include',
+  });
+  const friendRequests = await response.json();
+  const requestNumber = ref(friendRequests.length);
 </script>

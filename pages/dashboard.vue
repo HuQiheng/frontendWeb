@@ -217,9 +217,10 @@
       }
 
       notification.value.show('Invitación enviada.');
-      console.log(addFriendMail.value);
+      addFriendMail.value = '';
     } catch (error) {
       console.error('Error sending friend request', error);
+      notification.value.show('Error enviando petición');
     }
   }
 </script>
