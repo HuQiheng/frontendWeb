@@ -84,16 +84,34 @@
   </Dialog>
   <main class="w-full h-screen flex flex-row overflow-hidden">
     <!-- Game board -->
-    <section class="grow relative">
-      <!-- Leave -->
-      <ButtonRed class="m-8 absolute" @click="openModal"> Abandonar <IconArrowBarToRight class="ml-2" /> </ButtonRed>
+    <section 
+      class="grow relative" 
+      style="background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(0,119,255,1) 0%, rgba(0,212,255,1) 100%);">
+      <!-- Surrender -->
+      <ButtonRed 
+        v-if="inGame"
+        class="m-8 absolute" 
+        @click="openModal"
+      >
+        Rendirse
+        <IconFlag class="ml-2" />
+      </ButtonRed>
       <Dialog :show="isOpenQuitDialog" @click-outside="closeModal">
-        <template #title>¿Estás seguro de que quieres abandonar la partida?</template>
+        <template #title>¿Estás seguro de que quieres rendirte?</template>
         <template #buttons>
-          <ButtonRed @click="quitRoom" class="mr-4">Sí</ButtonRed>
+          <ButtonRed @click="surrender" class="mr-4">Sí</ButtonRed>
           <ButtonDark @click="closeModal">No</ButtonDark>
         </template>
       </Dialog>
+      <!-- Leave -->
+      <ButtonRed 
+        v-if="!inGame"
+        class="m-8 absolute" 
+        @click="quitRoom"
+      >
+        Salir
+        <IconArrowBarToRight class="ml-2" />
+      </ButtonRed>
       <!-- Map -->
       <div class="p-8 flex flex-row justify-between" style="height: 80vh">
         <!-- Players -->
@@ -143,7 +161,7 @@
 <script setup>
   import EmojiPicker from 'vue3-emoji-picker';
   import 'vue3-emoji-picker/css';
-  import { IconSend, IconArrowBarToRight, IconMoodSmile } from '@tabler/icons-vue';
+  import { IconFlag, IconSend, IconArrowBarToRight, IconMoodSmile } from '@tabler/icons-vue';
   import { useUserStore } from '~/stores';
   import { io } from 'socket.io-client';
   import { dummyState } from '@/public/dummy_state.js';
@@ -161,6 +179,9 @@
   const socket = io(api, {
     withCredentials: true,
   });
+
+  // If user has surrendered, inGame is false and the option to leave visualization appears
+  const inGame = ref(true);
 
   // Notification
   const notification = ref(null);
@@ -204,8 +225,12 @@
   function closeModal() {
     isOpenQuitDialog.value = false;
   }
-  function quitRoom() {
+  function surrender() {
     socket.emit('surrender');
+    inGame.value = false;
+    closeModal();
+  }
+  function quitRoom() {
     socket.emit('leaveRoom');
     store.setRoom(null);
     navigateTo('/dashboard');

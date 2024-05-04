@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full p-5 flex flex-col items-start border border-gray-200 shadow-sm relative"
+    class="w-full p-5 bg-white flex flex-col items-start border border-gray-200 shadow-sm relative"
     style="border-radius: 2rem"
   >
     <div class="absolute right-0 pr-5 flex flex-row">
