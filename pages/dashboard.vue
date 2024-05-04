@@ -76,7 +76,7 @@
           <!-- Friend Searcher -->
           <div class="flex flex-row m-6">
             <!--<img src="/zoom.svg" alt="Search icon" />-->
-            <InvitationsRequest />
+            <InvitationsRequest @Modified="refreshFriends" />
             <InputText
               class="flex-grow text-center m-4"
               @keydown.enter="sendFriendRequest"
@@ -87,7 +87,7 @@
           </div>
           <hr />
           <!-- Friend List -->
-          <PlayerListCompact :players="friends" />
+          <PlayerListCompact :players="friends" @friendDeleted="refreshFriends" />
         </div>
       </div>
     </section>
@@ -125,9 +125,10 @@
     navigateTo('/signout');
   };
 
+  // Player friends
   const friends = ref([]);
 
-  useFetch(async () => {
+  const fetchFriends = async () => {
     try {
       const response = await fetch(api + '/users/' + store.user.email + '/friends', {
         method: 'GET',
@@ -142,7 +143,13 @@
       console.error('Error fetching friends:', error);
       friends.value = [];
     }
-  });
+  };
+
+  useFetch(fetchFriends);
+
+  function refreshFriends() {
+    fetchFriends();
+  }
 
   // SocketIO
   const socket = io(api, {
@@ -186,7 +193,7 @@
     navigateTo('/lobby');
   });
 
-  socket.on('invitationRecevied', (response) => {
+  socket.on('invitationReceived', (response) => {
     invitation.value.notificate(response.userInfo, response.userCode);
   });
 
@@ -195,7 +202,6 @@
 
   async function sendFriendRequest() {
     try {
-      console.log(api);
       const response = await fetch(api + '/users/' + store.user.email + '/friendRequests', {
         method: 'PUT',
         credentials: 'include',
@@ -211,9 +217,10 @@
       }
 
       notification.value.show('Invitación enviada.');
-      console.log(addFriendMail.value);
+      addFriendMail.value = '';
     } catch (error) {
       console.error('Error sending friend request', error);
+      notification.value.show('Error enviando petición');
     }
   }
 </script>
