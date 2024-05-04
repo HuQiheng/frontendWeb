@@ -8,6 +8,8 @@
   </Head>
   <!-- Notification -->
   <Notification ref="notification" />
+  <!-- Popup -->
+  <Popup ref="popup" />
   <!-- Dialogs -->
   <Dialog :show="isOpenAddFactoryDialog" @click-outside="isOpenAddFactoryDialog = false">
     <template #title
@@ -162,6 +164,7 @@
 
   // Notification
   const notification = ref(null);
+  const popup = ref(null);
 
   // Game state
   const state = ref(dummyState);
@@ -404,6 +407,13 @@
       text: text,
     });
   });
+
+  // Popup messages & Victory
+  socket.on('victory', (message) => {
+    console.log(message);
+    popup.value.showVictory(store.user.name);
+  });
+  //
 
   // Territories animation
   const myTerritories = computed(() => {

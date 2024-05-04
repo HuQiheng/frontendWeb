@@ -193,7 +193,7 @@
     navigateTo('/lobby');
   });
 
-  socket.on('invitationRecevied', (response) => {
+  socket.on('invitationReceived', (response) => {
     invitation.value.notificate(response.userInfo, response.userCode);
   });
 
