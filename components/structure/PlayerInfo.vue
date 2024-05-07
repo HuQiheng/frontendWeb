@@ -10,7 +10,12 @@
             <ButtonRed @click="deleteFriend"><IconHeartBroken /></ButtonRed>
           </div>
           <div v-else>
-            <Button @click="sendFriendRequest"><IconHeartPlus /></Button>
+            <div v-if="invitationExists">
+              <ButtonRed @click="deleteInvitation"><IconMailCancel class="mr-2" />Cancelar solicitud</ButtonRed>
+            </div>
+            <div v-else>
+              <Button @click="sendFriendRequest"><IconHeartPlus /></Button>
+            </div>
           </div>
         </div>
 
@@ -42,7 +47,7 @@
 </template>
 
 <script setup>
-  import { IconHeartPlus, IconHeartBroken } from '@tabler/icons-vue';
+  import { IconHeartPlus, IconHeartBroken, IconMailCancel } from '@tabler/icons-vue';
   import { useUserStore } from '~/stores';
 
   // Player info
@@ -74,8 +79,59 @@
     isOpen.value = false;
   };
 
+  // Check if there is an invitation
+  async function checkInvitation() {
+    try {
+      const response = await fetch(
+        api + '/users/' + store.user.email + '/' + props.player.email + '/friendRequest/existence',
+        {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const answer = await response.json();
+
+      return answer.hasFriendReq;
+    } catch (error) {
+      console.error('Error sending friend request', error);
+      notification.value.show('Ha ocurrido un error!');
+    }
+  }
+
+  // Function that deletes the frined request
+  async function deleteInvitation() {
+    try {
+      const response = await fetch(api + '/users/' + store.user.email + '/friendRequests', {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ to: props.player.email }),
+      });
+
+      if (!response.ok) {
+        notification.value.show('Error al borrar solicitud.');
+        throw new Error('Error deleting friend request.');
+      }
+
+      invitationExists.value = false;
+
+      notification.value.show('Solicitud eliminada.');
+    } catch (error) {
+      console.error('Error sending friend request', error);
+    }
+  }
+
   // Check if the user and the other player are already friends
-  const areFriends = ref('');
+  const areFriends = ref(false);
+
+  // Check if the user and the other player are already friends
+  const invitationExists = ref(false);
 
   // Function that checks friendship between the user and the other player
   const fetchFriendship = async () => {
@@ -90,7 +146,18 @@
         throw new Error('Failed to fetch friends');
       }
       // Are they friends;
-      areFriends.value = await response.json();
+      const jsonResponse = await response.json();
+      areFriends.value = jsonResponse.areFriends;
+      //console.log(jsonResponse);
+
+      if (!areFriends.value) {
+        // Check if there is a invitation pending
+        const invitationPending = await checkInvitation();
+
+        invitationExists.value = invitationPending;
+
+        console.log('Invitación existe: ', invitationExists);
+      }
     } catch (error) {
       console.error('Error fetching friends:', error);
       areFriends.value = false;
@@ -114,8 +181,9 @@
         throw new Error('Error sending friend request');
       }
 
+      invitationExists.value = true;
+
       notification.value.show('Invitación enviada.');
-      console.log(addFriendMail.value);
     } catch (error) {
       console.error('Error sending friend request', error);
     }
@@ -137,9 +205,10 @@
         notification.value.show('Error mandando solicitud de amistad.');
         throw new Error('Error sending friend request');
       }
-
+      areFriends.value = false;
       notification.value.show('Amigo eliminado');
       emit('friendDeleted');
+      closeModal();
     } catch (error) {
       console.error('Error sending friend request', error);
     }

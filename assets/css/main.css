@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  h1, h2, h3, h4, h5, h6, p {
+    @apply text-white;
+  }
+
+  hr {
+    @apply border-primary-dark;
+  }
+}
+
 @font-face {
   font-family: 'Lexend';
   src: url('../fonts/Lexend-VariableFont_wght.ttf') format('truetype');
