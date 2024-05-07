@@ -6,7 +6,7 @@
         <div v-if="player.email != store.user.email" class="flex flex-1">
           <div class="flex flex-grow"></div>
           <!-- Needs logic to render -->
-          <div v-if="areFriends.value">
+          <div v-if="areFriends">
             <ButtonRed @click="deleteFriend"><IconHeartBroken /></ButtonRed>
           </div>
           <div v-else>
@@ -146,9 +146,11 @@
         throw new Error('Failed to fetch friends');
       }
       // Are they friends;
-      areFriends.value = await response.json();
+      const jsonResponse = await response.json();
+      areFriends.value = jsonResponse.areFriends;
+      //console.log(jsonResponse);
 
-      if (!areFriends.value._value) {
+      if (!areFriends.value) {
         // Check if there is a invitation pending
         const invitationPending = await checkInvitation();
 
@@ -203,9 +205,10 @@
         notification.value.show('Error mandando solicitud de amistad.');
         throw new Error('Error sending friend request');
       }
-
+      areFriends.value = false;
       notification.value.show('Amigo eliminado');
       emit('friendDeleted');
+      closeModal();
     } catch (error) {
       console.error('Error sending friend request', error);
     }
