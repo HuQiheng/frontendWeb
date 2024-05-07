@@ -84,15 +84,14 @@
   </Dialog>
   <main class="w-full h-screen flex flex-row overflow-hidden">
     <!-- Game board -->
-    <section 
-      class="grow relative" 
-      style="background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(0,119,255,1) 0%, rgba(0,212,255,1) 100%);">
+    <section
+      class="grow relative"
+      style="
+        background: linear-gradient(180deg, rgba(2, 0, 36, 1) 0%, rgba(0, 119, 255, 1) 0%, rgba(0, 212, 255, 1) 100%);
+      "
+    >
       <!-- Surrender -->
-      <ButtonRed 
-        v-if="inGame"
-        class="m-8 absolute" 
-        @click="openModal"
-      >
+      <ButtonRed v-if="inGame" class="m-8 absolute" @click="openModal">
         Rendirse
         <IconFlag class="ml-2" />
       </ButtonRed>
@@ -104,11 +103,7 @@
         </template>
       </Dialog>
       <!-- Leave -->
-      <ButtonRed 
-        v-if="!inGame"
-        class="m-8 absolute" 
-        @click="quitRoom"
-      >
+      <ButtonRed v-if="!inGame" class="m-8 absolute" @click="quitRoom">
         Salir
         <IconArrowBarToRight class="ml-2" />
       </ButtonRed>

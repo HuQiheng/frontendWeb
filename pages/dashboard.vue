@@ -200,24 +200,55 @@
   // Add a friend
   const addFriendMail = ref('');
 
+  // Checks if exists an invitation pending
+  async function invitationPending() {
+    try {
+      const response = await fetch(
+        api + '/users/' + store.user.email + '/' + addFriendMail.value + '/friendRequest/existence',
+        {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const answer = await response.json();
+
+      return answer.hasFriendReq;
+    } catch (error) {
+      console.error('Error sending friend request', error);
+      notification.value.show('Ha ocurrido un error!');
+    }
+  }
+
   async function sendFriendRequest() {
     try {
-      const response = await fetch(api + '/users/' + store.user.email + '/friendRequests', {
-        method: 'PUT',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ to: addFriendMail.value }),
-      });
+      // Check if there is a invitation pending
+      const existsInvitation = await invitationPending();
+      // If exists already an invitation notify the user
+      if (existsInvitation) {
+        notification.value.show('Invitación en curso');
+      } else {
+        // If there is not an inivitation we have to create it
+        const response = await fetch(api + '/users/' + store.user.email + '/friendRequests', {
+          method: 'PUT',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ to: addFriendMail.value }),
+        });
 
-      if (!response.ok) {
-        notification.value.show('Error mandando solicitud de amistad.');
-        throw new Error('Error sending friend request');
+        if (!response.ok) {
+          notification.value.show('Error mandando solicitud de amistad.');
+          throw new Error('Error sending friend request');
+        }
+
+        notification.value.show('Invitación enviada.');
+        addFriendMail.value = '';
       }
-
-      notification.value.show('Invitación enviada.');
-      addFriendMail.value = '';
     } catch (error) {
       console.error('Error sending friend request', error);
       notification.value.show('Error enviando petición');

@@ -1,10 +1,11 @@
 <template>
-  <Button class="m-4 justify-center items-center relative" @click="openModal"> 
-    <IconMail /> 
-    <div 
+  <Button class="m-4 justify-center items-center relative" @click="openModal">
+    <IconMail />
+    <div
       v-show="requestNumber > 0"
       class="absolute -top-2 -right-2 bg-yellow-700 px-2 py-1 rounded-full text-center text-sm flex flex-row items-center"
-      style="width: 1.5rem; height: 1.5rem;">
+      style="width: 1.5rem; height: 1.5rem"
+    >
       {{ requestNumber }}
     </div>
   </Button>
