@@ -1,6 +1,6 @@
 <template>
   <div class="w-full max-w-5xl px-4 py-8">
-    <div class="mx-auto w-full rounded-2xl bg-white p-2">
+    <div class="mx-auto w-full rounded-2xl bg-primary-light p-2 text-white">
       <Disclosure v-slot="{ open }">
         <DisclosureButton
           class="flex w-full justify-between rounded-lg bg-amber-300 px-4 py-2 text-left text-sm font-medium text-amber-900 hover:bg-amber-200 focus:outline-none focus-visible:ring focus-visible:ring-amber-500/75"

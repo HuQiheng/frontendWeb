@@ -13,6 +13,8 @@ export default {
       colors: {
         primary: '#083344', 
         'primary-dark': '#05202b',
+        'primary-light': '#274d5b',
+        'primary-ligter': '#c1ccd0',
         secondary: '#ea970a',
         'secondary-dark': '#d68a0a',
       },

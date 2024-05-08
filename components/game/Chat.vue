@@ -19,7 +19,7 @@
   }
 
   .message-container .message {
-    @apply px-4 py-2 flex flex-col bg-gray-100 mt-4 rounded-3xl;
+    @apply px-4 py-2 flex flex-col bg-primary-light mt-4 rounded-3xl border border-primary-dark;
   }
 
   .message-container .message .player span {
@@ -27,7 +27,7 @@
   }
 
   .message-container .message .message-text {
-    @apply break-all;
+    @apply break-all text-white;
   }
 
   .scrollbar::-webkit-scrollbar {

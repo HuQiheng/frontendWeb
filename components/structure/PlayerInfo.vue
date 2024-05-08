@@ -1,5 +1,5 @@
 <template>
-  <PlayerCard :player="player" @click="openModal" class="cursor-pointer hover:bg-gray-100" />
+  <PlayerCard :player="player" @click="openModal" class="cursor-pointer" />
   <DialogBig :show="isOpen" @click-outside="closeModal" style="width: 600px; height: 400px">
     <template #description>
       <section class="flex-1 flex-col justify-center items-center">

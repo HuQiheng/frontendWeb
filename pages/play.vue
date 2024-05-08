@@ -86,9 +86,6 @@
     <!-- Game board -->
     <section
       class="grow relative"
-      style="
-        background: linear-gradient(180deg, rgba(2, 0, 36, 1) 0%, rgba(0, 119, 255, 1) 0%, rgba(0, 212, 255, 1) 100%);
-      "
     >
       <!-- Surrender -->
       <ButtonRed v-if="inGame" class="m-8 absolute" @click="openModal">
@@ -130,13 +127,13 @@
       </div>
     </section>
     <!-- Chat -->
-    <section class="flex-none w-72 xl:w-80 2xl:w-96 shadow-md border border-gray-200 flex flex-col">
+    <section class="flex-none w-72 xl:w-80 2xl:w-96 shadow-md border-l border-primary-dark flex flex-col">
       <Chat :messages="messages" :players="state.players" :me="me" class="relative">
         <EmojiPicker v-show="isOpenEmojiDialog" class="absolute ml-4 mb-4" :native="true" @select="onSelectEmoji" />
       </Chat>
       <div class="p-4 w-full flex flex-row border-t border-gray-200">
         <span @click="isOpenEmojiDialog = !isOpenEmojiDialog">
-          <IconMoodSmile class="h-10 w-10 cursor-pointer" />
+          <IconMoodSmile class="h-10 w-10 cursor-pointer text-white" />
         </span>
         <InputText
           class="w-full ml-4"

@@ -19,15 +19,15 @@
 
       <div class="flex flex-row m-6 justify-center items-center relative">
         <div
-          class="flex flex-row items-center p-2 rounded-xl shadow-md border cursor-pointer hover:bg-gray-100"
+          class="bg-primary-light flex flex-row items-center p-2 rounded-xl shadow-md border border-primary-dark cursor-pointer hover:bg-primary"
           @click="copyToClipboard"
         >
-          <IconClipboard class="mr-2" />
+          <IconClipboard class="mr-2 text-white" />
           <p class="text-xl">{{ roomCode }}</p>
         </div>
         <transition name="fade">
           <div v-if="showIconCheck" class="flex items-center ml-2">
-            <IconCheck />
+            <IconCheck class="text-white" />
           </div>
         </transition>
       </div>

@@ -1,15 +1,15 @@
 <template>
   <div
-    class="w-full p-5 bg-white flex flex-col items-start border border-gray-200 shadow-sm relative"
+    class="w-full p-5 bg-primary-light flex flex-col items-start border border-primary-dark shadow-sm relative"
     style="border-radius: 2rem"
   >
-    <div class="absolute right-0 pr-5 flex flex-row">
+    <div class="absolute right-0 pr-5 flex flex-row text-white">
       {{ coins }}
       <IconCoin class="ml-1 text-secondary" />
     </div>
     <ol class="stepper">
-      <li class="step" :class="{ 'text-black': step > 0 }">
-        <span :class="[step > 0 ? 'border-black' : 'border-gray-500']">1</span>
+      <li class="step" :class="{ 'text-primary-dark': step > 0 }">
+        <span :class="[step > 0 ? 'border-primary-dark' : 'border-white']">1</span>
         Invertir
         <svg
           class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180"
@@ -27,8 +27,8 @@
           />
         </svg>
       </li>
-      <li class="step" :class="{ 'text-black': step > 1 }">
-        <span :class="[step > 1 ? 'border-black' : 'border-gray-500']">2</span>
+      <li class="step" :class="{ 'text-primary-dark': step > 1 }">
+        <span :class="[step > 1 ? 'border-primary-dark' : 'border-white']">2</span>
         Conquistar
         <svg
           class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180"
@@ -46,8 +46,8 @@
           />
         </svg>
       </li>
-      <li class="step" :class="{ 'text-black': step > 2 }">
-        <span :class="[step > 2 ? 'border-black' : 'border-gray-500']">3</span>
+      <li class="step" :class="{ 'text-primary-dark': step > 2 }">
+        <span :class="[step > 2 ? 'border-primary-dark' : 'border-white']">3</span>
         Mover tropas
       </li>
     </ol>
@@ -67,7 +67,7 @@
 
 <style scoped>
   .stepper {
-    @apply flex items-center space-x-2 text-sm font-medium text-center text-gray-500 bg-white sm:space-x-4 rtl:space-x-reverse;
+    @apply flex items-center space-x-2 text-sm font-medium text-center text-white sm:space-x-4 rtl:space-x-reverse;
   }
 
   .stepper .step {
