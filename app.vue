@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-primary">
     <NuxtPage />
     <!-- Esto es una prueba -->
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="p-5 bg-white rounded-full border border-gray-200 shadow-sm">
+  <div class="p-5 bg-primary-light rounded-full border border-primary-dark shadow-sm">
     <div
       v-for="(player, index) in players"
       :key="player.email"

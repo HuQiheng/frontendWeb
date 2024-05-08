@@ -7,7 +7,7 @@
         v-for="(player, index) in players"
         :key="index"
         :player="player"
-        class="hover:bg-gray-100"
+        class="hover:bg-primary"
         @click="inviteFriend(player)"
       />
     </div>

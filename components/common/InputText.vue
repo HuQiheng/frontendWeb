@@ -4,7 +4,7 @@
     @input="$emit('update:value', $event.target.value)"
     :value="value"
     :placeholder="placeholder"
-    class="px-3 py-1 border-2 border-gray-600 rounded-full focus:outline-none"
+    class="px-3 py-1 bg-primary-light border-2 border-primary-dark rounded-full focus:outline-none text-white placeholder-primary-ligter"
   />
 </template>
 

@@ -18,7 +18,7 @@
     outline: none;
     border-radius: 15px;
     height: 6px;
-    background: #ccc;
+    background: #cbd5e1;
   }
 
   .range-input::-webkit-slider-thumb {
@@ -26,7 +26,7 @@
     appearance: none;
     height: 15px;
     width: 15px;
-    background-color: #111827;
+    background-color: #64748b;
     border-radius: 50%;
     border: none;
     transition: 0.2s ease-in-out;
@@ -35,7 +35,7 @@
   .range-input::-moz-range-thumb {
     height: 15px;
     width: 15px;
-    background-color: #111827;
+    background-color: #64748b;
     border-radius: 50%;
     border: none;
     transition: 0.2s ease-in-out;

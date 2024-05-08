@@ -3,12 +3,12 @@
   <Dialog :show="isOpen" @click-outside="closeModal">
     <template #title><b class="text-lg">Ajustes</b></template>
     <template #description>
-      <div class="py-4 border-t">
+      <div class="py-4 border-t border-primary-dark">
         <p class="mb-3">Editar nombre:</p>
         <InputText class="h-10 w-full mb-4" v-model:value="name"></InputText>
         <ButtonDark @click="changeName">Cambiar nombre</ButtonDark>
       </div>
-      <div class="py-4 border-t border-b">
+      <div class="py-4 border-t border-b border-primary-dark">
         <p class="mb-3">Eliminar cuenta:</p>
         <RemoveAccount />
       </div>

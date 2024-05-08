@@ -8,11 +8,11 @@
   </Head>
   <Notification ref="notification" />
   <GameInvitation ref="invitation" @accept="handleAccept" />
-  <main class="w-full h-screen flex flex-col bg-primary">
+  <main class="w-full h-screen flex flex-col">
     <!-- Top section -->
-    <section class="flex-1 justify-center items-center p-6">
+    <section class="flex-1 justify-center items-center p-6 bg-primary">
       <!-- section class="flex flex-col justify-center items-center" last -->
-      <div class="rounded-xl border border-primary-dark shadow-md p-6">
+      <div class="bg-primary-light rounded-xl border border-primary-dark shadow-md p-6">
         <!-- User's profile settings -->
         <div class="top-14 flex flex-col justify-center items-center">
           <img
@@ -40,10 +40,10 @@
       </div>
     </section>
     <!-- Bottom section -->
-    <section class="flex-1 flex flex-col xl:flex-row">
+    <section class="flex-1 flex flex-col xl:flex-row bg-primary">
       <!-- Left side, match related-->
       <div class="flex-1 p-6">
-        <div class="flex flex-col w-full h-full rounded-xl border border-primary-dark shadow-md p-6">
+        <div class="bg-primary-light flex flex-col w-full h-full rounded-xl border border-primary-dark shadow-md p-6">
           <h2 class="flex text-2xl font-bold m-4 text-center justify-center w-full">Juego</h2>
           <hr />
           <!-- Start new match -->
@@ -69,7 +69,7 @@
       </div>
       <!-- Right side, friends related-->
       <div class="flex-1 p-6">
-        <div class="flex flex-col h-full rounded-xl border border-primary-dark shadow-md p-6 w-full">
+        <div class="bg-primary-light flex flex-col h-full rounded-xl border border-primary-dark shadow-md p-6 w-full">
           <!-- Title -->
           <h2 class="text-2xl font-bold m-4 text-center">Lista de amigos</h2>
           <hr />
