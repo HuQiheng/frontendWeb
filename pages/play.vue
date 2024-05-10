@@ -104,6 +104,8 @@
         Salir
         <IconArrowBarToRight class="ml-2" />
       </ButtonRed>
+      <!--Audio-->
+      <Audio audio="/audio/game_music.mp3" class="m-8 absolute right-0"></Audio>
       <!-- Map -->
       <div class="p-8 flex flex-row justify-between" style="height: 80vh">
         <!-- Players -->

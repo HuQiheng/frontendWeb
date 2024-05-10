@@ -46,7 +46,7 @@
     message.value = '¡Enhorabuena ' + username + '!';
     subMessage.value = 'Has ganado la partida';
     showPopup.value = true;
-    const victoryAudio = new Audio('/trumpet_victory.mp3');
+    const victoryAudio = new Audio('/audio/trumpet_victory.mp3');
     victoryAudio.loop = false;
     victoryAudio.volume = 0.2;
     victoryAudio.play();

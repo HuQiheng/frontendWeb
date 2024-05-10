@@ -8,8 +8,8 @@
       <IconCoin class="ml-1 text-secondary" />
     </div>
     <ol class="stepper">
-      <li class="step" :class="{ 'text-primary-dark': step > 0 }">
-        <span :class="[step > 0 ? 'border-primary-dark' : 'border-white']">1</span>
+      <li class="step" :class="{ 'text-secondary': step > 0 }">
+        <span :class="[step > 0 ? 'border-secondary' : 'border-white']">1</span>
         Invertir
         <svg
           class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180"
@@ -27,8 +27,8 @@
           />
         </svg>
       </li>
-      <li class="step" :class="{ 'text-primary-dark': step > 1 }">
-        <span :class="[step > 1 ? 'border-primary-dark' : 'border-white']">2</span>
+      <li class="step" :class="{ 'text-secondary': step > 1 }">
+        <span :class="[step > 1 ? 'border-secondary' : 'border-white']">2</span>
         Conquistar
         <svg
           class="w-3 h-3 ms-2 sm:ms-4 rtl:rotate-180"
@@ -46,8 +46,8 @@
           />
         </svg>
       </li>
-      <li class="step" :class="{ 'text-primary-dark': step > 2 }">
-        <span :class="[step > 2 ? 'border-primary-dark' : 'border-white']">3</span>
+      <li class="step" :class="{ 'text-secondary': step > 2 }">
+        <span :class="[step > 2 ? 'border-secondary' : 'border-white']">3</span>
         Mover tropas
       </li>
     </ol>
