@@ -23,7 +23,7 @@
 <script setup>
   const text = ref('');
   const isShown = ref(false);
-  const sound = '/notification.mp3';
+  const sound = '/audio/notification.mp3';
 
   // Shows notification with text given by t
   function show(t) {

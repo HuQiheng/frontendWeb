@@ -11,7 +11,7 @@
     <section class="grow flex flex-col">
       <div class="flex mt-6 mr-6 ml-6 justify-between">
         <ButtonRed @click="leaveLobby">Abandonar Sala</ButtonRed>
-        <Audio audio="/elevator_music.mp3"></Audio>
+        <Audio audio="/audio/elevator_music.mp3"></Audio>
       </div>
       <div class="flex mb-6 mr-6 ml-6 justify-center">
         <h1 class="text-4xl font-bold m-4">Sala de Espera</h1>

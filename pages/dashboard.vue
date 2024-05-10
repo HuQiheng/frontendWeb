@@ -12,7 +12,7 @@
     <!-- Top section -->
     <section class="flex-1 justify-center items-center p-6 bg-primary">
       <!-- section class="flex flex-col justify-center items-center" last -->
-      <div class="bg-primary-light rounded-xl border border-primary-dark shadow-md p-6">
+      <div class="bg-primary-light h-full rounded-xl border border-primary-dark shadow-md p-6">
         <!-- User's profile settings -->
         <div class="top-14 flex flex-col justify-center items-center">
           <img
@@ -26,11 +26,13 @@
           <img v-else src="/profile.svg" alt="User Picture" style="width: 180px; height: 180px" />
           <p class="m-6 text-xl text-g-800">{{ store.user.name }}</p>
           <!-- This is not completed yet-->
-          <p class="mb-3 text-lg text-g-800">Victorias: 0 🏆</p>
+          <p class="mb-3 text-lg text-g-800">Victorias: {{ victories }} 🏆</p>
         </div>
         <hr />
         <!-- Achievements -->
-        <div class="m-6"></div>
+        <div class="m-6">
+          <AchievementList :email="store.user.email" />
+        </div>
         <!-- Settings part, non related with the user -->
         <div class="flex flex-row justify-center">
           <Settings />
@@ -124,6 +126,16 @@
   const signout = () => {
     navigateTo('/signout');
   };
+
+  // Victories
+  const victories = ref(0);
+  useFetch(api + '/users/' + store.user.email + '/wins', {
+    method: 'GET',
+    credentials: 'include',
+    onResponse({ response }) {
+      victories.value = response._data;
+    },
+  });
 
   // Player friends
   const friends = ref([]);

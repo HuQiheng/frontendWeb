@@ -26,7 +26,7 @@
   const player = ref({ name: 'Eindres', email: '', picture: '/profile.svg' });
   const isShown = ref(false);
   const roomCode = ref('');
-  const sound = '/notification.mp3';
+  const sound = '/audio/notification.mp3';
 
   const emit = defineEmits(['accept']);
 

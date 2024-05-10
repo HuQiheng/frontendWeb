@@ -1,6 +1,8 @@
 <template>
-  <IconVolume v-show="isVolumeOn" class="w-10 h-10 cursor-pointer text-white" @click="turnOffAudio" />
-  <IconVolumeOff v-show="!isVolumeOn" class="w-10 h-10 cursor-pointer text-white" @click="turnOnAudio" />
+  <div>
+    <IconVolume v-show="isVolumeOn" class="w-10 h-10 cursor-pointer text-white" @click="turnOffAudio" />
+    <IconVolumeOff v-show="!isVolumeOn" class="w-10 h-10 cursor-pointer text-white" @click="turnOnAudio" />
+  </div>
 </template>
 
 <script setup>
