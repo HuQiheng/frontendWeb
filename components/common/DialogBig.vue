@@ -25,7 +25,7 @@
             leave-to="opacity-0 scale-95"
           >
             <DialogPanel
-              class="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+              class="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-primary p-6 text-left align-middle shadow-xl transition-all"
             >
               <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900">
                 <slot name="title"></slot>

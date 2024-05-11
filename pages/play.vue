@@ -8,6 +8,8 @@
   </Head>
   <!-- Notification -->
   <Notification ref="notification" />
+  <!-- Achievement notification -->
+  <AchievementNotification ref="achievementNotification" />
   <!-- Popup -->
   <Popup ref="popup" />
   <!-- Dialogs -->
@@ -133,7 +135,7 @@
       <Chat :messages="messages" :players="state.players" :me="me" class="relative">
         <EmojiPicker v-show="isOpenEmojiDialog" class="absolute ml-4 mb-4" :native="true" @select="onSelectEmoji" />
       </Chat>
-      <div class="p-4 w-full flex flex-row border-t border-gray-200">
+      <div class="p-4 w-full flex flex-row border-t border-primary-dark">
         <span @click="isOpenEmojiDialog = !isOpenEmojiDialog">
           <IconMoodSmile class="h-10 w-10 cursor-pointer text-white" />
         </span>
@@ -172,6 +174,12 @@
   // SocketIO
   const socket = io(api, {
     withCredentials: true,
+  });
+
+  // Achievement
+  const achievementNotification = ref(null);
+  socket.on('achievementUnlocked', (achievement) => {
+    achievementNotification.value.show(achievement.title, achievement.description, achievement.image_url);
   });
 
   // If user has surrendered, inGame is false and the option to leave visualization appears
@@ -324,6 +332,11 @@
     actionQuantity.value = 0;
     animatedTerritories.value = [];
     isOpenAttackDialog.value = false;
+    // Sound effect
+    const audio = new Audio('/audio/explosion_attack.mp3');
+    audio.loop = false;
+    audio.volume = 0.1;
+    audio.play();
   }
 
   function move(from, to, troops) {
@@ -432,7 +445,12 @@
     console.log(message);
     popup.value.showVictory(store.user.name);
   });
-  //
+
+  // Game over & Ranking
+  socket.on('gameOver', (gameOver) => {
+    alert('Game over');
+    console.log(gameOver);
+  });
 
   // Territories animation
   const myTerritories = computed(() => {

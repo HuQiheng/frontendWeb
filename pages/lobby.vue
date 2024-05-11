@@ -7,6 +7,7 @@
     />
   </Head>
   <Notification ref="notification" />
+  <AchievementNotification ref="achievementNotification" />
   <main class="w-full h-screen flex flex-row">
     <section class="grow flex flex-col">
       <div class="flex mt-6 mr-6 ml-6 justify-between">
@@ -46,7 +47,7 @@
       </div>
     </section>
     <!-- Chat -->
-    <section class="w-96 shadow-md border border-gray-200 flex flex-col p-4">
+    <section class="w-96 shadow-md border border-primary-dark flex flex-col p-4">
       <h2 class="font-bold m-4 text-center">Invita a tus amigos</h2>
       <hr />
       <InviteFriendsList :players="friends" @sendInvitation="sendInvitation" />
@@ -103,6 +104,14 @@
     withCredentials: true,
   });
 
+  // Achievement
+  let waitAchievement = false; // Indicates no to go to other page, and wait the user to see the achievement dialog
+  const achievementNotification = ref(null);
+  socket.on('achievementUnlocked', (achievement) => {
+    waitAchievement = true;
+    achievementNotification.value.show(achievement.title, achievement.description, achievement.image_url);
+  });
+
   socket.on('playerJoined', (name) => {
     notification.value.show('Se unió ' + name);
   });
@@ -127,7 +136,9 @@
   socket.on('mapSent', (map) => {
     console.log('guardando mapa');
     store.gameState = map;
-    navigateTo('/play');
+    setTimeout(() => {
+      navigateTo('/play');
+    }, 3000);
   });
 
   // Leaving the room

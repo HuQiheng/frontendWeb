@@ -32,11 +32,13 @@
           <img v-else src="/profile.svg" alt="User Picture" style="width: 180px; height: 180px" />
           <p class="m-6 text-xl text-g-800">{{ player.name }}</p>
           <!-- This is not completed yet-->
-          <p class="mb-3 text-lg text-g-800">Victorias: 0 🏆</p>
+          <p class="mb-3 text-lg text-g-800">Victorias: {{ victories }} 🏆</p>
         </div>
         <hr />
         <!-- Achievements -->
-        <div class="m-6"></div>
+        <div class="m-6">
+          <AchievementList :email="props.player.email" />
+        </div>
       </section>
     </template>
     <template #buttons>
@@ -78,6 +80,16 @@
   const closeModal = () => {
     isOpen.value = false;
   };
+
+  // Victories
+  const victories = ref(0);
+  useFetch(api + '/users/' + props.player.email + '/wins', {
+    method: 'GET',
+    credentials: 'include',
+    onResponse({ response }) {
+      victories.value = response._data;
+    },
+  });
 
   // Check if there is an invitation
   async function checkInvitation() {
