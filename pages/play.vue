@@ -14,13 +14,14 @@
   <Popup ref="popup" />
   <!-- Dialogs -->
   <Dialog :show="isOpenAddFactoryDialog" @click-outside="isOpenAddFactoryDialog = false">
-    <template #title
-      >¿Deseas añadir una fábrica a <b>{{ selected }}</b
-      >?</template
-    >
+    <template #title>
+      <span v-if="coins >= 15">¿Deseas añadir una fábrica a <b>{{ selected }}</b>?</span>
+      <span v-else>No puedes añadir una fábrica. Una fábrica cuesta 15 monedas y tú tienes {{ coins }}.</span>
+    </template>
     <template #buttons>
-      <Button @click="addFactory(selectedCode)" class="mr-4">Sí</Button>
-      <ButtonRed @click="isOpenAddFactoryDialog = false">No</ButtonRed>
+      <Button v-if="coins >= 15" @click="addFactory(selectedCode)" class="mr-4">Sí</Button>
+      <ButtonRed v-if="coins >= 15" @click="isOpenAddFactoryDialog = false">No</ButtonRed>
+      <ButtonRed v-else @click="isOpenAddFactoryDialog = false">Cerrar ventana</ButtonRed>
     </template>
   </Dialog>
   <Dialog :show="isOpenAddTroopsDialog" @click-outside="isOpenAddTroopsDialog = false">
@@ -29,15 +30,19 @@
       >?</template
     >
     <template #description>
-      <p>
-        Selecciona el número de tropas:
-        <b> {{ actionQuantity }} {{ actionQuantity == 1 ? 'tropa' : 'tropas' }} </b>
-      </p>
-      <InputRange v-model:value="actionQuantity" min="0" max="10" class="w-full mt-6 mb-2" />
+      <div v-if="coins >= 2">
+        <p>
+          Selecciona el número de tropas:
+          <b> {{ actionQuantity }} {{ actionQuantity == 1 ? 'tropa' : 'tropas' }} </b>
+        </p>
+        <InputRange v-model:value="actionQuantity" min="0" :max="parseInt(coins / 2)" class="w-full mt-6 mb-2" />
+      </div>
+      <p>Cada tropa cuesta 2 monedas, la cantidad que posees es inferior.</p>
     </template>
     <template #buttons>
-      <Button @click="addTroops(selectedCode, actionQuantity)" class="mr-4">Sí</Button>
-      <ButtonRed @click="isOpenAddTroopsDialog = false">No</ButtonRed>
+      <Button v-if="coins >= 2" @click="addTroops(selectedCode, actionQuantity)" class="mr-4">Sí</Button>
+      <ButtonRed v-if="coins >= 2" @click="isOpenAddTroopsDialog = false">No</ButtonRed>
+      <ButtonRed v-if="coins < 2" @click="isOpenAddTroopsDialog = false">Cerrar ventana</ButtonRed>
     </template>
   </Dialog>
   <Dialog :show="isOpenAttackDialog" @click-outside="isOpenAttackDialog = false">
@@ -124,7 +129,7 @@
       </div>
       <!-- Actions -->
       <div class="px-8 pb-8">
-        <Stepper :step="step" :coins="state.players[me].coins" @trigger="(action) => runAction(action)"></Stepper>
+        <Stepper :step="step" :coins="coins" @trigger="(action) => runAction(action)"></Stepper>
         <p v-if="selected" class="py-2">Territorio seleccionado: {{ selected }}</p>
         <!-- <p v-if="attackTerritories" class="py-2">Territorios atacables: {{ attackTerritories }}</p> -->
         <!-- <p v-if="myTerritories" class="py-2">Mis Territorio: {{ myTerritories }}</p> -->
@@ -217,6 +222,11 @@
     }
     console.log("I'm player " + index);
     return index;
+  });
+
+  // Coins
+  const coins = computed(() => {
+    return state.value.players[me.value].coins;
   });
 
   // Quit dialog
@@ -407,7 +417,7 @@
 
   // Other player has attacked
   socket.on('attack', (message) => {
-    alert(message);
+    //alert(message);
     popup.value.showMessage(message);
   });
 
