@@ -1,5 +1,5 @@
 <template>
-  <Button class="m-4 justify-center items-center relative" @click="openModal">
+  <Button class="mx-4 justify-center items-center relative" @click="openModal">
     <IconMail />
     <div
       v-show="requestNumber > 0"

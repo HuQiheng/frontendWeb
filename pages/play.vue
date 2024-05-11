@@ -8,17 +8,20 @@
   </Head>
   <!-- Notification -->
   <Notification ref="notification" />
+  <!-- Achievement notification -->
+  <AchievementNotification ref="achievementNotification" />
   <!-- Popup -->
   <Popup ref="popup" />
   <!-- Dialogs -->
   <Dialog :show="isOpenAddFactoryDialog" @click-outside="isOpenAddFactoryDialog = false">
-    <template #title
-      >¿Deseas añadir una fábrica a <b>{{ selected }}</b
-      >?</template
-    >
+    <template #title>
+      <span v-if="coins >= 15">¿Deseas añadir una fábrica a <b>{{ selected }}</b>?</span>
+      <span v-else>No puedes añadir una fábrica. Una fábrica cuesta 15 monedas y tú tienes {{ coins }}.</span>
+    </template>
     <template #buttons>
-      <Button @click="addFactory(selectedCode)" class="mr-4">Sí</Button>
-      <ButtonRed @click="isOpenAddFactoryDialog = false">No</ButtonRed>
+      <Button v-if="coins >= 15" @click="addFactory(selectedCode)" class="mr-4">Sí</Button>
+      <ButtonRed v-if="coins >= 15" @click="isOpenAddFactoryDialog = false">No</ButtonRed>
+      <ButtonRed v-else @click="isOpenAddFactoryDialog = false">Cerrar ventana</ButtonRed>
     </template>
   </Dialog>
   <Dialog :show="isOpenAddTroopsDialog" @click-outside="isOpenAddTroopsDialog = false">
@@ -27,15 +30,19 @@
       >?</template
     >
     <template #description>
-      <p>
-        Selecciona el número de tropas:
-        <b> {{ actionQuantity }} {{ actionQuantity == 1 ? 'tropa' : 'tropas' }} </b>
-      </p>
-      <InputRange v-model:value="actionQuantity" min="0" max="10" class="w-full mt-6 mb-2" />
+      <div v-if="coins >= 2">
+        <p>
+          Selecciona el número de tropas:
+          <b> {{ actionQuantity }} {{ actionQuantity == 1 ? 'tropa' : 'tropas' }} </b>
+        </p>
+        <InputRange v-model:value="actionQuantity" min="0" :max="parseInt(coins / 2)" class="w-full mt-6 mb-2" />
+      </div>
+      <p>Cada tropa cuesta 2 monedas, la cantidad que posees es inferior.</p>
     </template>
     <template #buttons>
-      <Button @click="addTroops(selectedCode, actionQuantity)" class="mr-4">Sí</Button>
-      <ButtonRed @click="isOpenAddTroopsDialog = false">No</ButtonRed>
+      <Button v-if="coins >= 2" @click="addTroops(selectedCode, actionQuantity)" class="mr-4">Sí</Button>
+      <ButtonRed v-if="coins >= 2" @click="isOpenAddTroopsDialog = false">No</ButtonRed>
+      <ButtonRed v-if="coins < 2" @click="isOpenAddTroopsDialog = false">Cerrar ventana</ButtonRed>
     </template>
   </Dialog>
   <Dialog :show="isOpenAttackDialog" @click-outside="isOpenAttackDialog = false">
@@ -122,7 +129,7 @@
       </div>
       <!-- Actions -->
       <div class="px-8 pb-8">
-        <Stepper :step="step" :coins="state.players[me].coins" @trigger="(action) => runAction(action)"></Stepper>
+        <Stepper :step="step" :coins="coins" @trigger="(action) => runAction(action)"></Stepper>
         <p v-if="selected" class="py-2">Territorio seleccionado: {{ selected }}</p>
         <!-- <p v-if="attackTerritories" class="py-2">Territorios atacables: {{ attackTerritories }}</p> -->
         <!-- <p v-if="myTerritories" class="py-2">Mis Territorio: {{ myTerritories }}</p> -->
@@ -133,7 +140,7 @@
       <Chat :messages="messages" :players="state.players" :me="me" class="relative">
         <EmojiPicker v-show="isOpenEmojiDialog" class="absolute ml-4 mb-4" :native="true" @select="onSelectEmoji" />
       </Chat>
-      <div class="p-4 w-full flex flex-row border-t border-gray-200">
+      <div class="p-4 w-full flex flex-row border-t border-primary-dark">
         <span @click="isOpenEmojiDialog = !isOpenEmojiDialog">
           <IconMoodSmile class="h-10 w-10 cursor-pointer text-white" />
         </span>
@@ -174,6 +181,12 @@
     withCredentials: true,
   });
 
+  // Achievement
+  const achievementNotification = ref(null);
+  socket.on('achievementUnlocked', (achievement) => {
+    achievementNotification.value.show(achievement.title, achievement.description, achievement.image_url);
+  });
+
   // If user has surrendered, inGame is false and the option to leave visualization appears
   const inGame = ref(true);
 
@@ -209,6 +222,11 @@
     }
     console.log("I'm player " + index);
     return index;
+  });
+
+  // Coins
+  const coins = computed(() => {
+    return state.value.players[me.value].coins;
   });
 
   // Quit dialog
@@ -324,6 +342,11 @@
     actionQuantity.value = 0;
     animatedTerritories.value = [];
     isOpenAttackDialog.value = false;
+    // Sound effect
+    const audio = new Audio('/audio/explosion_attack.mp3');
+    audio.loop = false;
+    audio.volume = 0.1;
+    audio.play();
   }
 
   function move(from, to, troops) {
@@ -392,6 +415,12 @@
     console.log(action);
   }
 
+  // Other player has attacked
+  socket.on('attack', (message) => {
+    //alert(message);
+    popup.value.showMessage(message);
+  });
+
   // Chat
   const message = ref('');
   const messages = ref([]);
@@ -428,11 +457,21 @@
   });
 
   // Popup messages & Victory
-  socket.on('victory', (message) => {
+  /*socket.on('victory', (message) => {
     console.log(message);
     popup.value.showVictory(store.user.name);
+  });*/
+
+  // Game over & Ranking
+  socket.on('gameOver', (gameOver) => {
+    //alert('Game over');
+    console.log(gameOver);
+    if (gameOver.ranking[0].email.trim() == store.user.email) {
+      popup.value.showVictory(store.user.name);
+    } else {
+      popup.value.showGameOver(gameOver.ranking);
+    }
   });
-  //
 
   // Territories animation
   const myTerritories = computed(() => {

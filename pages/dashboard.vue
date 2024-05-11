@@ -7,6 +7,7 @@
     />
   </Head>
   <Notification ref="notification" />
+  <AchievementNotification ref="achievementNotification" />
   <GameInvitation ref="invitation" @accept="handleAccept" />
   <main class="w-full h-screen flex flex-col">
     <!-- Top section -->
@@ -80,12 +81,12 @@
             <!--<img src="/zoom.svg" alt="Search icon" />-->
             <InvitationsRequest @Modified="refreshFriends" />
             <InputText
-              class="flex-grow text-center m-4"
+              class="flex-grow text-center mx-4"
               @keydown.enter="sendFriendRequest"
               placeholder="Introduce el correo del amigo"
               v-model:value="addFriendMail"
             />
-            <Button class="m-4" @click="sendFriendRequest">AÑADIR</Button>
+            <Button class="mx-4" @click="sendFriendRequest">AÑADIR</Button>
           </div>
           <hr />
           <!-- Friend List -->
@@ -166,6 +167,12 @@
   // SocketIO
   const socket = io(api, {
     withCredentials: true,
+  });
+
+  // Achievement notification
+  const achievementNotification = ref(null);
+  socket.on('achievementUnlocked', (achievement) => {
+    achievementNotification.value.show(achievement.title, achievement.description, achievement.image_url);
   });
 
   // Create room

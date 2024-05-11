@@ -1,7 +1,7 @@
 <template>
   <div class="message-container scrollbar" id="scrollable">
-    <div v-for="message in messages" class="message scrollbar">
-      <div :class="'player' + message.player" class="player">
+    <div v-for="message in messages" class="message scrollbar" :class="'bg-player' + message.player">
+      <div class="player text-primary-dark">
         <span v-if="message.player != me">{{ players[message.player].name }}</span>
         <span v-else>Yo</span>
       </div>
@@ -19,7 +19,7 @@
   }
 
   .message-container .message {
-    @apply px-4 py-2 flex flex-col bg-primary-light mt-4 rounded-3xl border border-primary-dark;
+    @apply px-4 py-2 flex flex-col mt-4 rounded-3xl;
   }
 
   .message-container .message .player span {
@@ -40,7 +40,7 @@
   }
 
   .scrollbar::-webkit-scrollbar-track {
-    background-color: #e5e7eb;
+    background-color: #274d5b;
     border-radius: 5px;
   }
 </style>

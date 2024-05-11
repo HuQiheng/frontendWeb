@@ -7,6 +7,7 @@
     />
   </Head>
   <Notification ref="notification" />
+  <AchievementNotification ref="achievementNotification" />
   <main class="w-full h-screen flex flex-row">
     <section class="grow flex flex-col">
       <div class="flex mt-6 mr-6 ml-6 justify-between">
@@ -39,14 +40,19 @@
       <div class="flex-grow"></div>
       <!-- Spacer to push the button to the bottom -->
       <div class="relative flex justify-center w-full">
-        <Button v-show="canStartGame" class="w-full m-10 flex flex-row justify-center text-lg" @click="startGame"
-          >Empezar partida</Button
+        <Button 
+          v-show="canStartGame" 
+          class="w-full m-10 flex flex-row justify-center text-lg" @click="startGame"
+        >
+          <span v-if="!isLoading">Empezar partida</span>
+          <IconRotateClockwise v-else class="animate-spin" />
+        </Button
         >
         <p v-show="!canStartGame" class="m-10">Tienes que esperar a que el que creó la sala inicie la partida.</p>
       </div>
     </section>
     <!-- Chat -->
-    <section class="w-96 shadow-md border border-gray-200 flex flex-col p-4">
+    <section class="w-96 shadow-md border border-primary-dark flex flex-col p-4">
       <h2 class="font-bold m-4 text-center">Invita a tus amigos</h2>
       <hr />
       <InviteFriendsList :players="friends" @sendInvitation="sendInvitation" />
@@ -66,7 +72,7 @@
 </style>
 
 <script setup>
-  import { IconClipboard, IconCheck } from '@tabler/icons-vue';
+  import { IconClipboard, IconCheck, IconRotateClockwise } from '@tabler/icons-vue';
   import { useUserStore } from '~/stores';
   import { io } from 'socket.io-client';
 
@@ -78,6 +84,8 @@
   const api = useAppConfig().api;
 
   const store = useUserStore();
+
+  const isLoading = ref(false);
 
   // Notifications
   const notification = ref(null);
@@ -101,6 +109,14 @@
   // SocketIO
   const socket = io(api, {
     withCredentials: true,
+  });
+
+  // Achievement
+  let waitAchievement = false; // Indicates no to go to other page, and wait the user to see the achievement dialog
+  const achievementNotification = ref(null);
+  socket.on('achievementUnlocked', (achievement) => {
+    waitAchievement = true;
+    achievementNotification.value.show(achievement.title, achievement.description, achievement.image_url);
   });
 
   socket.on('playerJoined', (name) => {
@@ -127,7 +143,10 @@
   socket.on('mapSent', (map) => {
     console.log('guardando mapa');
     store.gameState = map;
-    navigateTo('/play');
+    isLoading.value = true;
+    setTimeout(() => {
+      navigateTo('/play');
+    }, 3000);
   });
 
   // Leaving the room

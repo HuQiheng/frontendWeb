@@ -44,6 +44,10 @@
   color: #1d417b;
 }
 
+.bg-player0 {
+  background-color: #3b82f6;
+}
+
 .border-player0 {
   border-color: #3b82f6;
 }
@@ -54,6 +58,10 @@
 
 .player1-dark {
   color: #7a202f;
+}
+
+.bg-player1 {
+  background-color: #f43f5e;
 }
 
 .border-player1 {
@@ -68,6 +76,10 @@
   color: #7a4f05;
 }
 
+.bg-player2 {
+  background-color: #f59e0b;
+}
+
 .border-player2 {
   border-color: #f59e0b;
 }
@@ -78,6 +90,10 @@
 
 .player3-dark {
   color: #11632f;
+}
+
+.bg-player3 {
+  background-color: #22c55e;
 }
 
 .border-player3 {
