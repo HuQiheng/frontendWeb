@@ -405,6 +405,12 @@
     console.log(action);
   }
 
+  // Other player has attacked
+  socket.on('attack', (message) => {
+    alert(message);
+    popup.value.showMessage(message);
+  });
+
   // Chat
   const message = ref('');
   const messages = ref([]);
@@ -441,15 +447,20 @@
   });
 
   // Popup messages & Victory
-  socket.on('victory', (message) => {
+  /*socket.on('victory', (message) => {
     console.log(message);
     popup.value.showVictory(store.user.name);
-  });
+  });*/
 
   // Game over & Ranking
   socket.on('gameOver', (gameOver) => {
-    alert('Game over');
+    //alert('Game over');
     console.log(gameOver);
+    if (gameOver.ranking[0].email.trim() == store.user.email) {
+      popup.value.showVictory(store.user.name);
+    } else {
+      popup.value.showGameOver(gameOver.ranking);
+    }
   });
 
   // Territories animation

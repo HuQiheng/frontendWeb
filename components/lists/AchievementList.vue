@@ -3,7 +3,7 @@
     <div 
       v-for="achievement in achievements"
       class="p-3 mx-4 h-20 w-20 bg-white/25 flex justify-center items-center rounded-lg border border-primary">
-      <img class="max-h-full max-w-full" :src="achievement.image_url">
+      <img class="max-h-full max-w-full" :src="achievement.image_url" :alt="achievement.title">
     </div>
   </div>
   <!--{{ achievements }}-->

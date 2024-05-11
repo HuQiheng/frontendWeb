@@ -40,8 +40,13 @@
       <div class="flex-grow"></div>
       <!-- Spacer to push the button to the bottom -->
       <div class="relative flex justify-center w-full">
-        <Button v-show="canStartGame" class="w-full m-10 flex flex-row justify-center text-lg" @click="startGame"
-          >Empezar partida</Button
+        <Button 
+          v-show="canStartGame" 
+          class="w-full m-10 flex flex-row justify-center text-lg" @click="startGame"
+        >
+          <span v-if="!isLoading">Empezar partida</span>
+          <IconRotateClockwise v-else class="animate-spin" />
+        </Button
         >
         <p v-show="!canStartGame" class="m-10">Tienes que esperar a que el que creó la sala inicie la partida.</p>
       </div>
@@ -67,7 +72,7 @@
 </style>
 
 <script setup>
-  import { IconClipboard, IconCheck } from '@tabler/icons-vue';
+  import { IconClipboard, IconCheck, IconRotateClockwise } from '@tabler/icons-vue';
   import { useUserStore } from '~/stores';
   import { io } from 'socket.io-client';
 
@@ -79,6 +84,8 @@
   const api = useAppConfig().api;
 
   const store = useUserStore();
+
+  const isLoading = ref(false);
 
   // Notifications
   const notification = ref(null);
@@ -136,6 +143,7 @@
   socket.on('mapSent', (map) => {
     console.log('guardando mapa');
     store.gameState = map;
+    isLoading.value = true;
     setTimeout(() => {
       navigateTo('/play');
     }, 3000);

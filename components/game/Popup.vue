@@ -1,7 +1,7 @@
 <template>
   <div
     v-show="showPopup"
-    class="fixed w-full h-screen z-30 flex flex-col justify-center items-center"
+    class="fixed w-full h-screen z-30 flex flex-col justify-center items-center text-white"
     style="background-color: rgba(0, 0, 0, 0.6)"
   >
     <ConfettiExplosion
@@ -13,10 +13,32 @@
       stageWidth="2100"
       :colors="['#3b82f6', '#f43f5e', '#f59e0b', '#22c55e']"
     />
-    <div class="flex flex-col items-center text-white">
+    <div v-if="type == 'victory'" class="flex flex-col items-center">
       <h2 class="text-5xl">{{ message }}</h2>
       <p class="text-xl pt-4" v-id="subMessage">{{ subMessage }}</p>
-      <Button class="mt-4" @click="quit">Volver a la pantalla principal</Button>
+      <ButtonDark class="mt-4" @click="quit">Volver a la pantalla principal</ButtonDark>
+    </div>
+    <div v-if="type == 'message'" class="flex flex-col items-center">
+      <h4 class="text-5xl">{{ message }}</h4>
+    </div>
+    <div v-if="type == 'ranking'" class="flex flex-col items-center">
+      <h2 class="text-5xl mb-6">¡Game Over!</h2>
+      <p class="text-2xl mb-6">Este ha sido el ranking:</p>
+      <div class="flex flex-col">
+        <div v-for="(player, index) in ranking" class="p-4 mb-4 flex flex-row items-center rounded-xl bg-primary">
+          <div class="relative">
+            <img 
+              :src="player.picture" 
+              referrerPolicy="no-referrer"
+              :alt="player.name"
+              class="rounded-full h-14 w-14 relative"
+            >
+            <span v-if="index == 0" class="absolute text-lg -top-4 left-[19px] select-none">👑</span>
+          </div>
+          <p class="text-xl ml-4">{{ player.name }}</p>
+        </div>
+      </div>
+      <ButtonDark class="mt-4" @click="quit">Volver a la pantalla principal</ButtonDark>
     </div>
   </div>
 </template>
@@ -27,10 +49,12 @@
 
   const store = useUserStore();
 
+  const type = ref('');
   const showPopup = ref(false);
   const message = ref('Hello');
   const subMessage = ref(null);
   const visible = ref(false);
+  const ranking = ref([]);
 
   const explode = async () => {
     visible.value = false;
@@ -39,10 +63,25 @@
   };
 
   function showMessage(msg) {
+    type.value = 'message';
     message.value = msg;
+    showPopup.value = true;
+    setTimeout(() => {
+      showPopup.value = false;
+    }, 1500);
+  }
+
+  function showGameOver(rank) {
+    type.value = 'ranking';
+    message.value = '¡Game Over!';
+    ranking.value = rank;
+    console.log('ranking');
+    console.log(ranking.value);
+    showPopup.value = true;
   }
 
   function showVictory(username) {
+    type.value = 'victory';
     message.value = '¡Enhorabuena ' + username + '!';
     subMessage.value = 'Has ganado la partida';
     showPopup.value = true;
@@ -60,6 +99,7 @@
 
   defineExpose({
     showMessage,
+    showGameOver,
     showVictory,
   });
 </script>
