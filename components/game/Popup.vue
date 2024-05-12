@@ -19,7 +19,7 @@
       <ButtonDark class="mt-4" @click="quit">Volver a la pantalla principal</ButtonDark>
     </div>
     <div v-if="type == 'message'" class="flex flex-col items-center">
-      <h4 class="text-5xl">{{ message }}</h4>
+      <h4 class="text-3xl text-center">{{ message }}</h4>
     </div>
     <div v-if="type == 'ranking'" class="flex flex-col items-center">
       <h2 class="text-5xl mb-6">¡Game Over!</h2>
@@ -68,7 +68,7 @@
     showPopup.value = true;
     setTimeout(() => {
       showPopup.value = false;
-    }, 1500);
+    }, 2500);
   }
 
   function showGameOver(rank) {

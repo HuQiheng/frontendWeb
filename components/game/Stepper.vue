@@ -52,12 +52,28 @@
       </li>
     </ol>
     <div class="actions" v-show="step > 0">
-      <ButtonDark v-show="step == 1" @click="$emit('trigger', 'add-factories')">Añadir fábricas</ButtonDark>
-      <ButtonDark v-show="step == 1" @click="$emit('trigger', 'add-troops')">Añadir tropas</ButtonDark>
+      <ButtonDark 
+        v-show="step == 1" 
+        @click="$emit('trigger', 'add-factories')" 
+        :class="{'animate-pulse' : action == 'add-factories'}"
+      >Añadir fábricas</ButtonDark>
+      <ButtonDark 
+        v-show="step == 1" 
+        @click="$emit('trigger', 'add-troops')"
+        :class="{'animate-pulse' : action == 'add-troops'}"
+      >Añadir tropas</ButtonDark>
       <ButtonDark v-show="step == 1" @click="$emit('trigger', 'go-to-step-2')">Ir al siguiente paso</ButtonDark>
-      <ButtonDark v-show="step == 2" @click="$emit('trigger', 'attack')">Atacar</ButtonDark>
+      <ButtonDark 
+        v-show="step == 2" 
+        @click="$emit('trigger', 'attack')"
+        :class="{'animate-pulse' : action == 'attack'}"
+      >Atacar</ButtonDark>
       <ButtonDark v-show="step == 2" @click="$emit('trigger', 'go-to-step-3')">Ir al siguiente paso</ButtonDark>
-      <ButtonDark v-show="step == 3" @click="$emit('trigger', 'move-troops')">Mover tropas</ButtonDark>
+      <ButtonDark 
+        v-show="step == 3" 
+        @click="$emit('trigger', 'move-troops')"
+        :class="{'animate-pulse' : action == 'move-troops'}"
+      >Mover tropas</ButtonDark>
       <ButtonDark v-show="step == 3" @click="$emit('trigger', 'end-turn')">Finalizar turno</ButtonDark>
       <ButtonDark v-show="step == 4" @click="$emit('trigger', 'attack-territory')">Atacar Territorio</ButtonDark>
       <ButtonRed v-show="step == 4" @click="$emit('trigger', 'go-to-step-3')">Volver</ButtonRed>
@@ -90,5 +106,5 @@
 <script setup>
   import { IconCoin } from '@tabler/icons-vue';
 
-  defineProps(['step', 'coins']);
+  defineProps(['step', 'coins', 'action']);
 </script>

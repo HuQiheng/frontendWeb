@@ -129,7 +129,7 @@
       </div>
       <!-- Actions -->
       <div class="px-8 pb-8">
-        <Stepper :step="step" :coins="coins" @trigger="(action) => runAction(action)"></Stepper>
+        <Stepper :step="step" :coins="coins" :action="currentAction" @trigger="(action) => runAction(action)"></Stepper>
         <p v-if="selected" class="py-2">Territorio seleccionado: {{ selected }}</p>
         <!-- <p v-if="attackTerritories" class="py-2">Territorios atacables: {{ attackTerritories }}</p> -->
         <!-- <p v-if="myTerritories" class="py-2">Mis Territorio: {{ myTerritories }}</p> -->
@@ -368,7 +368,6 @@
     currentAction.value = action;
     switch (action) {
       case 'add-factories':
-        console.log(myTerritories.value);
         animatedTerritories.value = myTerritories.value;
         break;
       case 'add-troops':
@@ -417,8 +416,20 @@
 
   // Other player has attacked
   socket.on('attack', (message) => {
-    //alert(message);
-    popup.value.showMessage(message);
+    // { email: "x@email.com", from: "TO", to: "M", numberTroops: "3" }
+    if (message.email != store.user.email) {
+      // Get attack data
+      const players = state.value.players;
+      let name = '';
+      for (let i = 0; i < players.length; i++) {
+        if (players[i].email.trim() == message.email) {
+          name = players[i].name; // Return the index if email matches
+        }
+      }
+      const from = state.value.map[message.from].name;
+      const to = state.value.map[message.to].name;
+      popup.value.showMessage(name + ' está atancando ' + to + ' desde ' + from);
+    }
   });
 
   // Chat
