@@ -16,7 +16,7 @@
     <div v-if="type == 'victory'" class="flex flex-col items-center">
       <h2 class="text-5xl">{{ message }}</h2>
       <p class="text-xl pt-4" v-id="subMessage">{{ subMessage }}</p>
-      <ButtonDark class="mt-4" @click="quit">Volver a la pantalla principal</ButtonDark>
+      <ButtonDark class="mt-4" @click="$emit('quit')">Volver a la pantalla principal</ButtonDark>
     </div>
     <div v-if="type == 'message'" class="flex flex-col items-center">
       <h4 class="text-3xl text-center">{{ message }}</h4>
@@ -38,7 +38,7 @@
           <p class="text-xl ml-4">{{ player.name }}</p>
         </div>
       </div>
-      <ButtonDark class="mt-4" @click="quit">Volver a la pantalla principal</ButtonDark>
+      <ButtonDark class="mt-4" @click="$emit('quit')">Volver a la pantalla principal</ButtonDark>
     </div>
   </div>
 </template>
@@ -92,10 +92,10 @@
     explode();
   }
 
-  function quit() {
+  /*function quit() {
     store.setRoom(null);
     navigateTo('/dashboard');
-  }
+  }*/
 
   defineExpose({
     showMessage,

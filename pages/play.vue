@@ -11,7 +11,7 @@
   <!-- Achievement notification -->
   <AchievementNotification ref="achievementNotification" />
   <!-- Popup -->
-  <Popup ref="popup" />
+  <Popup ref="popup" @quit="quitRoom" />
   <!-- Dialogs -->
   <Dialog :show="isOpenAddFactoryDialog" @click-outside="isOpenAddFactoryDialog = false">
     <template #title>
