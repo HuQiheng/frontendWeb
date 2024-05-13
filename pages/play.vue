@@ -254,7 +254,14 @@
 
   // Surrender
   socket.on('userSurrendered', (player) => {
-    notification.value.show(player + ' se ha rendido');
+    const players = state.value.players;
+    let name = '';
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].email.trim() == player.trim()) {
+        name = players[i].name; // Return the index if email matches
+      }
+    }
+    notification.value.show(name + ' se ha rendido');
   });
 
   // Select territory

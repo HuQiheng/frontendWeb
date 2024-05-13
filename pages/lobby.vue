@@ -141,7 +141,6 @@
   });
 
   socket.on('mapSent', (map) => {
-    console.log('guardando mapa');
     store.gameState = map;
     isLoading.value = true;
     setTimeout(() => {
