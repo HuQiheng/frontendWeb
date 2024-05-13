@@ -204,6 +204,13 @@
     notification.value.show('La sala no existe');
   });
 
+  // Reconnect users to already started game
+  socket.emit('sendMap');
+  socket.on('mapSent', (map) => {
+    store.gameState = map;
+    navigateTo('/play');
+  });
+
   // This event can only be received if the user is in a room
   socket.on('connectedPlayers', (playerList) => {
     store.connectedPlayers = playerList.map((player) => {
