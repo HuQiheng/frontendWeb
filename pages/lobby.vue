@@ -153,6 +153,7 @@
   function leaveLobby() {
     socket.emit('leaveRoom');
     store.setRoom(null);
+    store.connectedPlayers = null;
     navigateTo('/dashboard');
   }
 
