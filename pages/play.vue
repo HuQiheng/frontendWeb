@@ -11,7 +11,7 @@
   <!-- Achievement notification -->
   <AchievementNotification ref="achievementNotification" />
   <!-- Popup -->
-  <Popup ref="popup" @quit="quitRoom" />
+  <Popup ref="popup" />
   <!-- Dialogs -->
   <Dialog :show="isOpenAddFactoryDialog" @click-outside="isOpenAddFactoryDialog = false">
     <template #title>
@@ -175,6 +175,7 @@
   const api = useAppConfig().api;
 
   const store = useUserStore();
+  store.connectedPlayers = null;
 
   // SocketIO
   const socket = io(api, {
