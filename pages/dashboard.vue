@@ -207,6 +207,7 @@
   // Reconnect users to already started game
   socket.emit('sendMap');
   socket.on('mapSent', (map) => {
+    store.setRoom(0);
     store.gameState = map;
     navigateTo('/play');
   });
