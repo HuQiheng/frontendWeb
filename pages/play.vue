@@ -15,13 +15,16 @@
   <!-- Dialogs -->
   <Dialog :show="isOpenAddFactoryDialog" @click-outside="isOpenAddFactoryDialog = false">
     <template #title>
-      <span v-if="coins >= 15">¿Deseas añadir una fábrica a <b>{{ selected }}</b>?</span>
-      <span v-else>No puedes añadir una fábrica. Una fábrica cuesta 15 monedas y tú tienes {{ coins }}.</span>
+      <span v-if="state.map[selectedCode].factories > 0"><b>{{ selected }}</b> ya tiene una fábrica.</span>
+      <div v-else>
+        <span v-if="coins >= 15">¿Deseas añadir una fábrica a <b>{{ selected }}</b>?</span>
+        <span v-else>No puedes añadir una fábrica. Una fábrica cuesta 15 monedas y tú tienes {{ coins }}.</span>
+      </div>
     </template>
     <template #buttons>
-      <Button v-if="coins >= 15" @click="addFactory(selectedCode)" class="mr-4">Sí</Button>
-      <ButtonRed v-if="coins >= 15" @click="isOpenAddFactoryDialog = false">No</ButtonRed>
-      <ButtonRed v-else @click="isOpenAddFactoryDialog = false">Cerrar ventana</ButtonRed>
+      <Button v-if="coins >= 15 && state.map[selectedCode].factories == 0" @click="addFactory(selectedCode)" class="mr-4">Sí</Button>
+      <ButtonRed v-if="coins >= 15 && state.map[selectedCode].factories == 0" @click="isOpenAddFactoryDialog = false">No</ButtonRed>
+      <ButtonRed v-if="coins < 15 || state.map[selectedCode].factories > 0" @click="isOpenAddFactoryDialog = false">Cerrar ventana</ButtonRed>
     </template>
   </Dialog>
   <Dialog :show="isOpenAddTroopsDialog" @click-outside="isOpenAddTroopsDialog = false">
@@ -199,12 +202,11 @@
   const state = ref(dummyState);
   socket.emit('sendMap');
   socket.on('mapSent', (map) => {
+    console.log(map);
     state.value = map;
     if (state.value.turn == me.value) {
       // It's my turn
-      if (state.value.phase == 0) {
-        step.value = 1;
-      }
+      step.value = state.value.phase + 1;
     } else {
       // Not my turn
       step.value = 0;
@@ -280,6 +282,7 @@
   const canAttackTo = ref(null); // List of territories that can be attacked
   const moveFrom = ref('');
   const moveTo = ref('');
+  const canMoveTo = ref(null);
   const actionQuantity = ref(0);
 
   function selectTerritory(territory) {
@@ -315,11 +318,13 @@
       case 'move-troops':
         if (myTerritories.value.includes(selectedCode.value)) {
           moveFrom.value = selectedCode.value;
+          animatedTerritories.value = moveTerritories.value;
+          canMoveTo.value = moveTerritories.value;
           currentAction.value = 'moving';
         }
         break;
       case 'moving':
-        if (myTerritories.value.includes(selectedCode.value)) {
+        if (canMoveTo.value.includes(selectedCode.value)) {
           moveTo.value = selectedCode.value;
           isOpenMoveDialog.value = true;
         }
@@ -510,6 +515,20 @@
     return selectedAdjacentTerritories.filter((adjacentCode) => {
       const adjacentPlayerCode = state.value.map[adjacentCode]?.player;
       return adjacentPlayerCode !== myPlayerCode;
+    });
+  });
+
+  const moveTerritories = computed(() => {
+    if (!selectedCode.value || !myTerritories.value.includes(selectedCode.value)) return null;
+
+    const selectedTerritory = selectedCode.value;
+    const myPlayerCode = me.value; // Assuming me is the player code (e.g., 3)
+
+    const selectedAdjacentTerritories = adjacentTerritories.value[selectedTerritory]?.adjacents || [];
+
+    return selectedAdjacentTerritories.filter((adjacentCode) => {
+      const adjacentPlayerCode = state.value.map[adjacentCode]?.player;
+      return adjacentPlayerCode == myPlayerCode;
     });
   });
 
