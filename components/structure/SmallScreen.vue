@@ -1,6 +1,6 @@
 <template>
-  <div 
-    v-show="showSmallScreen" 
+  <div
+    v-show="showSmallScreen"
     class="w-screen h-screen bg-primary fixed z-50 flex flex-row justify-center items-center"
   >
     <div class="p-8 text-white flex flex-col justify-center items-center">
@@ -12,26 +12,26 @@
 </template>
 
 <script setup>
-const showSmallScreen = ref(false);
+  const showSmallScreen = ref(false);
 
-function openReleases() {
-  window.open('https://github.com/UNIZAR-30226-2024-12/frontendMobile/releases');
-}
-
-function handleResize() {
-  if (window.innerWidth < 1000) {
-    showSmallScreen.value = true;
-  } else {
-    showSmallScreen.value = false;
+  function openReleases() {
+    window.open('https://github.com/UNIZAR-30226-2024-12/frontendMobile/releases');
   }
-}
 
-onMounted(() => {
-  window.addEventListener('resize', handleResize);
-  handleResize();
-});
+  function handleResize() {
+    if (window.innerWidth < 1000) {
+      showSmallScreen.value = true;
+    } else {
+      showSmallScreen.value = false;
+    }
+  }
 
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', handleResize);
-});
+  onMounted(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+  });
+
+  onBeforeUnmount(() => {
+    window.removeEventListener('resize', handleResize);
+  });
 </script>

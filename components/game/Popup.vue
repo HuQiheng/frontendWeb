@@ -27,12 +27,12 @@
       <div class="flex flex-col">
         <div v-for="(player, index) in ranking" class="p-4 mb-4 flex flex-row items-center rounded-xl bg-primary">
           <div class="relative">
-            <img 
-              :src="player.picture" 
+            <img
+              :src="player.picture"
               referrerPolicy="no-referrer"
               :alt="player.name"
               class="rounded-full h-14 w-14 relative"
-            >
+            />
             <span v-if="index == 0" class="absolute text-lg -top-4 left-[19px] select-none">👑</span>
           </div>
           <p class="text-xl ml-4">{{ player.name }}</p>

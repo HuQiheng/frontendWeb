@@ -10,8 +10,8 @@
     <div class="relative z-10 flex flex-col items-center">
       <h1 class="lg:text-8xl text-4xl font-bold text-center mb-4">WealthWars</h1>
       <h2 class="max-w-2xl text-sm lg:text-lg text-center mb-8 p-4">
-        Un juego de estrategia donde tendrás que ganar dinero, erigir fábricas, y conquistar territorios para expandir tu
-        influencia.
+        Un juego de estrategia donde tendrás que ganar dinero, erigir fábricas, y conquistar territorios para expandir
+        tu influencia.
       </h2>
       <NuxtLink to="/signin"><Button>JUGAR</Button></NuxtLink>
     </div>
@@ -37,7 +37,7 @@
   }
 
   .background::before {
-    content: "";
+    content: '';
     background-image: url('/epic_background.jpg');
     background-size: cover;
     background-position: center;
