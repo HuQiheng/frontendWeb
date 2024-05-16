@@ -4,6 +4,7 @@
     <Meta name="description" content="Inicio de sesión para jugar WealthWars." />
   </Head>
   <Header></Header>
+  <SmallScreen />
   <Main>
     <h1 class="my-8 text-2xl">Iniciar sesión</h1>
     <ButtonGoogle @click="signin" />

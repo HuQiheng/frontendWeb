@@ -80,12 +80,13 @@
     showPopup.value = true;
   }
 
+  const victoryAudio = new Audio('/audio/trumpet_victory.mp3');
+
   function showVictory(username) {
     type.value = 'victory';
     message.value = '¡Enhorabuena ' + username + '!';
     subMessage.value = 'Has ganado la partida';
     showPopup.value = true;
-    const victoryAudio = new Audio('/audio/trumpet_victory.mp3');
     victoryAudio.loop = false;
     victoryAudio.volume = 0.2;
     victoryAudio.play();
@@ -96,6 +97,10 @@
     store.setRoom(null);
     navigateTo('/dashboard');
   }
+
+  onBeforeUnmount(() => {
+    victoryAudio.pause();
+  });
 
   defineExpose({
     showMessage,

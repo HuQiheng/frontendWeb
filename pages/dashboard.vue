@@ -6,6 +6,7 @@
       content="Un juego de estrategia donde tendrás que ganar dinero, erigir fábricas, y conquistar territorios para expandir tu influencia."
     />
   </Head>
+  <SmallScreen />
   <Notification ref="notification" />
   <AchievementNotification ref="achievementNotification" />
   <GameInvitation ref="invitation" @accept="handleAccept" />
