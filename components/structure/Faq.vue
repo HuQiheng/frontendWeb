@@ -55,11 +55,25 @@
         <DisclosureButton
           class="flex w-full justify-between rounded-lg bg-amber-300 px-4 py-2 text-left text-sm font-medium text-amber-900 hover:bg-amber-200 focus:outline-none focus-visible:ring focus-visible:ring-amber-500/75"
         >
-          <span>¿Cuánto <strong>tiempo</strong> dura mi turno?</span>
+          <span>¿Cuánto cuestan las <strong>tropas</strong>?</span>
           <ChevronUpIcon :class="open ? 'rotate-180 transform' : ''" class="h-5 w-5 text-amber-900" />
         </DisclosureButton>
         <DisclosurePanel class="px-4 pb-2 pt-4">
-          Cada jugador tendrá 90 segundos, así que no te despistes y piensa antes de que empiece tu turno cada jugada.
+          Cada unidad de tropas son <strong>2 monedas</strong>.
+        </DisclosurePanel>
+      </Disclosure>
+      <Disclosure as="div" class="mt-2" v-slot="{ open }">
+        <DisclosureButton
+          class="flex w-full justify-between rounded-lg bg-amber-300 px-4 py-2 text-left text-sm font-medium text-amber-900 hover:bg-amber-200 focus:outline-none focus-visible:ring focus-visible:ring-amber-500/75"
+        >
+          <span>¿Cómo se <strong>conquistan</strong> territorios?</span>
+          <ChevronUpIcon :class="open ? 'rotate-180 transform' : ''" class="h-5 w-5 text-amber-900" />
+        </DisclosureButton>
+        <DisclosurePanel class="px-4 pb-2 pt-4">
+          Para conquistar un territorio pulsa el botón de atacar, a continuación parpadearán tus territorios desde los
+          que podrás atacar. Selecciona uno, y a continuación parpadearán los territorios adyacentes del enemigo.
+          Selecciona el que desees atacar e indica el número de tropas con el que se iniciará el ataque. El territorio
+          será conquistado si el número de tropas atacentes es superior al número de tropas defensoras.
         </DisclosurePanel>
       </Disclosure>
       <Disclosure as="div" class="mt-2" v-slot="{ open }">

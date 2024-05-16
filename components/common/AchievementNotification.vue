@@ -33,8 +33,9 @@
               <div class="mt-2 flex flex-col items-center">
                 <h3 class="mb-2">{{ title }}</h3>
                 <div
-                  class="p-3 mx-4 h-20 w-20 bg-white/25 flex justify-center items-center rounded-lg border border-primary">
-                  <img class="max-h-full max-w-full" :src="image">
+                  class="p-3 mx-4 h-20 w-20 bg-white/25 flex justify-center items-center rounded-lg border border-primary"
+                >
+                  <img class="max-h-full max-w-full" :src="image" />
                 </div>
                 <p class="mt-2">{{ description }}</p>
               </div>

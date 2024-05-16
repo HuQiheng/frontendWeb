@@ -41,14 +41,10 @@
       <div class="flex-grow"></div>
       <!-- Spacer to push the button to the bottom -->
       <div class="relative flex justify-center w-full">
-        <Button 
-          v-show="canStartGame" 
-          class="w-full m-10 flex flex-row justify-center text-lg" @click="startGame"
-        >
+        <Button v-show="canStartGame" class="w-full m-10 flex flex-row justify-center text-lg" @click="startGame">
           <span v-if="!isLoading">Empezar partida</span>
           <IconRotateClockwise v-else class="animate-spin" />
-        </Button
-        >
+        </Button>
         <p v-show="!canStartGame" class="m-10">Tienes que esperar a que el que creó la sala inicie la partida.</p>
       </div>
     </section>
@@ -132,7 +128,11 @@
   });
 
   function startGame() {
-    socket.emit('startGame', roomCode);
+    if (players.value.length < 2) {
+      notification.value.show('¡Se necesitan mínimo 2 jugadores!');
+    } else {
+      socket.emit('startGame', roomCode);
+    }
   }
 
   // Game is starting

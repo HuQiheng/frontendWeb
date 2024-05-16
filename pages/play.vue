@@ -16,16 +16,30 @@
   <!-- Dialogs -->
   <Dialog :show="isOpenAddFactoryDialog" @click-outside="isOpenAddFactoryDialog = false">
     <template #title>
-      <span v-if="state.map[selectedCode].factories > 0"><b>{{ selected }}</b> ya tiene una fábrica.</span>
+      <span v-if="state.map[selectedCode].factories > 0"
+        ><b>{{ selected }}</b> ya tiene una fábrica.</span
+      >
       <div v-else>
-        <span v-if="coins >= 15">¿Deseas añadir una fábrica a <b>{{ selected }}</b>?</span>
+        <span v-if="coins >= 15"
+          >¿Deseas añadir una fábrica a <b>{{ selected }}</b
+          >?</span
+        >
         <span v-else>No puedes añadir una fábrica. Una fábrica cuesta 15 monedas y tú tienes {{ coins }}.</span>
       </div>
     </template>
     <template #buttons>
-      <Button v-if="coins >= 15 && state.map[selectedCode].factories == 0" @click="addFactory(selectedCode)" class="mr-4">Sí</Button>
-      <ButtonRed v-if="coins >= 15 && state.map[selectedCode].factories == 0" @click="isOpenAddFactoryDialog = false">No</ButtonRed>
-      <ButtonRed v-if="coins < 15 || state.map[selectedCode].factories > 0" @click="isOpenAddFactoryDialog = false">Cerrar ventana</ButtonRed>
+      <Button
+        v-if="coins >= 15 && state.map[selectedCode].factories == 0"
+        @click="addFactory(selectedCode)"
+        class="mr-4"
+        >Sí</Button
+      >
+      <ButtonRed v-if="coins >= 15 && state.map[selectedCode].factories == 0" @click="isOpenAddFactoryDialog = false"
+        >No</ButtonRed
+      >
+      <ButtonRed v-if="coins < 15 || state.map[selectedCode].factories > 0" @click="isOpenAddFactoryDialog = false"
+        >Cerrar ventana</ButtonRed
+      >
     </template>
   </Dialog>
   <Dialog :show="isOpenAddTroopsDialog" @click-outside="isOpenAddTroopsDialog = false">
@@ -95,9 +109,7 @@
   </Dialog>
   <main class="w-full h-screen flex flex-row overflow-hidden">
     <!-- Game board -->
-    <section
-      class="grow relative"
-    >
+    <section class="grow relative">
       <!-- Surrender -->
       <ButtonRed v-if="inGame" class="m-8 absolute" @click="openModal">
         Rendirse

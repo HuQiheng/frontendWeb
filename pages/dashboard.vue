@@ -51,7 +51,7 @@
           <h2 class="flex text-2xl font-bold m-4 text-center justify-center w-full">Juego</h2>
           <hr />
           <!-- Start new match -->
-          <div class="flex flex-grow items-center justify-center w-full">
+          <div class="flex items-center justify-center w-full">
             <div class="flex m-6 justify-center w-full">
               <Button @click="createRoom">CREAR PARTIDA</Button>
             </div>

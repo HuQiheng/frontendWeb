@@ -10,7 +10,9 @@
     </div>
   </Button>
   <DialogBig :show="isOpen" @click-outside="closeModal" style="width: 600px; height: 400px">
-    <template #title><b class="flex text-2xl justify-center text-center"> Peticiones de amistad</b> </template>
+    <template #title
+      ><b class="flex text-2xl justify-center text-center text-white"> Peticiones de amistad</b>
+    </template>
     <template #description>
       <InvitationsRequestList @Modified="handdleModification" />
     </template>

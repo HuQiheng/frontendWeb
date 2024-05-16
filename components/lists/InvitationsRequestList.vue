@@ -1,7 +1,7 @@
 <template>
   <Notification ref="notification" />
   <div class="p-4">
-    <div v-if="friendRequests.length === 0" class="text-gray-600 text-center text-xl">
+    <div v-if="friendRequests.length === 0" class="text-center text-xl text-gray-400">
       No hay peticiones de amistad.
     </div>
     <div v-else class="overflow-y-auto overflow-x-hidden max-h-96 scrollbar">
