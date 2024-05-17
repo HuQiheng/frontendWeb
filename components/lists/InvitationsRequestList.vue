@@ -6,7 +6,7 @@
     </div>
     <div v-else class="overflow-y-auto overflow-x-hidden max-h-96 scrollbar">
       <div v-for="(player, index) in friendRequests" :key="index" class="flex flex-grow m-1">
-        <div class="flex flex-grow bg-white shadow-md border rounded-lg p-4 m-1">
+        <div class="flex flex-grow bg-primary-light border border-primary shadow-md border rounded-lg p-4 m-1">
           <div class="flex items-center flex-grow">
             <div class="flex-shrink-0 mr-3">
               <img
