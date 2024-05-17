@@ -15,7 +15,7 @@
     />
     <div v-if="type == 'victory'" class="flex flex-col items-center">
       <h2 class="text-5xl">{{ message }}</h2>
-      <p class="text-xl pt-4" v-id="subMessage">{{ subMessage }}</p>
+      <p class="text-xl pt-4" v-if="subMessage">{{ subMessage }}</p>
       <ButtonDark class="mt-4" @click="quit">Volver a la pantalla principal</ButtonDark>
     </div>
     <div v-if="type == 'message'" class="flex flex-col items-center">
@@ -62,12 +62,16 @@
     visible.value = true;
   };
 
+  let timeoutBlocked = false;
+
   function showMessage(msg) {
     type.value = 'message';
     message.value = msg;
     showPopup.value = true;
     setTimeout(() => {
-      showPopup.value = false;
+      if (!timeoutBlocked) {
+        showPopup.value = false;
+      }
     }, 2500);
   }
 
@@ -78,6 +82,7 @@
     console.log('ranking');
     console.log(ranking.value);
     showPopup.value = true;
+    timeoutBlocked = true;
   }
 
   const victoryAudio = new Audio('/audio/trumpet_victory.mp3');
