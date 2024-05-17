@@ -18,7 +18,7 @@
             </div>
             <div class="flex flex-grow">
               <!-- Changed to flex-col -->
-              <div class="font-bold text-xl">{{ player.name }}</div>
+              <div class="font-bold text-xl text-white">{{ player.name }}</div>
             </div>
             <div class="flex justify-start">
               <!-- Changed to justify-start -->
